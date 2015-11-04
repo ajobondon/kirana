@@ -8,6 +8,9 @@
 ## Well... Kirana has her own words
 source ~/.kirana/pocket/komentar
 
+## Kirana user prompt
+source ~/.kirana/pocket/prompt
+
 ## Let's paint the world!!
 red=`/usr/bin/tput setaf 1`
 white=`/usr/bin/tput setaf 7`
