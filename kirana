@@ -5,6 +5,9 @@
 ## Always check kirana temporary notes
 /bin/sh ~/.kirana/pocket/stickynotes
 
+## Force user to talk to Kirana, instead of using Linux command
+export PATH=${HOME}/.kirana
+
 ## Well... Kirana has her own words
 source ~/.kirana/pocket/komentar
 
