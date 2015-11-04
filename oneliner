@@ -15,7 +15,7 @@ function takeover {
 	/bin/echo " "
 	/bin/echo "${red}Kirana says => Ok mas $USER. Kirana offline dulu ya ${white}"
 	/bin/echo " "
-	/usr/bin/sudo -s
+	/usr/bin/sudo -i
 }
 
 # Jam
