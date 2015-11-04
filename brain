@@ -1,0 +1,539 @@
+#!/bin/bash
+## All Kirana's functions
+## Simple command (without) sentences goes here!
+
+# Perintah nyalain
+alias nyalain=nyalain
+function nyalain {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau nyalain apa sayang? Sini, biar Kirana bantu ^^"
+    $break
+    /bin/echo "Kirana says => Kirana bisanya nyalain kvm, lxc, firewall, sama service${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          kvm)          
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Sebentar,"
+			/usr/bin/sudo /usr/bin/virsh start "$2" > /tmp/kirana/kvmstart
+                        /bin/echo "Kirana says => Ok mas $USER, virtual ${magenta}$2${red} udah nyala"
+                        /bin/echo "${white}" ;;
+          lxc)          
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Sebentar,"
+			/usr/bin/sudo /usr/bin/lxc-start "$2" > /tmp/kirana/lxcstart
+                        /bin/echo "Kirana says => Ok mas $USER, virtual ${magenta}$2${red} udah nyala"
+                        /bin/echo "${white}" ;;
+          firewall)     
+			echo " "
+                        /bin/echo "${red}Kirana says => Kirana aktifkan firewall,"
+                        echo "${white}"
+			/usr/bin/sudo /sbin/iptables-restore < /etc/iptables ;;
+          service)      
+			echo " "
+                        /bin/echo "${red}Kirana says => Ok, tunggu ya,"
+			/usr/bin/sudo /etc/init.d/"$2" start > /tmp/kirana/servactive 
+                        /bin/echo "${red}Kirana says => Service $2 udah aktif ya mas $USER"
+                        echo "${white}" ;;
+          *)            /bin/echo " "
+			/bin/echo "${red}Kirana says => Itu apa ya say? Yakin itu udah bener?${white}"
+			/bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}"
+    fi
+fi
+}
+
+# Perintah matiin
+alias matiin=matiin
+function matiin {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau matiin apa? Firewall? Kvm? LXC? Aplikasi atau apa?"
+    $break
+    /bin/echo "Kirana says => Kirana bisanya matiin firewall, kvm, aplikasi, sama service${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          firewall)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok, Kirana matiin firewallnya. Sebentar ya mas, "
+			/usr/bin/sudo /sbin/iptables -F
+                        /bin/echo "${red}Kirana says => Sip. Firewallnya dah mati" 
+                        /bin/echo "${white}" ;;
+          kvm)		
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Sebentar..."
+			/usr/bin/sudo /usr/bin/virsh destroy "$2" > /tmp/kirana/kvmstop
+			/bin/echo "Kirana says => Ok mas $USER, virtual ${magenta}$2${red} udah mati"
+                        /bin/echo "${white}" ;;	
+	  aplikasi)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Sebentar..."
+			/usr/bin/sudo /usr/bin/killall "$2"
+                        /bin/echo "Kirana says => Seharusnya udah mati aplikasinya"
+                        /bin/echo "Kirana says => Ini outputnya dari background processnya, " 
+                        /bin/echo "${magenta}"
+			/bin/ps afx | /bin/grep "$2"
+                        /bin/echo "${red}"
+                        /bin/echo "Kirana says => Kalo aplikasi $2 udah nggak ada (selain grep), berarti udah mati ya" 
+                        /bin/echo "${white}" ;;
+	  service)	
+			echo " "
+                        /bin/echo "${red}Kirana says => Ok, tunggu ya,"
+			/usr/bin/sudo /etc/init.d/"$2" stop > /tmp/kirana/servstop  
+                        /bin/echo "${red}Kirana says => Service $2 udah mati ya mas $USER"
+                        echo "${white}" ;;
+          *)            /bin/echo " "
+			/bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}"
+			/bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah restart
+alias restart=restart
+function restart {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau restart apa sayang? Sini, biar Kirana bantu ^^"
+    $break
+    /bin/echo "Kirana says => Yang bisa di restart cuma firewall sama service doank, say${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          firewall)     
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Dah. Ada lagi yang bisa Kirana bantu?"
+			/usr/bin/sudo /sbin/iptables-restore < /etc/iptables
+			/bin/echo "${white}" ;;
+          service)      
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok, tunggu ya,"
+                        /usr/bin/sudo /etc/init.d/"$2" restart > /tmp/kirana/servrestart
+                        /bin/echo "${red}Kirana says => Service $2 udah Kirana restart ya mas $USER"
+                        /bin/echo "${white}" ;;
+          *)            /bin/echo " "
+			/bin/echo "${red}Kirana says => Yang bisa di restart cuma firewall sama service doank, say${white}"
+			/bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah pasang
+alias pasang=pasang
+alias install=pasang
+function pasang {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau pasang apa ya say? Kirana bingung..."
+    $break
+    /bin/echo "Kirana says => Kirana biasanya install update/upgrade, aplikasi sama firewall${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          update|updatean)
+			echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar..."
+			/usr/bin/sudo /usr/bin/apt-get upgrade -y > /tmp/kirana/aptupdate &&
+			/bin/echo "Kirana says => Sip, udah selesai updatenya. Ada lagi yang bisa Kirana bantu?${white}"
+                        /bin/echo " " ;; 
+          upgrade|upgradean)     
+			echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar..."
+			/usr/bin/sudo /usr/bin/apt-get dist-upgrade -y > /tmp/kirana/aptupgrade &&
+                        /bin/echo "Kirana says => Sip, udah selesai upgradenya. Ada lagi yang bisa Kirana bantu?${white}"
+                        /bin/echo " " ;;
+          aplikasi|paket) 	 
+			echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar..."
+			/usr/bin/sudo /usr/bin/apt-get install -y "$2" > /tmp/kirana/aptinstall &&
+                        /bin/echo "Kirana says => Sip, udah selesai installnya. Ada lagi yang bisa Kirana bantu?${white}"
+                        /bin/echo " " ;;
+	  firewall)	
+			echo " "
+    			/bin/echo "${red}Kirana says => Kirana aktifkan firewall,"
+			echo " "
+			/usr/bin/sudo /sbin/iptables-restore < /etc/iptables
+			echo "${white}" ;;
+          *)            
+			echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar..."
+			/usr/bin/sudo /usr/bin/apt-get install -y "$1" > /tmp/kirana/aptinstall &&
+                        /bin/echo "Kirana says => Sip, udah selesai installnya. Ada lagi yang bisa Kirana bantu?${white}"
+                        /bin/echo " " ;;
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah ngecheck
+alias cek=cek
+alias ngecek=cek
+function cek {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau ngecek apa sayang? Kirana bantu..."
+    $break
+    /bin/echo "Kirana says => Ngecek update, kvm/lxc, virtual, jam, cuaca, ip, services. apa aja deh${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          update|updatean|repo)  
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok cinta. Kirana update koleksi aplikasi ya,"
+                        /bin/echo "Kirana says => Sebentar ya mas $USER ... (^_-)"
+			/usr/bin/sudo /usr/bin/apt-get update > /tmp/kirana/aptcheckrepo &&
+                        /bin/echo "Kirana says => Sip, udah selesai update catetan koleksi aplikasi Kirana${white}"
+                        /bin/echo " " ;;
+          kvm)      	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini KVM yang mas $USER punya sekarang,"
+                        /bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/virsh list --all
+                        /bin/echo "${white}" ;;
+          lxc)     	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini LXC yang mas $USER punya sekarang,"
+                        /bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/lxc-ls -f
+                        /bin/echo "${white}" ;;
+	  firewall)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini firewall yang aktif,"
+                        /bin/echo "${magenta}"
+			/usr/bin/sudo /sbin/iptables -nL
+                        /bin/echo "${white}" ;;
+	  jam)		jam ;;
+	  tanggal)	tanggal ;;
+	  hari)		hari ;;	
+	  cuaca)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Cuaca hari ini, ${white}"
+                        /bin/echo " "
+			/usr/bin/weather WIII
+                        /bin/echo " " ;;
+	  virtual)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini semua virtual yang mas $USER punya sekarang,"
+                        /bin/echo "${magenta}"
+			/usr/bin/virsh list --all && /usr/bin/lxc-ls -f
+                        /bin/echo "${white}" ;;
+	  ip)
+		case $2 in
+                local|lokal)
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ada lagi yang bisa Kirana bantu?${white}"
+                        /usr/bin/sudo /sbin/ifconfig | /usr/bin/less
+                        /bin/echo " " ;;
+		public|publik)
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini IP publik mas $USER, ${magenta}`/usr/bin/wget http://ipinfo.io/ip -qO -` ${white}"
+                        /bin/echo " " ;;
+          	*)      /bin/echo " "
+			/bin/echo "${red}Kirana says => IP apa yang mau di check mas $USER? Lokal apa publik?${white}"
+			/bin/echo " " 
+                esac ;;
+	  up)		
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Kirana belum tidur dari,"
+                        /bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/uptime -p
+                        /bin/echo "${white}" ;;
+	  partisi)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini partisi sama jumlah pemakaiannya,"
+                        /bin/echo "${magenta}"
+			/bin/df -h
+                        /bin/echo "${white}" ;;
+	  folder)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini ukuran foldernya,"
+                        /bin/echo "${magenta}"
+			/usr/bin/du -sh "$2"
+                        /bin/echo "${white}" ;;
+	  memory)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini kapasitas ingatan Kirana,"
+                        /bin/echo "${magenta}"
+			/usr/bin/free
+                        /bin/echo "${white}" ;;
+	  cpu)		
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ada lagi yang bisa Kirana bantu? ${white}"
+			/bin/cat /proc/cpuinfo | /bin/less
+                        /bin/echo " " ;;
+	  kalender)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Liburan masih lama.. Hihi..."
+                        /bin/echo "${magenta}"
+			/usr/bin/cal
+                        /bin/echo "${white}" ;;
+	  aplikasi)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini aplikasi yang aktif,"
+                        /bin/echo "${magenta}"
+			/bin/ps afx | /bin/grep "$2"
+                        /bin/echo "${white}" ;;
+	  suara)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ada yang bisa Kirana bantu lagi? ${white}"
+                        /bin/echo " "
+			/usr/bin/alsamixer 
+                        /bin/echo " " ;;
+	  service)	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ini service yang aktif,"
+                        /bin/echo "${magenta}"
+                        /usr/bin/sudo /etc/init.d/"$2" status "$2"
+                        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Mas, kalo warnanya ${magenta}magenta${red} itu artinya servicenya mati ya"
+                        /bin/echo "${white}" ;;		
+	  usia|umur)	/bin/sh /home/erwan/.kirana/age ;;	
+          *)            /bin/echo " "
+			/bin/echo "${red}Kirana says => Kirana bingung... Soalnya nggak ada yang bisa dicek${white}"
+			/bin/echo " " 
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah ekstrak tarball
+alias extract=extract
+alias ektrak=extract
+alias ekstrak=extract
+extract () {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           /bin/echo " "
+			/bin/echo "${red}Kirana says => Ini file apa sayang? Maaf ya sayang, Kirana nggak bisa ngebukanya${white}"
+			/bin/echo " "
+       esac
+   else
+       /bin/echo "${red}Kirana says => Ini kayaknya filenya ada yang salah deh${white}" 
+   fi
+}
+
+# Perintah pergi/ke/tujuan
+alias pergi=pergi
+alias ke=pergi
+function pergi {
+ # Env
+ PWD=`/bin/pwd`
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau kemana sayang? Kirana ikut donk  :D"
+    $break
+    /bin/echo "Kirana says => Mau ke folder? Berpetualang ke dunia lain? Pokoknya Kirana selalu hadir disisimu sayang...${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder)       
+			cd "$2"
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok. Sekarang mas $USER ada di $PWD"
+                        /bin/echo "Kirana says => Isi foldernya ini ya, ${white}"
+                        /bin/echo " "
+		 	/bin/ls --color=auto
+                        /bin/echo " " ;;
+          server)       
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok, tunggu. Kirana coba hubungi dia...${white}"
+                        /bin/echo " "
+			/usr/bin/ssh "$2" ;;
+	  home|markas|rumah)
+			cd ~ 	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Welcome home, baby${white}"
+                        /bin/echo " "
+		 	/bin/ls --color=auto
+                        /bin/echo " " ;;
+	  asal|semula|sebelumnya)
+			cd -	
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok. Sekarang mas $USER ada di $PWD"
+                        /bin/echo "Kirana says => Isi foldernya ini ya, ${white}"
+                        /bin/echo " "
+		 	/bin/ls --color=auto
+                        /bin/echo " " ;;
+	  atas|atasnya)	
+			cd ..
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok. Sekarang mas $USER ada di $PWD"
+                        /bin/echo "Kirana says => Isi foldernya ini ya, ${white}"
+                        /bin/echo " "
+		 	/bin/ls --color=auto
+                        /bin/echo " " ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Mas $USER sebenernya mau kemana sih? Folder? Server? Atau mana?${white}"
+                        /bin/echo " " 
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah bikin/buat
+alias bikin=bikin
+alias bikinin=bikin
+alias buat=bikin
+alias buatin=bikin
+function bikin {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang buatin"
+    $break
+    /bin/echo "Kirana says => Mau dibuatin apa? File? Folder? atau apa?${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder)       
+			/bin/mkdir "$2"
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Udah ya say"
+    			/bin/echo "Kirana says => Foldernya ini ya say, ${white}"
+    			/bin/echo " "
+			/bin/ls --color=auto
+			/bin/echo " " ;;
+          file)         
+			/usr/bin/touch "$2"
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Udah ya say"
+    			/bin/echo "Kirana says => Filenya ini ya say, ${white}"
+    			/bin/echo " "
+			/bin/ls --color=auto
+			/bin/echo " " ;;
+	  symlink|shortcut)	
+			/bin/ln -s "$2" "$3"
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Udah ya say"
+    			/bin/echo "Kirana says => Ini shortcut-nya, ${white}"
+    			/bin/echo " "
+			/bin/ls --color=auto
+			/bin/echo " " ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Maaf ya sayang, Kirana nggak tau caranya bikin $1 ${white}"
+                        /bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah hapus
+alias buang=buang
+alias apus=buang
+alias hapus=buang
+function buang {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang buang"
+    $break
+    /bin/echo "Kirana says => Apa yang mau dibuang say? File? Folder? Semuanya atau apa?${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder)       
+			/bin/rm -R "$2"
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Udah ya say. Foldernya udah ilang${white}"
+    			/bin/echo " "
+			/bin/ls --color=auto
+			/bin/echo " " ;;
+          file)         
+			/bin/rm "$2"
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Udah ya say. Filenya udah ilang${white}"
+    			/bin/echo " "
+			/bin/ls --color=auto
+			/bin/echo " " ;;
+	 semua|semuanya)
+    			/bin/echo " "
+			read -p "${red}Kirana says => Yakin mau buang semuanya say? ${white}" jawab
+			     if [[ $jawab =~ ^(yes|y|ya|iya|yup|ok|silakan)$ ]]
+				then
+                        	     /bin/rm -rf *
+                        	     /bin/echo "${red}Kirana says => Ok sayang. Semuanya udah ilang ya${white}"
+                        	     /bin/ls --color=auto
+                        	     /bin/echo " "	
+				else
+				    /bin/echo " "
+                        	    /bin/echo "${red}Kirana says => Jadi orang yang tegas donk! Iya, ya! Nggak, nggak!${white}"
+                                    /bin/echo " "
+			     fi ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Maaf ya sayang, Kirana nggak bisa buang $1 ${white}"
+                        /bin/echo " "
+        esac
+    else
+       /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah liat/ls 
+alias liat=liat 
+function liat {
+    if [ -n $1 ] ; then
+        case $1 in 
+          detail)
+                        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok. Ini ya"
+                        /bin/echo "${red}Kirana says => Kalo ${magenta}r${red} artinya read, ${magenta}w${red} itu write dan ${magenta}x${red} artinya execute${white}"
+                        /bin/echo "${red}Kirana says => Coba diinget-inget lagi Linux basic ya mas $USER${white}"
+                        /bin/echo " "
+                        /bin/ls --color=auto -al "$2"
+                        /bin/echo " " ;;
+          *)            
+                        /bin/echo " "
+        		/bin/echo "${red}Kirana says => Ok. Ini ya"
+        		/bin/echo "${red}Kirana says => Warna biru tua itu artinya folder, biru muda itu shortcut/symlink dan putih itu file${white}"
+        		/bin/echo " "
+        		/bin/ls --color=auto $1
+        		/bin/echo " "
+                        /bin/echo "${red}Kirana says => Kalo mau liat detailnya. Tinggal bilang, liat detail <nama_file/folder> "
+                        /bin/echo "${white}"
+        esac
+    fi
+}

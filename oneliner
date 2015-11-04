@@ -1,0 +1,124 @@
+#!/bin/bash
+## Oneliner
+## Very simple command  
+
+# Kirana age 
+alias umur=umur
+alias usia=umur
+function umur {
+	/bin/sh ~/.kirana/pocket/age
+}
+
+# Kirana still baby. As an adult, sometimes we need to takeover her job
+alias takeover=takeover
+function takeover {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ok mas $USER. Kirana offline dulu ya ${white}"
+	/bin/echo " "
+	/usr/bin/sudo -s
+}
+
+# Jam
+alias jam=jam
+function jam {
+	DATE='/bin/date +%r'
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Sekarang jam, `$DATE`${white}"
+	/bin/echo " "
+}
+
+# Tanggal
+alias tanggal=tanggal
+function tanggal {
+	DATE='/bin/date +%d-%b-%y'
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Sekarang tanggal, `$DATE`${white}"
+	/bin/echo " "
+}
+
+# Hari
+alias hari=hari
+function hari {
+	DATE='/bin/date +%A'
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Sekarang hari `$DATE`${white}"
+	/bin/echo " "
+}	
+
+# Find and grep running application
+alias liatin=liatin
+function liatin {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ok. Kirana dapetnya ini ${white}"
+	/bin/echo " "
+	/bin/ps afx|/bin/grep $1
+	/bin/echo " "
+}
+
+# Screen lock
+alias ngaso=ngaso
+function ngaso {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ok. Selamat istirahat ya mas $USER :) ${white}"
+	/bin/echo " "
+	/bin/sleep 2
+	/usr/bin/lxlock
+}
+
+# Matiin system
+alias pulang=pulang
+function pulang {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ati-ati ya mas $USER ${white}"
+	/bin/echo " "
+	/usr/sbin/init 0
+}
+
+# Cat
+alias baca=baca
+alias intip=baca
+function baca {
+	/bin/cat $1 | /bin/less
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ada lagi yang bisa Kirana bantu, mas $USER? ${white}"
+	/bin/echo " "
+}
+
+# Tailf
+alias bacain=bacain
+function bacain {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ok. Ini ya ${white}"
+	/bin/echo " "
+	/usr/bin/sudo /bin/tailf $1
+}
+
+# Tulis/edit file
+alias tulis=tulis
+alias edit=tulis
+function tulis {
+	/usr/bin/vim $1
+}
+
+# Umount
+alias tutup=tutup
+function tutup {
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Ok say. Tunggu ya ${white}"
+	/bin/echo " "
+	/usr/bin/sudo /bin/umount $1 &&
+	/bin/echo " "
+	/bin/echo "${red}Kirana says => Sip... Sekarang mas $USER bisa cabut USBnya ${white}"
+	/bin/echo " "
+}
+
+# Ping
+alias colek=colek
+alias ping=colek
+function colek {
+	/bin/echo " "
+        /bin/echo "${red}Kirana says => Ih genit, colek-colek orang lain..."
+        /bin/echo "${magenta}"
+        /bin/ping -c 4 $1
+        /bin/echo "${white}"
+}

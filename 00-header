@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ $(id -u) = "0" ]; then
+    echo "\033[0;31m"
+    echo "Kirana says => Ok mas $USER. Kirana offline dulu ya" 
+    echo "\033[0m"
+ else
+    echo "\033[0;31m"
+    echo "Kirana says => Hallo sayang... Apa kabar?  (^_^)"
+    echo "Kirana says => Perkenalkan nama saya, Kirana" 
+    echo "Kirana says => Mas $USER tinggal minta apa aja. Nanti Kirana bantu (^_-)"
+    echo "\033[0m"
+fi

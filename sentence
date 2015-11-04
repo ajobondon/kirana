@@ -1,0 +1,362 @@
+#!/bin/bash
+## Kirana another brain's
+## All command with sentense will goes here!!
+
+# Perintah salin
+alias salin=salin
+alias kopi=salin
+function salin {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang salin"
+    $break
+    /bin/echo "Kirana says => Apa yang mau disalin say? File? Folder? atau apa?"
+    $break
+    /bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+    $break
+    /bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder|file)
+		case $3 in
+		ke)       
+          	        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya..."
+			/bin/cp -a "$2" "$4"
+                        /bin/echo "Kirana says => udah ya mas. Ini listnya," 
+                        /bin/echo "${magenta}"
+			/bin/ls --color=auto $4
+                        /bin/echo "${white}" ;;
+		esac ;;
+	  semua|semuanya)
+                /bin/echo " "
+                /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+                /bin/cp -ra * "$3"
+                /bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+                /bin/echo "${magenta}"
+                /bin/ls --color=auto $3
+                /bin/echo "${white}" ;;
+          *)
+         	/bin/echo " "
+         	/bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+        	$break
+        	/bin/echo "Kirana says => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
+        	$break
+        	/bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+        	$break
+        	/bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}"  
+        	/bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+	$break 
+    	/bin/echo "Kirana says => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
+    	$break
+    	/bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+    	$break
+    	/bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
+    fi
+fi
+}
+
+# Perintah kirim file/folder via ssh, atau biasa dikenal scp
+alias kirim=kirim 
+function kirim {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau kirim file atau folder kemana sayang?"
+    $break
+    /bin/echo "Kirana says => Tinggal bilang,"
+    /bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+    /bin/echo "${white}"
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder|file)
+		case $3 in
+		ke)       
+          	        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok mas, sebentar..."
+                        /bin/echo "${magenta}"
+			/usr/bin/scp -r -P "$6" "$2" "$4"":""$8"
+                        /bin/echo "${red}"
+                        /bin/echo "Kirana says => Sip. Dah ya mas"
+                        /bin/echo "${white}" ;;
+		esac ;;
+          *)
+         	/bin/echo " "
+         	/bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+        	$break
+    		/bin/echo "Kirana says => Tinggal bilang aja,"
+    		/bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+        	/bin/echo "${white}"
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+	$break 
+    	/bin/echo "Kirana says => Tinggal bilang aja,"
+    	/bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+        /bin/echo "${white}"
+    fi
+fi
+}
+
+# Perintah pindah/pindahin/ganti
+alias pindah=pindah
+alias pindahin=pindah
+alias ganti=pindah
+function pindah {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang pindahin"
+    $break
+    /bin/echo "Kirana says => Apa yang mau dipindahin say? File atau folder?"
+    $break
+    /bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan> ${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder|file)
+                case $3 in
+                ke)
+			/bin/echo " "
+	                /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+                        /bin/mv "$2" "$4"/
+			/bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+   		        /bin/echo "${white}"
+                	/bin/ls --color=auto
+                	/bin/echo "${white}" ;;
+                esac ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => $1 itu apa ya? File apa folder? ${white}"
+                        /bin/echo " "
+        esac
+    else
+        /bin/echo " "
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..." 
+    	$break
+    	/bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan> ${white}"
+        /bin/echo " "
+    fi
+fi
+}
+
+# Perintah sync/sinkronisasi 
+alias sinkron=sinkron
+alias sinkronin=sinkron
+function sinkron {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Folder mana yang mau di sinkronin say?"
+    $break
+    /bin/echo "Kirana says => Jangan sampe kebalik ya say. Kirana cuma bisa sinkronin folder asal ke tujuan"
+    $break
+    /bin/echo "Kirana says => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          folder)
+                case $3 in
+                ke)
+                        /usr/bin/rsync -avz "$2" "$4" ;;
+                esac ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Yakin, folder $1 itu ada say?${white}"
+                        /bin/echo " "
+        esac
+    else
+        /bin/echo " "
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    	$break
+    	/bin/echo "Kirana says => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
+    	/bin/echo " "
+    fi
+fi
+}
+
+# Perintah buka/mounting
+alias buka=buka
+function buka {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang bukain"
+    $break
+    /bin/echo "Kirana says => Kirana sih jago buka file, usb sama itu tuh... Hihi... (^_-) ${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          usb|flashdisk)
+                case $3 in
+                ke)
+                        /usr/bin/sudo /bin/mount "$2" "$4" ;;
+                esac ;;
+	
+	   file)
+		export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/sbin
+		case $2 in
+		*.xls|*.xlsx)	
+			/usr/bin/libreoffice "$2" ;;
+		*.doc|*.docx)	
+			/usr/bin/libreoffice "$2" ;;
+		*.ppt|*.pptx)	
+			/usr/bin/libreoffice "$2" ;;
+		*.pdf)	
+			/usr/bin/evience "$2" ;;
+		*.png)	
+			/usr/bin/eog "$2" ;;
+		*.jpg)	
+			/usr/bin/eog "$2" ;;
+		*.jpeg)	
+			/usr/bin/eog "$2" ;;
+		*.bmp)	
+			/usr/bin/eog "$2" ;;
+		*.mp3)	
+			/usr/bin/vlc "$2" ;;
+		*.mp4)	
+			/usr/bin/vlc "$2" ;;
+		*.mov)	
+			/usr/bin/vlc "$2" ;;
+		*.txt)	
+			/usr/bin/vim "$2" ;;
+		*)	
+			/usr/bin/vim "$2"
+			unset PATH ;;
+		esac ;;
+	
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Iiihh... Ini apa sih? Susah amat dibukanya..!${white}"
+                        /bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Perintah remote ssh command pake kalimat yang agak panjangan atau lokal sudo 
+alias kasih=kasih
+alias bilang=kasih
+alias bilangin=kasih
+function kasih {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau titip pesan apa sayang? Kirana sampaiin ke dia"
+    $break
+    /bin/echo "Kirana says => Pesannya pake tanda '' ya mas $USER. Misalnya, kasih tau ke Wulan 'miss you'${white}"
+    /bin/echo " "
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+	  ke|si|sama)   
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
+			$break
+			echo "${magenta}"
+			/usr/bin/ssh -t "$2" "$3"
+    			/bin/echo "${red}"
+    			/bin/echo "Kirana says => Udah mas? Ada yang bisa Kirana bantu lagi?" 
+			echo "${white}" ;;
+          tau|tahu)
+	  	case "ke" in
+                ke)
+    			/bin/echo " "
+    			/bin/echo "${red}Kirana says => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
+			$break
+			echo "${magenta}"
+                        /usr/bin/ssh -t "$3" "$4"
+    			/bin/echo "${red}"
+    			/bin/echo "Kirana says => Udah mas? Ada yang bisa Kirana bantu lagi?" 
+			echo "${white}" ;;
+                esac ;;
+          *)            /bin/echo " "
+                        /bin/echo "${red}Kirana says => Kan udah Kirana bilang caranya....${white}"
+                        /bin/echo " "
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+    fi
+fi
+}
+
+# Grep
+alias tepatnya=cari
+alias grep=cari
+alias sortir=cari
+alias cari=cari
+alias cariin=cari
+function cari {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo " "
+    /bin/echo "${red}Kirana says => Mau cari apa say?"
+    $break
+    /bin/echo "Kirana says => Kirana bisa cari aplikasi atau kata disuatu file"
+    $break
+    /bin/echo "Kirana says => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
+    $break
+    /bin/echo "Kirana says => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
+    $break
+    /bin/echo "Kirana says => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
+    $break
+    /bin/echo "Kirana says => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
+    /bin/echo "${white}"
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          kata)
+                case $3 in
+                di|difile)
+			/bin/echo " "
+        		/bin/echo "${red}Kirana says => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} difile ${magenta}$4${red},"
+        		/bin/echo "${magenta}"
+			/bin/grep "$2" "$4"
+			/bin/echo "${white}" ;;
+		semuanya|disemuanya)
+                        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} disemuanya,"
+                        /bin/echo "${magenta}"
+                        /bin/grep -R "$2" *
+                        /bin/echo "${white}" ;;
+                esac ;;
+	  aplikasi)
+			/bin/echo " "
+	        	/bin/echo "${red}Kirana says => Ini say?"
+       			/bin/echo "${magenta}"
+       			/usr/bin/sudo /usr/bin/apt-cache search "$2" | /bin/grep "$2"
+       			/bin/echo "${white}";;
+	  file)
+                case $3 in
+                di|difolder)
+                        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok, sebentar ya mas..."
+                        /bin/echo "Kirana says => Ini yang Kirana dapet file dengan kata ${magenta}$2 ${red}di ${magenta}$4${red},"
+                        /bin/echo "${magenta}"
+                        /usr/bin/find "$4" -print | /bin/grep -i "$2" 
+                        /bin/echo "${white}" ;;
+		esac ;;
+          *)            
+                /bin/echo " "
+                /bin/echo "${red}Kirana says => Mau cari apa say?"
+    		/bin/echo "Kirana says => Kirana bisa cari aplikasi atau kata disuatu file"
+    		/bin/echo "Kirana says => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
+    		/bin/echo "Kirana says => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
+    		/bin/echo "Kirana says => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
+    		/bin/echo "Kirana says => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
+                /bin/echo "${white}" ;; 
+        esac
+    else
+        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}"
+    fi
+fi
+}

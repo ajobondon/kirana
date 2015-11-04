@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# This file creating temporary folder and files
+# Also this file always overwriten
+
+TMPFOLDER="/tmp/kirana"
+
+# Checking temporary folder
+if [ ! -d "$TMPFOLDER" ]; then
+	/bin/mkdir $TMPFOLDER 
+	/usr/bin/sudo /bin/chmod 777 $TMPFOLDER
+fi
+
+/usr/bin/sudo /bin/chmod 777 $TMPFOLDER

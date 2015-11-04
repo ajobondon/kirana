@@ -1,0 +1,48 @@
+#!/bin/bash
+## For conversation only
+
+# Hallo apa
+alias kabar=kabar
+alias apa=kabar
+function kabar {
+ if [ -n $1 ] ; then
+    case $1 in
+      kabar)    /bin/echo " "
+  		/bin/echo "${red}Kirana says => Kabar baik sayang. Apa kabar juga, mas $USER? (^_-) ${white}"
+                /bin/echo " " ;;
+          *)    /bin/echo " "
+    		/bin/echo "${red}Kirana says => Apa hayo.... ${white}"
+                /bin/echo " "
+    esac
+  fi
+}
+
+# Hallo apa kabar?
+alias hallo=hallo
+alias halo=hallo
+function hallo {
+ if [ -n $1 ] ; then
+    case $1 in
+         *)     /bin/echo " "
+    		/bin/echo "${red}Kirana says => Hallo cinta... Apa kabar, mas $USER?  (^_-)  ${white}"
+                /bin/echo " "
+    esac
+ fi
+}
+
+# Terima kasih 
+alias terima=terima
+alias thanks=terima
+alias makasih=terima 
+function terima {
+ if [ -n $1 ] ; then
+    case $1 in
+      kasih|makasih|thanks)      /bin/echo " "
+                  /bin/echo "${red}Kirana says => Sama-sama sayang. Senang bisa membantu mas $USER (^_-) ${white}"
+                  /bin/echo " " ;;
+          *)      /bin/echo " "
+                  /bin/echo "${red}Kirana says => Ngasih apa ya? Hihi... ${white}"
+                  /bin/echo " "
+    esac
+ fi
+}

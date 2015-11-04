@@ -1,0 +1,25 @@
+#!/bin/bash
+## Kirana Version
+## Born : Senin, 19 Oct 2015
+
+## Always check kirana temporary notes
+/bin/sh /home/erwan/.kirana/pocket/stickynotes
+
+## Well... Kirana has her own words
+source ~/.kirana/pocket/komentar
+
+## Let's paint the world!!
+red=`/usr/bin/tput setaf 1`
+white=`/usr/bin/tput setaf 7`
+blue=`/usr/bin/tput setaf 4`
+magenta=`/usr/bin/tput setaf 5`
+
+## Give a Kirana a break on each reply
+break="/bin/sleep 0.2"
+
+## Kirana Brain
+source ~/.kirana/brain
+source ~/.kirana/sentence
+source ~/.kirana/vocab
+source ~/.kirana/oneliner
+source ~/.kirana/conversation

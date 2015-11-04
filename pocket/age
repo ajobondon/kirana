@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Kirana age
+
+## Let's paint the world!!
+red=`/usr/bin/tput setaf 1`
+white=`/usr/bin/tput setaf 7`
+
+## The day she born
+## She's born in 19 Oct 2015
+BORN='2015/10/19'
+
+# Age counter 
+DAY="$(( (`/bin/date +%s` - `/bin/date +%s -d $BORN`) / 86400 ))"
+WEEK="$(( (`/bin/date +%s` - `/bin/date +%s -d $BORN`) / 604800 ))"
+MONTH="$(( (`/bin/date +%s` - `/bin/date +%s -d $BORN`) / 2592000 ))"
+YEAR="$(( (`/bin/date +%s` - `/bin/date +%s -d $BORN`) / 31556952 ))"
+
+if [ $DAY -lt 7 ]
+then
+/bin/echo " "
+/bin/echo "${red}Kirana says => Umur saya sekarang, $DAY hari.${white}"
+/bin/echo " "
+fi
+
+if [ $WEEK -le 4 ]
+        then
+        /bin/echo " "
+        /bin/echo "${red}Kirana says => Umur saya sekarang, $WEEK minggu.${white}"
+        /bin/echo " "
+fi
+
+if [ $MONTH -gt 0 ] && [ $MONTH -lt 12 ]
+        then
+        /bin/echo " "
+        /bin/echo "${red}Kirana says => Umur saya sekarang, $MONTH bulan.${white}"
+        /bin/echo " "
+fi
+
+if [ $YEAR -gt 0 ]
+        then
+        /bin/echo " "
+        /bin/echo "${red}Kirana says => Umur saya sekarang, $YEAR tahun.${white}"
+        /bin/echo " "
+fi
