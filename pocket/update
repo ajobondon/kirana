@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+## Upgrade her 
+
+## Kirana's environment
+kiranahome="/home/$USER/.kirana"
+
+## Let's paint the world!!
+red=`/usr/bin/tput setaf 1`
+white=`/usr/bin/tput setaf 7`
+magenta=`/usr/bin/tput setaf 5`
+
+gitpull="/usr/bin/git pull" 
+
+## Greetings
+echo "${red}"
+echo "Kirana says => Sebentar ya mas $USER. Kirana cek ada pelajaran baru apa nggak" 
+echo "${magenta}"
+
+## Kirana don't need root to run this file. Yet.
+if [ $(id -u) = "0" ]; then
+    echo "${red}"
+    echo "Kirana says => Maaf mas $USER. Kirana jangan dijalankan sebagai root ya" 
+    echo "${white}"
+    exit 1
+fi
+
+## Update her just by cloning from github 
+cd $kiranahome
+$gitpull
+
+## Done
+echo "${red}"
+echo "Kirana says => Terima kasih mas $USER" 
+echo "${white}"
