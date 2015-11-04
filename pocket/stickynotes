@@ -8,7 +8,5 @@ TMPFOLDER="/tmp/kirana"
 # Checking temporary folder
 if [ ! -d "$TMPFOLDER" ]; then
 	/bin/mkdir $TMPFOLDER 
-	/usr/bin/sudo /bin/chmod 777 $TMPFOLDER
+	/bin/chmod 777 $TMPFOLDER
 fi
-
-/usr/bin/sudo /bin/chmod 777 $TMPFOLDER

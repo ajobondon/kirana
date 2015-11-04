@@ -3,7 +3,7 @@
 ## Born : Senin, 19 Oct 2015
 
 ## Always check kirana temporary notes
-/bin/sh /home/erwan/.kirana/pocket/stickynotes
+/bin/sh /home/$USER/.kirana/pocket/stickynotes
 
 ## Well... Kirana has her own words
 source ~/.kirana/pocket/komentar
