@@ -5,6 +5,9 @@
 ## Kirana's environment
 kiranahome="/home/$USER/.kirana"
 
+## Return PATH to default in order to avoid the chaos!!
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 ## Let's paint the world!!
 red=`/usr/bin/tput setaf 1`
 white=`/usr/bin/tput setaf 7`
@@ -28,6 +31,9 @@ fi
 ## Update her just by cloning from github 
 cd $kiranahome
 $gitpull
+
+## Return PATH to Kirana's setting 
+export PATH=${HOME}/.kirana
 
 ## Done
 echo "${red}"
