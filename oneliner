@@ -126,8 +126,5 @@ function colek {
 # update kirana
 alias belajar=belajar
 function belajar {
-        /bin/echo " "
-        /bin/echo "${red}Kirana says => Atau cek pelajaran baru buat Kirana. Bilang aja, kirana saatnya belajar ${white}"
-        /bin/echo " "
        	/bin/sh ~/.kirana/pocket/update 
 }

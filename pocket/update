@@ -17,6 +17,8 @@ gitpull="/usr/bin/git pull"
 
 ## Greetings
 echo "${red}"
+echo "Kirana says => Untuk cek pelajaran baru buat Kirana." 
+echo "Kirana says => Mas $USER bilang aja, kirana saatnya belajar" 
 echo "Kirana says => Sebentar ya mas $USER. Kirana cek ada pelajaran baru apa nggak" 
 echo "${magenta}"
 
