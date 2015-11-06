@@ -15,8 +15,12 @@ __Kirana__, hadir untuk membantu menterjemahkan perintah dari pengguna ke mesin.
 Silakan download file ini, [installer](https://goo.gl/FVFAUu).
 Untuk saat ini Kirana __hanya bisa diinstall di Debian dan Ubuntu__ saja. Untuk distribusi Linux lainnya akan menyusul.
 
-Kemudian jalankan file tersebut dari user kamu, jangan menggunakan user root ya.. 
-Perintahanya, __sh installer__
+Download dan simpan file tersebut ditempat yang kamu inginkan. 
+Sebagai contoh kamu simpan file itu di folder Downloads. Kemudian masuk ke folder tersebut dan jalankan perintah, 
+
+__sh installer__
+
+Sebagai catatan, harap jangan menginstall __Kirana__ sebagai user root. Cukup dengan menggunakan user kamu saja.
 
 ### Cara pakenya?
 
