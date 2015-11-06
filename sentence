@@ -211,7 +211,7 @@ function buka {
 		*.ppt|*.pptx)	
 			/usr/bin/libreoffice "$2" ;;
 		*.pdf)	
-			/usr/bin/evience "$2" ;;
+			/usr/bin/evince "$2" ;;
 		*.png)	
 			/usr/bin/eog "$2" ;;
 		*.jpg)	
