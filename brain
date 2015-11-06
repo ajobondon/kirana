@@ -149,23 +149,29 @@ function pasang {
     if [ -n $1 ] ; then
         case $1 in
           update|updatean)
-			echo " "
-    			/bin/echo "${red}Kirana says => Ok, sebentar..."
-			/usr/bin/sudo /usr/bin/apt-get upgrade -y > /tmp/kirana/aptupdate &&
-			/bin/echo "Kirana says => Sip, udah selesai updatenya. Ada lagi yang bisa Kirana bantu?${white}"
-                        /bin/echo " " ;; 
+			echo "${red}"
+    			/bin/echo "Kirana says => Ok, sebentar..."
+    			/bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/apt-get upgrade -y
+    			/bin/echo "${red}"
+			/bin/echo "Kirana says => Sip, udah selesai updatenya. Ada lagi yang bisa Kirana bantu?"
+                        /bin/echo "${white}" ;; 
           upgrade|upgradean)     
-			echo " "
-    			/bin/echo "${red}Kirana says => Ok, sebentar..."
-			/usr/bin/sudo /usr/bin/apt-get dist-upgrade -y > /tmp/kirana/aptupgrade &&
-                        /bin/echo "Kirana says => Sip, udah selesai upgradenya. Ada lagi yang bisa Kirana bantu?${white}"
-                        /bin/echo " " ;;
+			echo "${red}"
+    			/bin/echo "Kirana says => Ok, sebentar..."
+    			/bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/apt-get dist-upgrade
+    			/bin/echo "${red}"
+                        /bin/echo "Kirana says => Sip, udah selesai upgradenya. Ada lagi yang bisa Kirana bantu?"
+                        /bin/echo "${white}" ;;
           aplikasi|paket) 	 
-			echo " "
-    			/bin/echo "${red}Kirana says => Ok, sebentar..."
-			/usr/bin/sudo /usr/bin/apt-get install -y "$2" > /tmp/kirana/aptinstall &&
-                        /bin/echo "Kirana says => Sip, udah selesai installnya. Ada lagi yang bisa Kirana bantu?${white}"
-                        /bin/echo " " ;;
+			echo "${red}"
+    			/bin/echo "Kirana says => Ok, sebentar..."
+    			/bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/apt-get install -y "$2"
+    			/bin/echo "${red}"
+                        /bin/echo "Kirana says => Sip, udah selesai installnya. Ada lagi yang bisa Kirana bantu?"
+                        /bin/echo "${white}" ;;
 	  firewall)	
 			echo " "
     			/bin/echo "${red}Kirana says => Kirana aktifkan firewall,"
@@ -203,9 +209,11 @@ function cek {
 			/bin/echo " "
                         /bin/echo "${red}Kirana says => Ok cinta. Kirana update koleksi aplikasi ya,"
                         /bin/echo "Kirana says => Sebentar ya mas $USER ... (^_-)"
-			/usr/bin/sudo /usr/bin/apt-get update > /tmp/kirana/aptcheckrepo &&
-                        /bin/echo "Kirana says => Sip, udah selesai update catetan koleksi aplikasi Kirana${white}"
-                        /bin/echo " " ;;
+                        /bin/echo "${magenta}"
+			/usr/bin/sudo /usr/bin/apt-get update
+                        /bin/echo "${red}"
+                        /bin/echo "Kirana says => Sip, udah selesai update catetan koleksi aplikasi Kirana"
+                        /bin/echo "${white}" ;;
           kvm)      	
 			/bin/echo " "
                         /bin/echo "${red}Kirana says => Ini KVM yang mas $USER punya sekarang,"
