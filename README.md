@@ -34,6 +34,8 @@ Mirip seperti anda *chatting* dengan teman. Contoh,
   * kirana saatnya belajar
 * Perintah SUDO atau login sebagai root
   * kirana saya takeover ya
+* Perintah anti bingung
+  * kiranya caranya <apa_aja> gimana ya
 
 ### Ah bingung mau mulai dari mana. Mau tanya apa.
 
