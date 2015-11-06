@@ -29,3 +29,4 @@ source ~/.kirana/sentence
 source ~/.kirana/vocab
 source ~/.kirana/oneliner
 source ~/.kirana/conversation
+source ~/.kirana/help

@@ -1,0 +1,209 @@
+#!/bin/bash
+## Need some help? Here...
+
+# Help me Kirana.... 
+alias tolong=help
+alias caranya=help
+alias kalo=help
+function help {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    /bin/echo "${red}"
+    /bin/echo "Kirana says => Mas $USER bingung ya mau minta tolong apa??" 
+    $break
+    /bin/echo "Kirana says => Misalnya mas $USER mau tanya gimana caranya liat file, bisa bilang, caranya liat file gimana"
+    $break
+    /bin/echo "Kirana says => Atau mas bisa tanya cara yang lainnya. Misal caranya remote ke server gimana ya" 
+    /bin/echo "${white}"
+ else
+    if [ -n $1 ] ; then
+        case $1 in
+          nyalain|aktif|aktifin)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Kalo mas $USER mau nyalain kvm. Bilang aja, tolong nyalain kvm <nama_kvm>"
+                   $break 
+                   /bin/echo "Kirana says => Kalo mas $USER mau nyalain lxc. Bilang aja, tolong nyalain kvm <nama_kvm>"
+                   $break 
+                   /bin/echo "Kirana says => Kalo mas $USER mau nyalain firewall. Bilang aja, tolong nyalain firewall" 
+                   $break 
+                   /bin/echo "Kirana says => Kalo mas $USER mau nyalain services. Bilang aja, tolong nyalain service <nama_service>" 
+                   $break 
+                   /bin/echo "${white}" ;;        
+
+	  matiin|nonaktif|nonaktifin)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Kalo mas $USER mau matiin kvm. Bilang aja, tolong matiin kvm <nama_kvm>"
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau matiin lxc. Bilang aja, tolong matiin kvm <nama_kvm>"
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau matiin firewall. Bilang aja, tolong matiin firewall" 
+                   $break 
+                   /bin/echo "Kirana says => Kalo mas $USER mau matiin services. Bilang aja, tolong matiin service <nama_service>" 
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau matiin suatu aplikasi. Bilang aja, tolong matiin aplikasi <nama_aplikasi>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  restart)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Kalo mas $USER mau restart firewall. Bilang aja, tolong restart firewall"
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau restart service. Bilang aja, tolong restart service <nama_service>"
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau restart Linux. Bilang aja, tolong restart system"
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  install|update|upgrade)
+		   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Kalo mas $USER mau update semua aplikasi disini. Bilang aja install updatean" 
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau upgrade kernel atau Linux distibusi. Bilang aja install upgradean" 
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau install suatu aplikasi. Bilang aja install aplikasi <nama_aplikasi>"
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau install firewall. Bilang aja install firewall" 
+                   $break
+                   /bin/echo "Kirana says => Kalo mas $USER mau update Kirana. Bilang aja, kirana saatnya belajar" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  cek|ngecek)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Sebenarnya Kirana bisa bantu cek banyak hal. Seperti repo, jam, ip lokal/publik bahkan cuaca" 
+                   $break
+                   /bin/echo "Kirana says => Untuk cek repository. Bilang aja, cek repo"
+                   $break
+                   /bin/echo "Kirana says => Untuk kvm/lxc/firewall/virtual? Bilang aja, cek kvm/lxc/firewall/virtual" 
+                   $break
+                   /bin/echo "Kirana says => Untuk jam/hari/tanggal/kalender/cuaca? Bilang aja, cek jam/hari/tanggal/kalender/cuaca" 
+                   $break
+                   /bin/echo "Kirana says => Untuk cek ip lokal/publik. Bilang aja cek ip lokal/publik" 
+                   $break
+                   /bin/echo "Kirana says => Untuk cek partisi/folder/memory/cpu/suara. Bilang aja cek partisi/folder/memory/cpu/suara" 
+                   $break
+                   /bin/echo "Kirana says => Untuk cek aplikasi yang sedang berjalan. Bilang aja cek aplikasi <nama_aplikasi>" 
+                   $break
+                   /bin/echo "Kirana says => Untuk cek service yang sedang berjalan. Bilang aja cek service <nama_service>" 
+                   $break
+                   /bin/echo "Kirana says => Nah kalo mau tau umur Kirana. Bilang aja, sekarang usia kamu berapa" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  extract|ekstrak)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau ekstrak file? Bilang aja, ekstrak <nama_file>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  ssh|remote|ke)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Ke suatu folder? Bilang aja, ke <folder_tujuan>" 
+                   $break
+                   /bin/echo "Kirana says => Remote ke server Linux lain via SSH? Bilang aja, ke server <nama_server>" 
+                   $break
+                   /bin/echo "Kirana says => Kembali ke home user. Bilang aja, ke home" 
+                   $break
+                   /bin/echo "Kirana says => Kembali ke folder asal. Bilang aja, ke semula" 
+                   $break
+                   /bin/echo "Kirana says => Kembali ke folder diatasnya. Bilang aja, ke atas" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+          bikin|buat)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau bikin folder. Bilang aja, bikin folder <nama_folder>" 
+                   $break
+                   /bin/echo "Kirana says => Mau bikin file. Bilang aja, bikin file <nama_folder> atau tulis <nama_file>" 
+                   $break
+                   /bin/echo "Kirana says => Mau bikin shortcut. Bilang aja, bikin shortcut <nama_file_asal> <nama_file_tujuan>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  apus|hapus|buang)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau apus file atau folder? Bilang aja, apus folder <nama_folder> atau apus file <nama_file>" 
+                   $break
+                   /bin/echo "Kirana says => Mau apus semuanya? Bilang aja, apus semuanya" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  liat|lihat)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau liat isi folder. Bilang aja, liat" 
+                   $break
+                   /bin/echo "Kirana says => Butuh informasi yang detail? Bilang aja liat detail <nama_folder>"
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  salin|kopi)
+                   salin ;;   
+			
+	  kirim|scp)
+		   kirim ;;
+
+	  pindah|pindahin)
+		   pindah ;;
+
+	  sinkron|singkron)
+		   sinkron ;;
+
+	  buka|baca)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Untuk buka file. Bilang aja, buka file <nama_file>" 
+                   $break
+                   /bin/echo "Kirana says => Atau mau baca file tanpa mengeditnya? Bilang aja, buka <nama_file>" 
+                   $break
+                   /bin/echo "Kirana says => Atau mau baca file log? Bilang aja, bacain <nama_file>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  kasih|perintah)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Kirana juga bisa kasih perintah ke server lain"
+                   $break
+                   /bin/echo "Kirana says => Bilang aja, kasih tau si <nama_server> '<pesannya_apa>'" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  cari|cariin|grep|sortir)
+		   tepatnya ;;
+
+	  jadi|root|su|sudo)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau jadi root? Atau Kirana belum bisa bantu mas $USER? Bilang aja, takeover" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+          edit|ngedit)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Mau edit file? Bilang aja, edit <nama_file>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+	  ping|ngeping)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Ngecek server hidup apa nggak? Bilang aja, colek <IP_server/nama_server>" 
+                   $break
+                   /bin/echo "${white}" ;;
+
+ 
+          *)       /bin/echo "${red}"
+    		   /bin/echo "Kirana says => Mas $USER bingung ya mau minta tolong apa??" 
+    		   $break
+    		   /bin/echo "Kirana says => Misalnya mas $USER mau tanya gimana caranya liat file, bisa bilang, caranya liat file gimana"
+    	   	   $break
+    		   /bin/echo "Kirana says => Atau mas bisa tanya cara yang lainnya. Misal caranya remote ke server gimana ya" 
+    		   /bin/echo "${white}"   
+        esac
+    else
+        /bin/echo "${red}"
+    	/bin/echo "Kirana says => Mas $USER bingung ya mau minta tolong apa??" 
+    	$break
+    	/bin/echo "Kirana says => Misalnya mas $USER mau tanya gimana caranya liat file, bisa bilang, caranya liat file gimana"
+    	$break
+    	/bin/echo "Kirana says => Atau mas bisa tanya cara yang lainnya. Misal caranya remote ke server gimana ya" 
+    	/bin/echo "${white}" 
+    fi
+fi
+}

@@ -35,7 +35,13 @@ Mirip seperti anda *chatting* dengan teman. Contoh,
 * Perintah SUDO atau login sebagai root
   * kirana saya takeover ya
 
-Untuk perintah lainnya, kami akan memberikan link *cheat sheet* nya. Stay tune..!!
+### Ah bingung mau mulai dari mana. Mau tanya apa.
+
+Pada dasarnya pengguna yang berinteraksi dengan __Kirana__ bebas saja, mau memberikan perintah seperti apa. Nanti dia yang akan membantu menerjemahkan ke system. Kalo masih bingung bisa bilang aja ke dia,
+
+__kirana caranya salin file itu gimana ya__
+
+Atau apa saja, bebas. Sebab __Kirana__ ingin dianggap sebagai teman. Bukan system yang bersifat kaku. Jadi mulailah berbicara dengan dia seperti layaknya kita berbicara dengan teman.
 
 ### Ah payah nih. Masak dia nggak tau gue kasih perintah apa sih?!
 

@@ -108,7 +108,7 @@ function restart {
     /bin/echo " "
     /bin/echo "${red}Kirana says => Mau restart apa sayang? Sini, biar Kirana bantu ^^"
     $break
-    /bin/echo "Kirana says => Yang bisa di restart cuma firewall sama service doank, say${white}"
+    /bin/echo "Kirana says => Yang bisa di restart cuma firewall, service sama system doank, say${white}"
     /bin/echo " "
  else
     if [ -n $1 ] ; then
@@ -124,6 +124,12 @@ function restart {
                         /usr/bin/sudo /etc/init.d/"$2" restart > /tmp/kirana/servrestart
                         /bin/echo "${red}Kirana says => Service $2 udah Kirana restart ya mas $USER"
                         /bin/echo "${white}" ;;
+	  system)     
+			/bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok, mas $USER. System akan Kirana restart sekarang"
+			/usr/bin/sudo /sbin/init 6
+			/bin/echo "${white}" ;;
+
           *)            /bin/echo " "
 			/bin/echo "${red}Kirana says => Yang bisa di restart cuma firewall sama service doank, say${white}"
 			/bin/echo " "
