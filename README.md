@@ -16,9 +16,10 @@ Silakan download file ini, [installer](https://goo.gl/FVFAUu).
 Untuk saat ini Kirana __hanya bisa diinstall di Debian dan Ubuntu__ saja. Untuk distribusi Linux lainnya akan menyusul.
 
 Download dan simpan file tersebut ditempat yang kamu inginkan. 
-Sebagai contoh kamu simpan file itu di folder Downloads. Kemudian masuk ke folder tersebut dan jalankan perintah, 
+Sebagai contoh kamu simpan file itu di folder Downloads. Kemudian masuk ke folder tersebut dan jalankan perintah sebagai berikut, 
 
-__sh installer__
+* __chmod +x installer__
+* __sh installer__
 
 Sebagai catatan, harap jangan menginstall __Kirana__ sebagai user root. Cukup dengan menggunakan user kamu saja.
 
