@@ -1,0 +1,93 @@
+#!/bin/bash
+#
+## Building Kirana's new home. Yay!
+
+## Kirana's environment
+kiranahome="/home/$USER/.kirana"
+userhome="/home/$USER"
+userbashrc="/home/$USER/.bashrc"
+motd="/etc/update-motd.d"
+
+## Let's paint the world!!
+red=`/usr/bin/tput setaf 1`
+white=`/usr/bin/tput setaf 7`
+magenta=`/usr/bin/tput setaf 5`
+
+## Tools that she need
+aptgetins="/usr/bin/sudo /usr/bin/apt-get install -y"
+gitclone="/usr/bin/git clone https://github.com/ajobondon/kirana.git"
+
+## Checking OS type
+osrelease="/etc/os-release"
+
+## Kirana don't need root to run this file. Yet.
+if [ $(id -u) = "0" ]; then
+    echo "${red}"
+    echo "Kirana says => Maaf mas $USER. Kirana jangan dijalankan sebagai root ya" 
+    echo "${white}"
+    exit 1
+fi
+
+# if not Debian/Ubuntu then failed!
+if [ ! -f "$osrelease" ]; then
+      echo "${red}"
+      echo "Kirana says => Hallo mas $USER. Mohon maaf, untuk saat ini Kirana hanya bisa di Debian/Ubuntu saja" 
+      echo "Kirana says => Untuk type distribusi Linux lainnya, mungkin suatu saat nanti bisa di support" 
+      echo "Kirana says => Maaf ya..." 
+      echo "${white}"
+      exit 1
+fi
+
+# if Debian/Ubuntu the go ahead! But if not, sorry.
+dist=`/bin/grep -w -R ID $osrelease | /usr/bin/awk -F '=' '{print $2}'`
+if [ -f "$osrelease" ]; then
+   if [ "$dist" == "ubuntu" ] || [ "$dist" == "debian" ] ; then
+      echo "${red}"
+      echo "Kirana says => Hallo mas $USER. Perkenalkan nama saya, Kirana" 
+      echo "Kirana says => Kirana mohon izinnya untuk tinggal disini untuk membantu mas $USER ya" 
+      echo "Kirana says => Mas $USER sekarang santai aja, Kirana yang akan pindahin barang-barang ke sini" 
+      echo "Kirana says => Kalo mas $USER ditanya soal password, tinggal masukin password mas $USER ya" 
+      echo "Kirana says => Terima kasih... (^_-)" 
+      echo "${magenta}"
+   else
+      echo "${red}"
+      echo "Kirana says => Hallo mas $USER. Mohon maaf, untuk saat ini Kirana hanya bisa di Debian/Ubuntu saja" 
+      echo "Kirana says => Untuk type distribusi Linux lainnya, mungkin suatu saat nanti bisa di support" 
+      echo "Kirana says => Maaf ya..." 
+      echo "${white}"
+      exit 1
+   fi
+fi
+
+## Make sure user has this tools
+## I know, it's not elegant. But... Well... Next time better
+$aptgetins git command-not-found vim rsync wget
+
+## Check ~/.kirana exist or not
+## If does. Let's we build Kirana's new home! Yay!! 
+if [ -d "$kiranahome" ]; then
+  cd $userhome 
+  $gitclone $kiranahome
+else
+  /bin/mkdir $kiranahome
+  cd $userhome 
+  $gitclone $kiranahome 
+fi
+
+## Binding Kirana element to user bashrc
+echo "
+# Called Kirana
+source ~/.kirana/kirana" >> $userbashrc 
+
+## Move 00-hear to place it belong...
+/usr/bin/sudo /bin/mkdir $motd/bak 
+/usr/bin/sudo /bin/mv $motd/*-* $motd/bak/
+/usr/bin/sudo /bin/mv $kiranahome/pocket/00-header $motd/
+/usr/bin/sudo /bin/run-parts /etc/update-motd.d/
+
+## Done
+echo "${red}"
+echo "Kirana says => Udah ya mas $USER. Terima kasih karena sudah memperbolehkan Kirana tinggal disini" 
+echo "Kirana says => Agar bisa ngobrol dengan Kirana, mas $USER silakan logout trus login lagi ya" 
+echo "Kirana says => See you...." 
+echo "${white}"
