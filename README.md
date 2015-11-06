@@ -59,7 +59,7 @@ Dia lahir pada __19 Oktober 2015__
 
 ### Saya juga mau membantu mengasuh dia...
 
-Dengan saat senang hati. Kamu bisa mem-forknya atau mengirimkan request agar bisa kami masukan ke contributor. 
+Dengan saat senang hati. Kamu bisa mem-forknya atau mengirimkan request sebagai contributor. 
 
 ### Jadi dia cuma bisa gitu doank? Cemen...
 
