@@ -29,6 +29,10 @@ Mirip seperti anda *chatting* dengan teman. Contoh,
 
 Untuk perintah lainnya, kami akan memberikan link *cheat sheet* nya. Stay tune..!!
 
+### Ah payah nih. Masak dia nggak tau gue kasih perintah apa sih?!
+
+Ya usia __Kirana__ saat ini memang masih bayi. Masih belum banyak kosakata yang bisa dimengerti. Oleh karena itu apabila kamu memang ingin buru-buru. Bisa *take over* dia. Caranya? Bilang aja ke dia, __"kirana saya takeover ya"__. Gampang kan? 
+
 ### Versioning?
 
 Seperti layaknya manusia. Kirana tidak memiliki versioning seperti aplikasi lainnya. Namun __Kirana__ menggunakan umur. Penasaran? Coba tanya ke dia. __"kirana usia kamu berapa"__. Oleh karena itu rajin-rajinlah untuk menyuruh dia belajar. Caranya? Bilang aja, __"kirana saatnya belajar"__.
