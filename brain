@@ -160,7 +160,7 @@ function pasang {
 			echo "${red}"
     			/bin/echo "Kirana says => Ok, sebentar..."
     			/bin/echo "${magenta}"
-			/usr/bin/sudo /usr/bin/apt-get dist-upgrade
+			/usr/bin/sudo /usr/bin/apt-get dist-upgrade -y
     			/bin/echo "${red}"
                         /bin/echo "Kirana says => Sip, udah selesai upgradenya. Ada lagi yang bisa Kirana bantu?"
                         /bin/echo "${white}" ;;
