@@ -136,13 +136,13 @@ function help {
                    $break
                    /bin/echo "${white}" ;;
 
-	  salin|kopi)
+	  salin|kopi|copy)
                    salin ;;   
 			
 	  kirim|scp)
 		   kirim ;;
 
-	  pindah|pindahin)
+	  pindah|pindahin|ganti)
 		   pindah ;;
 
 	  sinkron|singkron)
@@ -166,7 +166,7 @@ function help {
                    $break
                    /bin/echo "${white}" ;;
 
-	  cari|cariin|grep|sortir)
+	  cari|cariin|nyari|nyariin|grep|sortir)
 		   tepatnya ;;
 
 	  jadi|root|su|sudo)
@@ -188,21 +188,22 @@ function help {
                    /bin/echo "${white}" ;;
 
  
-          *)       /bin/echo "${red}"
-    		   /bin/echo "Kirana says => Mas $USER bingung ya mau minta tolong apa??" 
-    		   $break
-    		   /bin/echo "Kirana says => Misalnya mas $USER mau tanya gimana caranya liat file, bisa bilang, caranya liat file gimana"
-    	   	   $break
-    		   /bin/echo "Kirana says => Atau mas bisa tanya cara yang lainnya. Misal caranya remote ke server gimana ya" 
-    		   /bin/echo "${white}"   
+          *)       
+    		   /bin/echo "${red}"
+        	   /bin/echo "Kirana says => Maaf ya mas, Kirana nggak ngerti maksud dari mas $USER"
+         	   $break
+        	   /bin/echo "Kirana says => Kirana masih harus banyak belajar lagi" 
+        	   $break
+        	   /bin/echo "Kirana says => Mas $USER bisa juga bilangin ke papa Kirana, di https://goo.gl/jjC404" 
+        	   /bin/echo "${white}"  
         esac
     else
         /bin/echo "${red}"
-    	/bin/echo "Kirana says => Mas $USER bingung ya mau minta tolong apa??" 
+    	/bin/echo "Kirana says => Maaf ya mas, Kirana nggak ngerti maksud dari mas $USER"
     	$break
-    	/bin/echo "Kirana says => Misalnya mas $USER mau tanya gimana caranya liat file, bisa bilang, caranya liat file gimana"
-    	$break
-    	/bin/echo "Kirana says => Atau mas bisa tanya cara yang lainnya. Misal caranya remote ke server gimana ya" 
+     	/bin/echo "Kirana says => Kirana masih harus banyak belajar lagi" 
+        $break
+        /bin/echo "Kirana says => Mas $USER bisa juga bilangin ke papa Kirana, di https://goo.gl/jjC404" 
     	/bin/echo "${white}" 
     fi
 fi

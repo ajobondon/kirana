@@ -117,11 +117,24 @@ function pindah {
     $break
     /bin/echo "Kirana says => Apa yang mau dipindahin say? File atau folder?"
     $break
-    /bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan> ${white}"
-    /bin/echo " "
+    /bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
+    $break
+    /bin/echo "Kirana says => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
+    /bin/echo "${white}"
  else
     if [ -n $1 ] ; then
         case $1 in
+	  nama)
+		case $3 in
+		ke)
+                        /bin/echo " "
+                        /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+                        /bin/mv "$2" "$4"
+                        /bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+                        /bin/echo "${white}"
+                        /bin/ls --color=auto
+                        /bin/echo "${white}" ;;
+		esac ;;
           folder|file)
                 case $3 in
                 ke)
@@ -138,11 +151,13 @@ function pindah {
                         /bin/echo " "
         esac
     else
-        /bin/echo " "
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..." 
+        /bin/echo "${red}"
+        /bin/echo "Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..." 
     	$break
-    	/bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan> ${white}"
-        /bin/echo " "
+    	/bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
+    	$break
+    	/bin/echo "Kirana says => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
+        /bin/echo "${white}"
     fi
 fi
 }
