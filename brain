@@ -509,10 +509,13 @@ function buang {
 			/bin/ls --color=auto
 			/bin/echo " " ;;
 	 semua|semuanya)
-    			/bin/echo " "
-			read -p "${red}Kirana says => Yakin mau buang semuanya say? ${white}" jawab
-			     if [[ $jawab =~ ^(yes|y|ya|iya|yup|ok|silakan)$ ]]
+    			/bin/echo "${red}"
+			/bin/echo "Kirana says => Yakin mau buang semuanya say?"
+			/bin/echo "${white}"
+			read -p "$USER says => " jawab
+			     if [[ $jawab =~ ^(yes|y|ya|iya|yup|yap|yoi|ok|silakan)$ ]]
 				then
+				     /bin/echo " "
                         	     /bin/rm -rf *
                         	     /bin/echo "${red}Kirana says => Ok sayang. Semuanya udah ilang ya${white}"
                         	     /bin/ls --color=auto
