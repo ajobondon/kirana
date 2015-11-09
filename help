@@ -80,6 +80,8 @@ function help {
                    $break
                    /bin/echo "Kirana says => Untuk cek ip lokal/publik. Bilang aja cek ip lokal/publik" 
                    $break
+                   /bin/echo "Kirana says => Untuk cek default routing. Bilang aja cek routing" 
+                   $break
                    /bin/echo "Kirana says => Untuk cek partisi/folder/memory/cpu/suara. Bilang aja cek partisi/folder/memory/cpu/suara" 
                    $break
                    /bin/echo "Kirana says => Untuk cek aplikasi yang sedang berjalan. Bilang aja cek aplikasi <nama_aplikasi>" 

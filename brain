@@ -268,6 +268,12 @@ function cek {
 			/bin/echo "${red}Kirana says => IP apa yang mau di check mas $USER? Lokal apa publik?${white}"
 			/bin/echo " " 
                 esac ;;
+	  route|routing)
+                        /bin/echo "${red}"
+                        /bin/echo "Kirana says => Ini default routingnya mas $USER,"
+                        /bin/echo "${magenta}"
+                        /sbin/route -n
+                        /bin/echo "${white}" ;;
 	  up)		
 			/bin/echo " "
                         /bin/echo "${red}Kirana says => Kirana belum tidur dari,"
