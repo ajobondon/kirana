@@ -7,12 +7,12 @@ alias apa=kabar
 function kabar {
  if [ -n $1 ] ; then
     case $1 in
-      kabar)    /bin/echo " "
-  		/bin/echo "${red}Kirana says => Kabar baik sayang. Apa kabar juga, mas $USER? (^_-) ${white}"
-                /bin/echo " " ;;
-          *)    /bin/echo " "
-    		/bin/echo "${red}Kirana says => Apa hayo.... ${white}"
-                /bin/echo " "
+      kabar)    /bin/echo "${red}"
+  		/bin/echo "Kirana says => Kabar baik sayang. Apa kabar juga, mas $USER? (^_-)"
+                /bin/echo "${white}" ;;
+          *)    /bin/echo "${red}"
+    		/bin/echo "Kirana says => Apa hayo.... ${white}"
+                /bin/echo "${white}"
     esac
   fi
 }
@@ -23,26 +23,39 @@ alias halo=hallo
 function hallo {
  if [ -n $1 ] ; then
     case $1 in
-         *)     /bin/echo " "
-    		/bin/echo "${red}Kirana says => Hallo cinta... Apa kabar, mas $USER?  (^_-)  ${white}"
-                /bin/echo " "
+         *)     /bin/echo "${red}"
+    		/bin/echo "Kirana says => Hallo cinta... Apa kabar, mas $USER?  (^_-)"
+                /bin/echo "${white}"
     esac
  fi
 }
 
-# Terima kasih 
+# Terima kasih #1 
 alias terima=terima
-alias thanks=terima
 alias makasih=terima 
 function terima {
  if [ -n $1 ] ; then
     case $1 in
-      kasih|makasih|thanks)      /bin/echo " "
-                  /bin/echo "${red}Kirana says => Sama-sama sayang. Senang bisa membantu mas $USER (^_-) ${white}"
-                  /bin/echo " " ;;
-          *)      /bin/echo " "
-                  /bin/echo "${red}Kirana says => Ngasih apa ya? Hihi... ${white}"
-                  /bin/echo " "
+      kasih|makasih)      
+		  /bin/echo "${red}"
+                  /bin/echo "Kirana says => Sama-sama sayang. Senang bisa membantu mas $USER (^_-)"
+                  /bin/echo "${white}" ;;
+          *)      /bin/echo "${red}"
+                  /bin/echo "Kirana says => Ngasih apa ya? Hihi..."
+                  /bin/echo "${white}"
     esac
  fi
 }
+
+# Thanks  
+alias thanks=thanks 
+function thanks {
+ if [ -n $1 ] ; then
+    case $1 in
+         *)     /bin/echo "${red}"
+                /bin/echo "Kirana says => Sami-sami, mas $USER?  (^_-)"
+                /bin/echo "${white}"
+    esac
+ fi
+}
+
