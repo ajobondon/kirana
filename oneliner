@@ -71,7 +71,7 @@ function pulang {
 	/bin/echo " "
 	/bin/echo "${red}Kirana says => Ati-ati ya mas $USER ${white}"
 	/bin/echo " "
-	/usr/sbin/init 0
+	/sbin/init 0
 }
 
 # Cat
