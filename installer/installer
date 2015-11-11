@@ -38,27 +38,6 @@ if [ ! -f "$osrelease" ]; then
       exit 1
 fi
 
-# if Debian/Ubuntu the go ahead! But if not, sorry.
-dist=`/bin/grep -w -R ID $osrelease | /usr/bin/awk -F '=' '{print $2}'`
-if [ -f "$osrelease" ]; then
-   if [ "$dist" == "ubuntu" ] || [ "$dist" == "debian" ] ; then
-      echo "${red}"
-      echo "Kirana says => Hallo mas $USER. Perkenalkan nama saya, Kirana" 
-      echo "Kirana says => Kirana mohon izinnya untuk tinggal disini untuk membantu mas $USER ya" 
-      echo "Kirana says => Mas $USER sekarang santai aja, Kirana yang akan pindahin barang-barang ke sini" 
-      echo "Kirana says => Kalo mas $USER ditanya soal password, tinggal masukin password mas $USER ya" 
-      echo "Kirana says => Terima kasih... (^_-)" 
-      echo "${magenta}"
-   else
-      echo "${red}"
-      echo "Kirana says => Hallo mas $USER. Mohon maaf, untuk saat ini Kirana hanya bisa di Debian/Ubuntu saja" 
-      echo "Kirana says => Untuk type distribusi Linux lainnya, mungkin suatu saat nanti bisa di support" 
-      echo "Kirana says => Maaf ya..." 
-      echo "${white}"
-      exit 1
-   fi
-fi
-
 ## Make sure user has this tools
 ## I know, it's not elegant. But... Well... Next time better
 $aptgetins git command-not-found vim rsync wget
