@@ -329,7 +329,7 @@ function cek {
                         /bin/echo " "
                         /bin/echo "${red}Kirana says => Mas, kalo warnanya ${magenta}magenta${red} itu artinya servicenya mati ya"
                         /bin/echo "${white}" ;;		
-	  usia|umur)	/bin/sh /home/erwan/.kirana/age ;;	
+	  usia|umur)	/bin/sh /home/erwan/.kirana/pocket/age ;;	
           *)            /bin/echo " "
 			/bin/echo "${red}Kirana says => Kirana bingung... Soalnya nggak ada yang bisa dicek${white}"
 			/bin/echo " " 
