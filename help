@@ -188,7 +188,20 @@ function help {
                    /bin/echo "Kirana says => Ngecek server hidup apa nggak? Bilang aja, colek <IP_server/nama_server>" 
                    $break
                    /bin/echo "${white}" ;;
-
+	  
+	  jalan|jalanin)
+                   /bin/echo "${red}"
+                   /bin/echo "Kirana says => Maaf mas $USER. Untuk sementara kalo mau jalanin suatu aplikasi," 
+                   $break
+                   /bin/echo "Kirana says => Dari user root aja. Kirana di takeover aja" 
+                   $break
+                   /bin/echo "Kirana says => Untuk takeover Kirana, bilang aja, "kirana saya takeover ya"" 
+                   $break
+                   /bin/echo "Kirana says => Tapi kalo mau jalanin suatu services, seperti apache, db dan lainnya" 
+                   $break
+                   /bin/echo "Kirana says => Bisa bilang, "kirana nyalain service <nama_service>""
+                   $break
+                   /bin/echo "${white}" ;;
  
           *)       
     		   /bin/echo "${red}"
