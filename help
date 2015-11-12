@@ -199,7 +199,7 @@ function help {
                    $break
                    /bin/echo "Kirana says => Tapi kalo mau jalanin suatu services, seperti apache, db dan lainnya" 
                    $break
-                   /bin/echo "Kirana says => Bisa bilang, "kirana nyalain service <nama_service>""
+                   /bin/echo "Kirana says => Bisa bilang, kirana nyalain service <nama_service>"
                    $break
                    /bin/echo "${white}" ;;
  
