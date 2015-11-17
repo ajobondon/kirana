@@ -8,10 +8,10 @@ function kabar {
  if [ -n $1 ] ; then
     case $1 in
       kabar)    /bin/echo "${red}"
-  		/bin/echo "Kirana says => Kabar baik sayang. Apa kabar juga, mas $USER? (^_-)"
+  		/bin/echo "Kirana.Systems => Kabar baik sayang. Apa kabar juga, mas $USER? (^_-)"
                 /bin/echo "${white}" ;;
           *)    /bin/echo "${red}"
-    		/bin/echo "Kirana says => Apa hayo.... ${white}"
+    		/bin/echo "Kirana.Systems => Apa hayo.... ${white}"
                 /bin/echo "${white}"
     esac
   fi
@@ -24,7 +24,7 @@ function hallo {
  if [ -n $1 ] ; then
     case $1 in
          *)     /bin/echo "${red}"
-    		/bin/echo "Kirana says => Hallo cinta... Apa kabar, mas $USER?  (^_-)"
+    		/bin/echo "Kirana.Systems => Hallo cinta... Apa kabar, mas $USER?  (^_-)"
                 /bin/echo "${white}"
     esac
  fi
@@ -38,10 +38,10 @@ function terima {
     case $1 in
       kasih|makasih)      
 		  /bin/echo "${red}"
-                  /bin/echo "Kirana says => Sama-sama sayang. Senang bisa membantu mas $USER (^_-)"
+                  /bin/echo "Kirana.Systems => Sama-sama sayang. Senang bisa membantu mas $USER (^_-)"
                   /bin/echo "${white}" ;;
           *)      /bin/echo "${red}"
-                  /bin/echo "Kirana says => Ngasih apa ya? Hihi..."
+                  /bin/echo "Kirana.Systems => Ngasih apa ya? Hihi..."
                   /bin/echo "${white}"
     esac
  fi
@@ -53,7 +53,7 @@ function thanks {
  if [ -n $1 ] ; then
     case $1 in
          *)     /bin/echo "${red}"
-                /bin/echo "Kirana says => Sami-sami, mas $USER?  (^_-)"
+                /bin/echo "Kirana.Systems => Sami-sami, mas $USER?  (^_-)"
                 /bin/echo "${white}"
     esac
  fi

@@ -13,7 +13,7 @@ function umur {
 alias takeover=takeover
 function takeover {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ok mas $USER. Kirana offline dulu ya ${white}"
+	/bin/echo "${red}Kirana.Systems => Ok mas $USER. Kirana offline dulu ya ${white}"
 	/bin/echo " "
 	/usr/bin/sudo -i
 }
@@ -23,7 +23,7 @@ alias jam=jam
 function jam {
 	DATE='/bin/date +%r'
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Sekarang jam, `$DATE`${white}"
+	/bin/echo "${red}Kirana.Systems => Sekarang jam, `$DATE`${white}"
 	/bin/echo " "
 }
 
@@ -32,7 +32,7 @@ alias tanggal=tanggal
 function tanggal {
 	DATE='/bin/date +%d-%b-%y'
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Sekarang tanggal, `$DATE`${white}"
+	/bin/echo "${red}Kirana.Systems => Sekarang tanggal, `$DATE`${white}"
 	/bin/echo " "
 }
 
@@ -41,7 +41,7 @@ alias hari=hari
 function hari {
 	DATE='/bin/date +%A'
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Sekarang hari `$DATE`${white}"
+	/bin/echo "${red}Kirana.Systems => Sekarang hari `$DATE`${white}"
 	/bin/echo " "
 }	
 
@@ -49,7 +49,7 @@ function hari {
 alias liatin=liatin
 function liatin {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ok. Kirana dapetnya ini ${white}"
+	/bin/echo "${red}Kirana.Systems => Ok. Kirana dapetnya ini ${white}"
 	/bin/echo " "
 	/bin/ps afx|/bin/grep $1
 	/bin/echo " "
@@ -59,7 +59,7 @@ function liatin {
 alias ngaso=ngaso
 function ngaso {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ok. Selamat istirahat ya mas $USER :) ${white}"
+	/bin/echo "${red}Kirana.Systems => Ok. Selamat istirahat ya mas $USER :) ${white}"
 	/bin/echo " "
 	/bin/sleep 2
 	/usr/bin/lxlock
@@ -69,7 +69,7 @@ function ngaso {
 alias pulang=pulang
 function pulang {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ati-ati ya mas $USER ${white}"
+	/bin/echo "${red}Kirana.Systems => Ati-ati ya mas $USER ${white}"
 	/bin/echo " "
 	/sbin/init 0
 }
@@ -80,7 +80,7 @@ alias intip=baca
 function baca {
 	/bin/cat $1 | /bin/less
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ada lagi yang bisa Kirana bantu, mas $USER? ${white}"
+	/bin/echo "${red}Kirana.Systems => Ada lagi yang bisa Kirana bantu, mas $USER? ${white}"
 	/bin/echo " "
 }
 
@@ -88,7 +88,7 @@ function baca {
 alias bacain=bacain
 function bacain {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ok. Ini ya ${white}"
+	/bin/echo "${red}Kirana.Systems => Ok. Ini ya ${white}"
 	/bin/echo " "
 	/usr/bin/sudo /bin/tailf $1
 }
@@ -104,11 +104,11 @@ function tulis {
 alias tutup=tutup
 function tutup {
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Ok say. Tunggu ya ${white}"
+	/bin/echo "${red}Kirana.Systems => Ok say. Tunggu ya ${white}"
 	/bin/echo " "
 	/usr/bin/sudo /bin/umount $1 &&
 	/bin/echo " "
-	/bin/echo "${red}Kirana says => Sip... Sekarang mas $USER bisa cabut USBnya ${white}"
+	/bin/echo "${red}Kirana.Systems => Sip... Sekarang mas $USER bisa cabut USBnya ${white}"
 	/bin/echo " "
 }
 
@@ -117,7 +117,7 @@ alias colek=colek
 alias ping=colek
 function colek {
 	/bin/echo " "
-        /bin/echo "${red}Kirana says => Ih genit, colek-colek orang lain..."
+        /bin/echo "${red}Kirana.Systems => Ih genit, colek-colek orang lain..."
         /bin/echo "${magenta}"
         /bin/ping -c 4 $1
         /bin/echo "${white}"

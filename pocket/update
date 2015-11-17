@@ -17,15 +17,15 @@ gitpull="/usr/bin/git pull"
 
 ## Greetings
 echo "${red}"
-echo "Kirana says => Untuk cek pelajaran baru buat Kirana." 
-echo "Kirana says => Mas $USER bilang aja, kirana saatnya belajar" 
-echo "Kirana says => Sebentar ya mas $USER. Kirana cek ada pelajaran baru apa nggak" 
+echo "Kirana.Systems => Untuk cek pelajaran baru buat Kirana." 
+echo "Kirana.Systems => Mas $USER bilang aja, kirana saatnya belajar" 
+echo "Kirana.Systems => Sebentar ya mas $USER. Kirana cek ada pelajaran baru apa nggak" 
 echo "${magenta}"
 
 ## Kirana don't need root to run this file. Yet.
 if [ $(id -u) = "0" ]; then
     echo "${red}"
-    echo "Kirana says => Maaf mas $USER. Kirana jangan dijalankan sebagai root ya" 
+    echo "Kirana.Systems => Maaf mas $USER. Kirana jangan dijalankan sebagai root ya" 
     echo "${white}"
     exit 1
 fi
@@ -39,5 +39,5 @@ export PATH=${HOME}/.kirana
 
 ## Done
 echo "${red}"
-echo "Kirana says => Terima kasih mas $USER" 
+echo "Kirana.Systems => Terima kasih mas $USER" 
 echo "${white}"

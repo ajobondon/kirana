@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "`/usr/bin/tput setaf 1`"
-echo "Kirana says => Hallo sayang... Apa kabar?  (^_^)"
-echo "Kirana says => Perkenalkan nama saya, Kirana" 
-echo "Kirana says => Mas $USER tinggal minta apa aja. Nanti Kirana bantu (^_-)"
+echo "Kirana.Systems => Hallo sayang... Apa kabar?  (^_^)"
+echo "Kirana.Systems => Perkenalkan nama saya, Kirana" 
+echo "Kirana.Systems => Mas $USER tinggal minta apa aja. Nanti Kirana bantu (^_-)"
 echo "`/usr/bin/tput setaf 7`"

@@ -7,15 +7,15 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
                 # check because c-n-f could've been removed in the meantime
                 if [ -x /usr/lib/command-not-found ]; then
                    /bin/echo " "
-                   /bin/echo "${red}Kirana says => Hmm... Maksudnya mas $USER apa ya? ${white}"
+                   /bin/echo "${red}Kirana.Systems => Hmm... Maksudnya mas $USER apa ya? ${white}"
                    /bin/echo " "
                 elif [ -x /usr/share/command-not-found/command-not-found ]; then
                    /bin/echo " "
-                   /bin/echo "${red}Kirana says => Hmm... Maksudnya mas $USER apa ya? ${white}"
+                   /bin/echo "${red}Kirana.Systems => Hmm... Maksudnya mas $USER apa ya? ${white}"
                    /bin/echo " "
                 else
                    /bin/echo " "
-                   /bin/echo "${red}Kirana says => Hmm... Maksudnya mas $USER apa ya? ${white}"
+                   /bin/echo "${red}Kirana.Systems => Hmm... Maksudnya mas $USER apa ya? ${white}"
                    /bin/echo " "
                 fi
         }

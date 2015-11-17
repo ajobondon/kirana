@@ -9,13 +9,13 @@ function salin {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang salin"
+    /bin/echo "${red}Kirana.Systems => Sini sayang, biar Kirana aja yang salin"
     $break
-    /bin/echo "Kirana says => Apa yang mau disalin say? File? Folder? atau apa?"
+    /bin/echo "Kirana.Systems => Apa yang mau disalin say? File? Folder? atau apa?"
     $break
-    /bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+    /bin/echo "Kirana.Systems => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
     $break
-    /bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
+    /bin/echo "Kirana.Systems => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
     /bin/echo " "
  else
     if [ -n $1 ] ; then
@@ -24,40 +24,40 @@ function salin {
 		case $3 in
 		ke)       
           	        /bin/echo " "
-                        /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya..."
+                        /bin/echo "${red}Kirana.Systems => Ok cinta. Sebentar ya..."
 			/bin/cp -a "$2" "$4"
-                        /bin/echo "Kirana says => udah ya mas. Ini listnya," 
+                        /bin/echo "Kirana.Systems => udah ya mas. Ini listnya," 
                         /bin/echo "${magenta}"
 			/bin/ls --color=auto $4
                         /bin/echo "${white}" ;;
 		esac ;;
 	  semua|semuanya)
                 /bin/echo " "
-                /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+                /bin/echo "${red}Kirana.Systems => Ok cinta. Sebentar ya...${magenta}"
                 /bin/cp -ra * "$3"
-                /bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+                /bin/echo "${red}Kirana.Systems => udah ya mas. Ini listnya,"
                 /bin/echo "${magenta}"
                 /bin/ls --color=auto $3
                 /bin/echo "${white}" ;;
           *)
          	/bin/echo " "
-         	/bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+         	/bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER..."
         	$break
-        	/bin/echo "Kirana says => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
+        	/bin/echo "Kirana.Systems => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
         	$break
-        	/bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+        	/bin/echo "Kirana.Systems => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
         	$break
-        	/bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}"  
+        	/bin/echo "Kirana.Systems => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}"  
         	/bin/echo " "
         esac
     else
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER..."
 	$break 
-    	/bin/echo "Kirana says => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
+    	/bin/echo "Kirana.Systems => Kalo mas $USER mau salin/kopi file/folder, tinggal bilang aja, salin file atau folder ke tujuannya" 
     	$break
-    	/bin/echo "Kirana says => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
+    	/bin/echo "Kirana.Systems => Tinggal bilang aja, salin <file/folder> ke <tujuannya>"
     	$break
-    	/bin/echo "Kirana says => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
+    	/bin/echo "Kirana.Systems => Atau kalo mau semuanya file/folder. Bilang, salin semuanya ke <tujuan>${white}" 
     fi
 fi
 }
@@ -68,10 +68,10 @@ function kirim {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Mau kirim file atau folder kemana sayang?"
+    /bin/echo "${red}Kirana.Systems => Mau kirim file atau folder kemana sayang?"
     $break
-    /bin/echo "Kirana says => Tinggal bilang,"
-    /bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+    /bin/echo "Kirana.Systems => Tinggal bilang,"
+    /bin/echo "Kirana.Systems => Kirim <file/folder> <namanya> ke <user@server_tujan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
     /bin/echo "${white}"
  else
     if [ -n $1 ] ; then
@@ -80,26 +80,26 @@ function kirim {
 		case $3 in
 		ke)       
           	        /bin/echo " "
-                        /bin/echo "${red}Kirana says => Ok mas, sebentar..."
+                        /bin/echo "${red}Kirana.Systems => Ok mas, sebentar..."
                         /bin/echo "${magenta}"
 			/usr/bin/scp -r -P "$6" "$2" "$4"":""$8"
                         /bin/echo "${red}"
-                        /bin/echo "Kirana says => Sip. Dah ya mas"
+                        /bin/echo "Kirana.Systems => Sip. Dah ya mas"
                         /bin/echo "${white}" ;;
 		esac ;;
           *)
          	/bin/echo " "
-         	/bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+         	/bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER..."
         	$break
-    		/bin/echo "Kirana says => Tinggal bilang aja,"
-    		/bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+    		/bin/echo "Kirana.Systems => Tinggal bilang aja,"
+    		/bin/echo "Kirana.Systems => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
         	/bin/echo "${white}"
         esac
     else
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..."
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER..."
 	$break 
-    	/bin/echo "Kirana says => Tinggal bilang aja,"
-    	/bin/echo "Kirana says => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
+    	/bin/echo "Kirana.Systems => Tinggal bilang aja,"
+    	/bin/echo "Kirana.Systems => Kirim <file/folder> <namanya> ke <user@server_tujuan> port <port_ssh> di <folder_tujuan_diserver_tersebut>"
         /bin/echo "${white}"
     fi
 fi
@@ -113,13 +113,13 @@ function pindah {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang pindahin"
+    /bin/echo "${red}Kirana.Systems => Sini sayang, biar Kirana aja yang pindahin"
     $break
-    /bin/echo "Kirana says => Apa yang mau dipindahin say? File atau folder?"
+    /bin/echo "Kirana.Systems => Apa yang mau dipindahin say? File atau folder?"
     $break
-    /bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
+    /bin/echo "Kirana.Systems => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
     $break
-    /bin/echo "Kirana says => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
+    /bin/echo "Kirana.Systems => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
     /bin/echo "${white}"
  else
     if [ -n $1 ] ; then
@@ -128,9 +128,9 @@ function pindah {
 		case $3 in
 		ke)
                         /bin/echo " "
-                        /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+                        /bin/echo "${red}Kirana.Systems => Ok cinta. Sebentar ya...${magenta}"
                         /bin/mv "$2" "$4"
-                        /bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+                        /bin/echo "${red}Kirana.Systems => udah ya mas. Ini listnya,"
                         /bin/echo "${white}"
                         /bin/ls --color=auto
                         /bin/echo "${white}" ;;
@@ -139,24 +139,24 @@ function pindah {
                 case $3 in
                 ke)
 			/bin/echo " "
-	                /bin/echo "${red}Kirana says => Ok cinta. Sebentar ya...${magenta}"
+	                /bin/echo "${red}Kirana.Systems => Ok cinta. Sebentar ya...${magenta}"
                         /bin/mv "$2" "$4"/
-			/bin/echo "${red}Kirana says => udah ya mas. Ini listnya,"
+			/bin/echo "${red}Kirana.Systems => udah ya mas. Ini listnya,"
    		        /bin/echo "${white}"
                 	/bin/ls --color=auto
                 	/bin/echo "${white}" ;;
                 esac ;;
           *)            /bin/echo " "
-                        /bin/echo "${red}Kirana says => $1 itu apa ya? File apa folder? ${white}"
+                        /bin/echo "${red}Kirana.Systems => $1 itu apa ya? File apa folder? ${white}"
                         /bin/echo " "
         esac
     else
         /bin/echo "${red}"
-        /bin/echo "Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER..." 
+        /bin/echo "Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER..." 
     	$break
-    	/bin/echo "Kirana says => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
+    	/bin/echo "Kirana.Systems => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
     	$break
-    	/bin/echo "Kirana says => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
+    	/bin/echo "Kirana.Systems => Kalo mau ganti nama file/folder. Bilang aja, ganti nama <nama_file/folder> ke <nama_baru>" 
         /bin/echo "${white}"
     fi
 fi
@@ -169,11 +169,11 @@ function sinkron {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Folder mana yang mau di sinkronin say?"
+    /bin/echo "${red}Kirana.Systems => Folder mana yang mau di sinkronin say?"
     $break
-    /bin/echo "Kirana says => Jangan sampe kebalik ya say. Kirana cuma bisa sinkronin folder asal ke tujuan"
+    /bin/echo "Kirana.Systems => Jangan sampe kebalik ya say. Kirana cuma bisa sinkronin folder asal ke tujuan"
     $break
-    /bin/echo "Kirana says => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
+    /bin/echo "Kirana.Systems => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
     /bin/echo " "
  else
     if [ -n $1 ] ; then
@@ -184,14 +184,14 @@ function sinkron {
                         /usr/bin/rsync -avz "$2" "$4" ;;
                 esac ;;
           *)            /bin/echo " "
-                        /bin/echo "${red}Kirana says => Yakin, folder $1 itu ada say?${white}"
+                        /bin/echo "${red}Kirana.Systems => Yakin, folder $1 itu ada say?${white}"
                         /bin/echo " "
         esac
     else
         /bin/echo " "
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
     	$break
-    	/bin/echo "Kirana says => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
+    	/bin/echo "Kirana.Systems => Jadi tinggal bilang aja, sinkronin folder <nama_folder> ke <tujuan>${white}"
     	/bin/echo " "
     fi
 fi
@@ -203,9 +203,9 @@ function buka {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Sini sayang, biar Kirana aja yang bukain"
+    /bin/echo "${red}Kirana.Systems => Sini sayang, biar Kirana aja yang bukain"
     $break
-    /bin/echo "Kirana says => Kirana sih jago buka file, usb sama itu tuh... Hihi... (^_-) ${white}"
+    /bin/echo "Kirana.Systems => Kirana sih jago buka file, usb sama itu tuh... Hihi... (^_-) ${white}"
     /bin/echo " "
  else
     if [ -n $1 ] ; then
@@ -249,11 +249,11 @@ function buka {
 		esac ;;
 	
           *)            /bin/echo " "
-                        /bin/echo "${red}Kirana says => Iiihh... Ini apa sih? Susah amat dibukanya..!${white}"
+                        /bin/echo "${red}Kirana.Systems => Iiihh... Ini apa sih? Susah amat dibukanya..!${white}"
                         /bin/echo " "
         esac
     else
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
     fi
 fi
 }
@@ -266,40 +266,40 @@ function kasih {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Mau titip pesan apa sayang? Kirana sampaiin ke dia"
+    /bin/echo "${red}Kirana.Systems => Mau titip pesan apa sayang? Kirana sampaiin ke dia"
     $break
-    /bin/echo "Kirana says => Pesannya pake tanda '' ya mas $USER. Misalnya, kasih tau ke Wulan 'miss you'${white}"
+    /bin/echo "Kirana.Systems => Pesannya pake tanda '' ya mas $USER. Misalnya, kasih tau ke Wulan 'miss you'${white}"
     /bin/echo " "
  else
     if [ -n $1 ] ; then
         case $1 in
 	  ke|si|sama)   
     			/bin/echo " "
-    			/bin/echo "${red}Kirana says => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
+    			/bin/echo "${red}Kirana.Systems => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
 			$break
 			echo "${magenta}"
 			/usr/bin/ssh -t "$2" "$3"
     			/bin/echo "${red}"
-    			/bin/echo "Kirana says => Udah mas? Ada yang bisa Kirana bantu lagi?" 
+    			/bin/echo "Kirana.Systems => Udah mas? Ada yang bisa Kirana bantu lagi?" 
 			echo "${white}" ;;
           tau|tahu)
 	  	case "ke" in
                 ke)
     			/bin/echo " "
-    			/bin/echo "${red}Kirana says => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
+    			/bin/echo "${red}Kirana.Systems => Ok, sebentar ya mas $USER. Kirana akan kasih tau ke dia..."
 			$break
 			echo "${magenta}"
                         /usr/bin/ssh -t "$3" "$4"
     			/bin/echo "${red}"
-    			/bin/echo "Kirana says => Udah mas? Ada yang bisa Kirana bantu lagi?" 
+    			/bin/echo "Kirana.Systems => Udah mas? Ada yang bisa Kirana bantu lagi?" 
 			echo "${white}" ;;
                 esac ;;
           *)            /bin/echo " "
-                        /bin/echo "${red}Kirana says => Kan udah Kirana bilang caranya....${white}"
+                        /bin/echo "${red}Kirana.Systems => Kan udah Kirana bilang caranya....${white}"
                         /bin/echo " "
         esac
     else
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER...${white}" 
     fi
 fi
 }
@@ -314,17 +314,17 @@ function cari {
  if [ -z "$1" ]; then
     # display usage if no parameters given
     /bin/echo " "
-    /bin/echo "${red}Kirana says => Mau cari apa say?"
+    /bin/echo "${red}Kirana.Systems => Mau cari apa say?"
     $break
-    /bin/echo "Kirana says => Kirana bisa cari aplikasi atau kata disuatu file"
+    /bin/echo "Kirana.Systems => Kirana bisa cari aplikasi atau kata disuatu file"
     $break
-    /bin/echo "Kirana says => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
+    /bin/echo "Kirana.Systems => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
     $break
-    /bin/echo "Kirana says => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
+    /bin/echo "Kirana.Systems => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
     $break
-    /bin/echo "Kirana says => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
+    /bin/echo "Kirana.Systems => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
     $break
-    /bin/echo "Kirana says => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
+    /bin/echo "Kirana.Systems => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
     /bin/echo "${white}"
  else
     if [ -n $1 ] ; then
@@ -333,20 +333,20 @@ function cari {
                 case $3 in
                 di|difile)
 			/bin/echo " "
-        		/bin/echo "${red}Kirana says => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} difile ${magenta}$4${red},"
+        		/bin/echo "${red}Kirana.Systems => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} difile ${magenta}$4${red},"
         		/bin/echo "${magenta}"
 			/bin/grep "$2" "$4"
 			/bin/echo "${white}" ;;
 		semuanya|disemuanya)
                         /bin/echo " "
-                        /bin/echo "${red}Kirana says => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} disemuanya,"
+                        /bin/echo "${red}Kirana.Systems => Ok. Ini ya Kirana udah sortir kata ${magenta}$2${red} disemuanya,"
                         /bin/echo "${magenta}"
                         /bin/grep -R "$2" *
                         /bin/echo "${white}" ;;
                 esac ;;
 	  aplikasi)
 			/bin/echo " "
-	        	/bin/echo "${red}Kirana says => Ini say?"
+	        	/bin/echo "${red}Kirana.Systems => Ini say?"
        			/bin/echo "${magenta}"
        			/usr/bin/sudo /usr/bin/apt-cache search "$2" | /bin/grep "$2"
        			/bin/echo "${white}";;
@@ -354,24 +354,24 @@ function cari {
                 case $3 in
                 di|difolder)
                         /bin/echo " "
-                        /bin/echo "${red}Kirana says => Ok, sebentar ya mas..."
-                        /bin/echo "Kirana says => Ini yang Kirana dapet file dengan kata ${magenta}$2 ${red}di ${magenta}$4${red},"
+                        /bin/echo "${red}Kirana.Systems => Ok, sebentar ya mas..."
+                        /bin/echo "Kirana.Systems => Ini yang Kirana dapet file dengan kata ${magenta}$2 ${red}di ${magenta}$4${red},"
                         /bin/echo "${magenta}"
                         /usr/bin/find "$4" -print | /bin/grep -i "$2" 
                         /bin/echo "${white}" ;;
 		esac ;;
           *)            
                 /bin/echo " "
-                /bin/echo "${red}Kirana says => Mau cari apa say?"
-    		/bin/echo "Kirana says => Kirana bisa cari aplikasi atau kata disuatu file"
-    		/bin/echo "Kirana says => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
-    		/bin/echo "Kirana says => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
-    		/bin/echo "Kirana says => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
-    		/bin/echo "Kirana says => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
+                /bin/echo "${red}Kirana.Systems => Mau cari apa say?"
+    		/bin/echo "Kirana.Systems => Kirana bisa cari aplikasi atau kata disuatu file"
+    		/bin/echo "Kirana.Systems => Kalo mas mau cari aplikasi. Tinggal bilang, cari aplikasi <nama>"
+    		/bin/echo "Kirana.Systems => Kalo mas mau cari kata. Bisa bilang, cari kata <kata> di <namafile>"
+    		/bin/echo "Kirana.Systems => Mas $USER juga bisa cari kata disemua file. Tinggal bilang, cari kata <kata> disemuanya"
+    		/bin/echo "Kirana.Systems => Atau mas $USER mau cari file disuatu folder? Bilang aja, cari file <namanya> di <folder>"
                 /bin/echo "${white}" ;; 
         esac
     else
-        /bin/echo "${red}Kirana says => Hmm... Kirana nggak ngerti maksud mas $USER...${white}"
+        /bin/echo "${red}Kirana.Systems => Hmm... Kirana nggak ngerti maksud mas $USER...${white}"
     fi
 fi
 }
