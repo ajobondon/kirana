@@ -24,7 +24,7 @@ function nyalain {
           lxc)          
 			/bin/echo " "
                         /bin/echo "${red}Kirana.Systems => Sebentar,"
-			/usr/bin/sudo /usr/bin/lxc-start "$2" > /tmp/kirana/lxcstart
+			/usr/bin/sudo /usr/bin/lxc-start --name "$2" > /tmp/kirana/lxcstart
                         /bin/echo "Kirana.Systems => Ok mas $USER, virtual ${magenta}$2${red} udah nyala"
                         /bin/echo "${white}" ;;
           firewall)     
