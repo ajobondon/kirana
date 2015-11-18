@@ -82,7 +82,7 @@ function help {
                    $break
                    /bin/echo "Kirana.Systems => Untuk cek default routing. Bilang aja cek routing" 
                    $break
-                   /bin/echo "Kirana.Systems => Untuk cek partisi/folder/memory/cpu/suara. Bilang aja cek partisi/folder/memory/cpu/suara" 
+                   /bin/echo "Kirana.Systems => Untuk cek besar partisi/folder/memory/cpu/suara. Bilang aja cek partisi/folder/memory/cpu/suara" 
                    $break
                    /bin/echo "Kirana.Systems => Untuk cek aplikasi yang sedang berjalan. Bilang aja cek aplikasi <nama_aplikasi>" 
                    $break
