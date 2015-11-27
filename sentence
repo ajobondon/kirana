@@ -147,8 +147,10 @@ function pindah {
                 	/bin/echo "${white}" ;;
                 esac ;;
           *)            /bin/echo " "
-                        /bin/echo "${red}Kirana.Systems => $1 itu apa ya? File apa folder? ${white}"
-                        /bin/echo " "
+                        /bin/echo "${red}Kirana.Systems => $1 itu apa ya? File apa folder?"
+    			$break
+    			/bin/echo "Kirana.Systems => Mas $USER tinggal bilang, pindahin <file/folder> ke <tujuan>"
+                        /bin/echo "${white}"
         esac
     else
         /bin/echo "${red}"
