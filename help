@@ -209,7 +209,7 @@ function help {
          	   $break
         	   /bin/echo "Kirana.Systems => Kirana masih harus banyak belajar lagi" 
         	   $break
-        	   /bin/echo "Kirana.Systems => Mas $USER bisa juga bilangin ke papa Kirana, di https://goo.gl/jjC404" 
+        	   /bin/echo "Kirana.Systems => Mas $USER bisa juga bilangin ke papa Kirana, di http://kirana.systems" 
         	   /bin/echo "${white}"  
         esac
     else
@@ -218,7 +218,7 @@ function help {
     	$break
      	/bin/echo "Kirana.Systems => Kirana masih harus banyak belajar lagi" 
         $break
-        /bin/echo "Kirana.Systems => Mas $USER bisa juga bilangin ke papa Kirana, di https://goo.gl/jjC404" 
+        /bin/echo "Kirana.Systems => Mas $USER bisa juga bilangin ke papa Kirana, di http://kirana.systems" 
     	/bin/echo "${white}" 
     fi
 fi
