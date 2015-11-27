@@ -537,6 +537,7 @@ fi
 
 # Perintah liat/ls 
 alias liat=liat 
+alias ls=liat 
 function liat {
     if [ -n $1 ] ; then
         case $1 in 
