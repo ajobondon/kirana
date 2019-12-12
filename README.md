@@ -10,7 +10,22 @@ Saat ini, apapun sistem operasi yang anda gunakan. Terlebih apabila anda lebih b
 
 __Kirana__, hadir untuk membantu menterjemahkan perintah dari pengguna ke mesin. Dia yang akan menghancurkan dinding komunikasi yang ada saat ini antara pengguna Linux dengan sistemnya sendiri.
 
-### Install
+### Jalanin secara container
+
+Kirana juga punya kok nih versi containernya. Jadi sudah container-based ready. Mau sebagai CI/CD ala DevOps, ayuk.
+
+DevSecOps? Kirana juga siap. Saat ini didalamnya ada,
+* nmap
+* SSLyze
+* Owasp ZAP
+* zap-cli
+
+Tinggal dimasukin aja sebagai pipeline kakak. Nanti Kirana akan update deh sarannya gimana.
+Nah kalo mau coba jalanin sebagai container. Jalanin aja command ini,
+
+docker run -ti ajobondon/kirana bash
+
+### Install - stand alone mode
 
 Silakan download file ini, [installer](https://goo.gl/FVFAUu).
 Untuk saat ini Kirana __hanya bisa diinstall di Debian dan Ubuntu__ saja. Untuk distribusi Linux lainnya akan menyusul.
