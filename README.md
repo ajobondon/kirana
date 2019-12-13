@@ -14,7 +14,7 @@ __Kirana__, hadir untuk membantu menterjemahkan perintah dari pengguna ke mesin.
 
 Kirana juga punya kok nih versi containernya. Jadi sudah container-based ready. Mau sebagai CI/CD ala DevOps, ayuk.
 
-DevSecOps? Kirana juga siap. Saat ini didalamnya ada,
+DevSecOps? Kirana juga siap. Saat ini didalamnya ada. Nanti tinggal jalanin tools ini didalam pipeline:
 * nmap
 * SSLyze
 * Owasp ZAP
@@ -22,10 +22,11 @@ DevSecOps? Kirana juga siap. Saat ini didalamnya ada,
 * tcping
 * tcptraceroute / traceroute / dnsutils
 
-Tinggal dimasukin aja sebagai pipeline kakak. Nanti Kirana akan update deh sarannya gimana.
-Nah kalo mau coba jalanin sebagai container. Jalanin aja command ini,
+Nah kalo mau coba jalanin sebagai container stand alone. Jalanin aja command ini,
 
-docker run -ti ajobondon/kirana bash
+docker run -ti --user soekir:soekir ajobondon/kirana bash
+
+Nanti kakak akan "login" sebagai user *soekir* dan silakan mulai "chat" dengan Kirana ya.
 
 ### Install - stand alone mode
 
