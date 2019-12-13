@@ -12,6 +12,9 @@ RUN useradd -ms /bin/bash soekir
 RUN mkdir /home/soekir/.kirana 
 COPY . /home/soekir/.kirana/
 RUN su - soekir -c "cp /home/soekir/.kirana/pocket/bashrc /home/soekir/.bashrc"
+RUN chmod 440 /home/soekir/.kirana/pocket/sudoers
+RUN chown root.root /home/soekir/.kirana/pocket/sudoers
+RUN cp /home/soekir/.kirana/pocket/sudoers /etc/sudoers
 
 # Nmap
 RUN wget https://raw.githubusercontent.com/vulnersCom/nmap-vulners/master/vulners.nse -O /usr/share/nmap/scripts/vulners.nse
