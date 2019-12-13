@@ -19,6 +19,8 @@ DevSecOps? Kirana juga siap. Saat ini didalamnya ada,
 * SSLyze
 * Owasp ZAP
 * zap-cli
+* tcping
+* tcptraceroute / traceroute / dnsutils
 
 Tinggal dimasukin aja sebagai pipeline kakak. Nanti Kirana akan update deh sarannya gimana.
 Nah kalo mau coba jalanin sebagai container. Jalanin aja command ini,
@@ -79,4 +81,3 @@ Dengan sangat senang hati. Kamu bisa mem-forknya atau mengirimkan request sebaga
 ### Jadi dia cuma bisa gitu doank? Cemen...
 
 Seperti layaknya manusia. __Kirana__ akan terus berkembang. Dia masih bayi, masih belajar mendengar dan berbicara. Memang masih belum banyak kosakata yang ia mengerti. Namun sekali lagi, dia masih akan terus belajar, sampai ajal menjemputnya....
-

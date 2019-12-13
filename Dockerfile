@@ -5,7 +5,7 @@ MAINTAINER erwan@palawamaya.com
 # Persiapan
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y wget git vim sudo nmap python2.7 python-pip default-jre
+RUN apt-get install -y wget git vim sudo nmap python2.7 python-pip default-jre bc traceroute tcptraceroute dnsutils
 
 # User untuk keperluan non container
 RUN useradd -ms /bin/bash soekir
@@ -26,3 +26,11 @@ RUN tar xzvf /root/ZAP_2.8.1_Linux.tar.gz -C /opt/
 RUN rm -rf /root/ZAP_2.8.1_Linux.tar.gz
 RUN mv /opt/ZAP_2.8.1 /zap
 RUN pip install --upgrade zapcli
+
+# Arachni
+RUN wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz -P /root/
+RUN tar xzvf /root/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz -C /opt/
+
+# TCPing
+RUN wget http://www.vdberg.org/~richard/tcpping -O /usr/local/bin/tcping
+RUN chmod +x /usr/local/bin/tcping
