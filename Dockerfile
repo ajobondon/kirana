@@ -5,7 +5,7 @@ MAINTAINER erwan@palawamaya.com
 # Persiapan
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y wget git vim sudo nmap python2.7 python-pip default-jre bc traceroute tcptraceroute dnsutils
+RUN apt-get install -y wget git vim sudo nmap python2.7 python-pip default-jre bc traceroute tcptraceroute dnsutils curl
 
 # User untuk keperluan non container
 RUN useradd -ms /bin/bash soekir
