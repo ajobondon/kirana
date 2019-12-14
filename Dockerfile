@@ -33,6 +33,7 @@ RUN pip install --upgrade zapcli
 # Arachni
 RUN wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz -P /root/
 RUN tar xzvf /root/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz -C /opt/
+RUN mv /opt/arachni-1.5.1-0.5.12 /opt/arachni
 
 # TCPing
 RUN wget http://www.vdberg.org/~richard/tcpping -O /usr/local/bin/tcping
