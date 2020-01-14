@@ -10,7 +10,7 @@ Saat ini, apapun sistem operasi yang anda gunakan. Terlebih apabila anda lebih b
 
 __Kirana__, hadir untuk membantu menterjemahkan perintah dari pengguna ke mesin. Dia yang akan menghancurkan dinding komunikasi yang ada saat ini antara pengguna Linux dengan sistemnya sendiri.
 
-### Jalanin secara container
+### Jalanin secara container - BIG Mode
 
 Kirana juga punya kok nih versi containernya. Jadi sudah container-based ready. Mau sebagai CI/CD ala DevOps, ayuk.
 
@@ -24,9 +24,25 @@ DevSecOps? Kirana juga siap. Saat ini didalamnya ada. Nanti tinggal jalanin tool
 
 Nah kalo mau coba jalanin sebagai container stand alone. Jalanin aja command ini,
 
+```
 docker run -ti --user soekir:soekir ajobondon/kirana bash
+```
 
 Nanti kakak akan "login" sebagai user *soekir* dan silakan mulai "chat" dengan Kirana ya.
+
+### Jalanin secara container - SLIM Mode
+
+Kirana juga bisa diet kok. Ini udah disiapkan slim modenya ya. Untuk buildnya bisa pakai cara,
+
+```
+docker build -t <nama-image-bebas> -f Dockerfile-slim
+```
+
+Atau kalau males build. Bisa aja tinggal pull dari hub.docker.com kok. Caranya,
+
+```
+docker pull ajobondon/kirana:slim
+```
 
 ### Install - stand alone mode
 
@@ -36,8 +52,10 @@ Untuk saat ini Kirana __hanya bisa diinstall di Debian dan Ubuntu__ saja. Untuk 
 Download dan simpan file tersebut ditempat yang kamu inginkan. 
 Sebagai contoh kamu simpan file itu di folder Downloads. Kemudian masuk ke folder tersebut dan jalankan perintah sebagai berikut, 
 
+```
 * __chmod +x installer__
 * __sh installer__
+```
 
 Sebagai catatan, harap jangan menginstall __Kirana__ sebagai user root. Cukup dengan menggunakan user kamu saja.
 
