@@ -53,8 +53,8 @@ Download dan simpan file tersebut ditempat yang kamu inginkan.
 Sebagai contoh kamu simpan file itu di folder Downloads. Kemudian masuk ke folder tersebut dan jalankan perintah sebagai berikut, 
 
 ```
-* __chmod +x installer__
-* __sh installer__
+chmod +x installer
+sh installer
 ```
 
 Sebagai catatan, harap jangan menginstall __Kirana__ sebagai user root. Cukup dengan menggunakan user kamu saja.
