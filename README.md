@@ -44,6 +44,17 @@ Atau kalau males build. Bisa aja tinggal pull dari hub.docker.com kok. Caranya,
 docker pull ajobondon/kirana:slim
 ```
 
+Kirana slim mode ini untuk saat ini, hanya berisikan tools,
+
+* TCPing
+* nmap (nmap script support)
+* tcptraceroute
+* traceroute
+
+Nanti kalo ada update lainnya, pasti akan dilist disini. 
+
+Selain itu slim mode ini cocok untuk kebutuhan yang straight forward. Quick scan atau bisa dimasukan ke Jenkins pipeline misalnya. Oleh karena itu memang slim mode ini sengaja dan dimaintain akan tetap kecil ukuran filenya. 
+
 ### Install - stand alone mode
 
 Silakan download file ini, [installer](https://goo.gl/FVFAUu).
