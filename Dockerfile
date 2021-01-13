@@ -22,14 +22,14 @@ RUN wget https://raw.githubusercontent.com/vulnersCom/nmap-vulners/master/vulner
 RUN nmap --script-updatedb
 
 # SSLyze
-RUN pip install sslyze
+RUN pip3 install sslyze
 
 # Owasp ZAP
 RUN wget https://github.com/zaproxy/zaproxy/releases/download/v2.8.1/ZAP_2.8.1_Linux.tar.gz -P /root/
 RUN tar xzvf /root/ZAP_2.8.1_Linux.tar.gz -C /opt/
 RUN rm -rf /root/ZAP_2.8.1_Linux.tar.gz
 RUN mv /opt/ZAP_2.8.1 /zap
-RUN pip install --upgrade zapcli
+RUN pip3 install --upgrade zapcli
 
 # Arachni
 RUN wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz -P /root/
