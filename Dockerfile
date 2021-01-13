@@ -25,10 +25,10 @@ RUN nmap --script-updatedb
 RUN pip3 install sslyze
 
 # Owasp ZAP
-RUN wget https://github.com/zaproxy/zaproxy/releases/download/v2.8.1/ZAP_2.8.1_Linux.tar.gz -P /root/
-RUN tar xzvf /root/ZAP_2.8.1_Linux.tar.gz -C /opt/
-RUN rm -rf /root/ZAP_2.8.1_Linux.tar.gz
-RUN mv /opt/ZAP_2.8.1 /zap
+RUN wget https://github.com/zaproxy/zaproxy/releases/download/v2.10.0/ZAP_2.10.0_Linux.tar.gz -P /root/
+RUN tar xzvf /root/ZAP_2.10.0_Linux.tar.gz -C /opt/
+RUN rm -rf /root/ZAP_2.10.0_Linux.tar.gz
+RUN mv /opt/ZAP_2.10.0 /zap
 RUN pip3 install --upgrade zapcli
 
 # Arachni
