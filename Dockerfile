@@ -3,6 +3,7 @@ FROM ubuntu
 MAINTAINER erwan@palawamaya.com
 
 # Persiapan
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y wget git vim sudo nmap python3 python3-pip default-jre bc traceroute tcptraceroute dnsutils curl
