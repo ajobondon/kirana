@@ -1,0 +1,9 @@
+# --- CORE ---
+requests>=2.31.0          # Untuk ngobrol sama Server Kirana
+python-dotenv>=1.0.0      # Baca .env
+rich>=13.7.0              # UI Terminal Ganteng (Markdown, Colors)
+
+# --- SYSTEM TOOLS (Migrasi v4.5) ---
+psutil>=5.9.0             # Untuk system.py (Cek RAM/CPU Laptop)
+speedtest-cli>=2.1.3      # Untuk netdiag.py
+tqdm>=4.66.0              # Progress bar (biar keren pas download/update)
