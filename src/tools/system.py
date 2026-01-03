@@ -79,7 +79,7 @@ class SystemTool:
                 cmd = "sudo apt-get update"
                 msg = "🔎 [DEBIAN/UBUNTU] Checking updates..."
         
-        # --- LOGIC RHEL/CENTOS/FEDORA (NEW) ---
+        # --- LOGIC RHEL/CENTOS/FEDORA ---
         elif os_type == "rhel_based":
             # Cek pake dnf atau yum
             pkg_mgr = "dnf" if shutil.which("dnf") else "yum"

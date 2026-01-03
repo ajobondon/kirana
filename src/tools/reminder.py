@@ -35,7 +35,7 @@ def handle_add_reminder(prompt, client):
     
     payload = {
         "message": prompt,
-        "role": "secondary", # Gemma cukup pinter buat ini
+        "role": "secondary",
         "system_prompt": system_prompt
     }
 

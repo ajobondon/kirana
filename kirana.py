@@ -2,7 +2,6 @@ import sys
 import argparse
 import re
 import time
-# Pastikan install psutil di venv client: pip install psutil
 import psutil 
 from rich.console import Console
 from rich.markdown import Markdown
@@ -28,11 +27,11 @@ def router(prompt: str, client: KiranaClient):
     if prompt_lower in ["help", "bantuan", "menu", "panduan", "?"]:
         console.print(get_help_panel()); return
 
-    # --- 2. PATROLI (SISKAMLING) [NEW] ---
+    # --- 2. PATROLI (SISKAMLING) ---
     elif prompt_lower in ["patroli", "siskamling", "cek pagi", "morning briefing"]:
         run_patroli(client); return
 
-    # --- 3. SERVER TOOLS (REMOTE) ---
+    # --- 3. SERVER TOOLS ---
     elif "cek keamanan" in prompt_lower or "analisa keamanan" in prompt_lower:
         match = re.search(r'(https?://[^\s]+)|([a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+)', prompt)
         if match: handle_security_scan(match.group(0), client)
@@ -80,12 +79,12 @@ def router(prompt: str, client: KiranaClient):
     handle_chat_request(prompt, client)
 
 
-# --- FEATURE: PATROLI SISKAMLING [NEW] ---
+# --- FEATURE: PATROLI SISKAMLING ---
 def run_patroli(client: KiranaClient):
     console.print("\n👮 [bold blue]MEMULAI PATROLI PAGI (SISKAMLING)[/bold blue]")
     console.print("[dim]Memeriksa kesehatan laptop, jaringan, dan jadwal...[/dim]\n")
 
-    # 1. Cek System (Silent Mode)
+    # 1. Cek System
     cpu = psutil.cpu_percent(interval=0.5)
     mem = psutil.virtual_memory().percent
     disk = psutil.disk_usage("/").percent

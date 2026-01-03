@@ -55,7 +55,7 @@ def run_netdiag(prompt=""):
     else:
         console.print("[yellow]⚠️ Gateway tidak ditemukan.[/yellow]")
 
-    # 3. Cek Internet (Google)
+    # 3. Cek Internet
     print_step("Mengecek Koneksi Internet (8.8.8.8)")
     ping_res = run_command("ping -c 3 -W 2 8.8.8.8")
     if ping_res:
@@ -65,7 +65,7 @@ def run_netdiag(prompt=""):
     else:
          console.print("[bold red]❌ GAGAL Ping Internet. Cek ISP![/bold red]")
 
-    # 4. Speedtest (Opsional, kalau user minta atau eksplisit 'speedtest')
+    # 4. Speedtest
     if "speedtest" in prompt or shutil.which("speedtest-cli"):
         print_step("Menjalankan Speedtest (via speedtest-cli)")
         if shutil.which("speedtest-cli") or shutil.which("speedtest"):

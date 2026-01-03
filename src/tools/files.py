@@ -81,7 +81,7 @@ def run_file_search(prompt):
         console.print(f"\n[bold green]✅ Total: {len(found_files)} file ditemukan.[/bold green]")
 
 
-# --- 2. ANALYZE LOCAL FILE (Hybrid) ---
+# --- 2. ANALYZE LOCAL FILE ---
 def handle_file_analysis(prompt, client):
     match = re.search(r"analisa file\s+(.+)", prompt, re.IGNORECASE)
     if not match:
@@ -120,7 +120,7 @@ def handle_file_analysis(prompt, client):
         console.print(Markdown(response.get("reply", "")))
 
 
-# --- 3. CREATE FILE (Hybrid) - [FIXED PATH] ---
+# --- 3. CREATE FILE ---
 def handle_file_creation(prompt, client):
     match = re.search(r"(buatin file|buatkan file|bikin file)\s+(\S+)\s+(?:tentang|soal|for|isinya)\s+(.+)", prompt, re.IGNORECASE)
     if not match:
@@ -130,10 +130,10 @@ def handle_file_creation(prompt, client):
     fname = match.group(2).strip()
     desc = match.group(3).strip()
     
-    # [FIX] Pastikan hanya nama file (tanpa path aneh-aneh)
+    # Pastikan hanya nama file
     fname = os.path.basename(fname)
     
-    # [FIX] Tentukan Full Path ke Workspace
+    # Tentukan Full Path ke Workspace
     full_path = os.path.join(WORKSPACE_DIR, fname)
     
     # Buat folder workspace jika belum ada
@@ -167,11 +167,11 @@ def handle_file_creation(prompt, client):
             return
 
         try:
-            # [FIX] Tulis ke full_path (Workspace)
+            # Tulis ke full_path (Workspace)
             with open(full_path, 'w', encoding='utf-8') as f:
                 f.write(code)
             
-            # [FIX] Info lokasi file yang jelas
+            # Info lokasi file yang jelas
             console.print(f"[bold green]✅ File berhasil dibuat![/bold green]")
             console.print(f"📂 Lokasi: [cyan]{full_path}[/cyan]")
             console.print(Panel(code[:200] + "\n...", title=f"Preview ({fname})", border_style="green"))
@@ -180,7 +180,7 @@ def handle_file_creation(prompt, client):
             console.print(f"[red]❌ Gagal menulis file: {e}[/red]")
 
 
-# --- 4. FIX/HEAL FILE (Hybrid) ---
+# --- 4. FIX/HEAL FILE ---
 def handle_file_fix(prompt, client):
     match = re.search(r"(perbaiki|benerin|fix|refactor)\s+file\s+(.+)", prompt, re.IGNORECASE)
     if not match:
