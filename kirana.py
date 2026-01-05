@@ -7,13 +7,9 @@ import json
 import psutil
 from rich.console import Console
 from rich.markdown import Markdown
-
-# Import Core
 from src.core.client import KiranaClient
 from src.core.help_text import get_help_panel
-
-# Import Tools
-from src.tools.system import run_system_check
+from src.tools.system import run_system_check, handle_system_update
 from src.tools.netdiag import run_netdiag, run_command
 from src.tools.reminder import handle_add_reminder, list_reminders, clear_reminders, _load_reminders
 from src.tools.files import run_file_search 
@@ -97,8 +93,17 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
         handle_log_analysis(prompt, client); return
 
     # 4. System & Net Tools
-    elif any(k in prompt_lower for k in ["cek system", "status system"]): run_system_check(prompt_lower); return
-    elif any(k in prompt_lower for k in ["cek internet", "speedtest"]): run_netdiag(prompt_lower); return
+    elif any(k in prompt_lower for k in ["upgrade system", "cek update", "update system"]):
+        handle_system_update(prompt_lower)
+        return
+
+    elif any(k in prompt_lower for k in ["cek system", "status system", "info system"]):
+        run_system_check(prompt_lower)
+        return
+
+    elif any(k in prompt_lower for k in ["cek internet", "speedtest"]): 
+        run_netdiag(prompt_lower)
+        return 
 
     # 5. File Ops
     elif "cari file" in prompt_lower: run_file_search(prompt); return

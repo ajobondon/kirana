@@ -1,118 +1,134 @@
-import os
-import sys
 import platform
 import subprocess
-import shutil
-import psutil
+import sys
+import os
 from rich.console import Console
-from rich.panel import Panel
 
 console = Console()
 
-class SystemTool:
-    @staticmethod
-    def get_os_type():
-        """Mendeteksi OS secara spesifik"""
-        system = platform.system().lower()
-        if system == "windows": 
-            return "windows"
-        elif system == "linux":
-            # Cek keberadaan file rilis untuk membedakan Distro
-            if os.path.exists("/etc/debian_version"): 
-                return "debian_based"
-            if os.path.exists("/etc/redhat-release") or os.path.exists("/etc/centos-release") or os.path.exists("/etc/fedora-release"): 
-                return "rhel_based"
-            return "linux_generic"
-        return "unsupported"
+def get_distro_id():
+    """Deteksi Distro Linux"""
+    try:
+        with open("/etc/os-release") as f:
+            for line in f:
+                if line.startswith("ID="):
+                    return line.split("=")[1].strip().strip('"')
+    except:
+        return "unknown"
 
-    @staticmethod
-    def check_health():
-        """Cek Resource Laptop (CPU, RAM, Disk) - Universal"""
-        console.print("[bold cyan]🔍 Memeriksa Kesehatan Laptop...[/bold cyan]")
+def run_command(cmd):
+    """Jalankan command shell"""
+    try:
+        # shell=True agar bisa chain command (&&)
+        subprocess.run(cmd, shell=True, check=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+def handle_system_update(prompt):
+    """
+    Handler Cerdas untuk Update System.
+    Support: Debian/Ubuntu, RHEL/Fedora, Windows.
+    """
+    os_type = platform.system().lower()
+    
+    console.print(f"[bold cyan]⚙️ Mendeteksi OS: {os_type.upper()}[/bold cyan]")
+
+    update_cmd = ""
+    upgrade_cmd = ""
+    check_cmd = ""
+
+    # --- 1. LINUX LOGIC ---
+    if os_type == "linux":
+        distro = get_distro_id()
+        console.print(f"[dim]🐧 Distro detected: {distro}[/dim]")
+
+        if any(x in distro for x in ["ubuntu", "debian", "kali", "parrot", "mint", "pop"]):
+            # APT Family
+            check_cmd = "sudo apt update"
+            list_cmd = "apt list --upgradable"
+            upgrade_cmd = "sudo apt upgrade -y"
         
-        # 1. CPU
-        cpu_usage = psutil.cpu_percent(interval=1)
-        
-        # 2. RAM
-        mem = psutil.virtual_memory()
-        ram_total_gb = round(mem.total / (1024**3), 2)
-        ram_used_percent = mem.percent
-
-        # 3. Disk (Root / atau C:\)
-        disk_path = "/"
-        if platform.system() == "Windows": disk_path = "C:\\"
-        
-        try:
-            disk = psutil.disk_usage(disk_path)
-            disk_total_gb = round(disk.total / (1024**3), 2)
-            disk_free_gb = round(disk.free / (1024**3), 2)
-            disk_percent = disk.percent
-        except:
-            # Fallback kalau path C:\ gak ketemu (jarang terjadi)
-            disk_percent = "N/A"
-            disk_free_gb = 0
-            disk_total_gb = 0
-
-        report = f"""
-[bold]OS System[/bold] : {platform.system()} {platform.release()} ({SystemTool.get_os_type()})
-[bold]CPU Load[/bold]  : {cpu_usage}%
-[bold]RAM Usage[/bold] : {ram_used_percent}% ({ram_total_gb} GB Total)
-[bold]Disk Usage[/bold]: {disk_percent}% (Free: {disk_free_gb} GB / Total: {disk_total_gb} GB)
-        """
-        console.print(Panel(report.strip(), title="System Health", border_style="blue"))
-
-    @staticmethod
-    def run_update(prompt=""):
-        """Menjalankan Update System Lokal (Multi-OS)"""
-        os_type = SystemTool.get_os_type()
-        is_install = ("install" in prompt) or ("upgrade" in prompt)
-        
-        cmd = ""
-        msg = ""
-
-        # --- LOGIC DEBIAN/UBUNTU ---
-        if os_type == "debian_based":
-            if is_install:
-                cmd = "sudo apt-get update && sudo apt-get upgrade -y"
-                msg = "🚀 [DEBIAN/UBUNTU] Updating & Upgrading system..."
-            else:
-                cmd = "sudo apt-get update"
-                msg = "🔎 [DEBIAN/UBUNTU] Checking updates..."
-        
-        # --- LOGIC RHEL/CENTOS/FEDORA ---
-        elif os_type == "rhel_based":
-            # Cek pake dnf atau yum
-            pkg_mgr = "dnf" if shutil.which("dnf") else "yum"
-            if is_install:
-                cmd = f"sudo {pkg_mgr} update -y"
-                msg = f"🚀 [RHEL/CENTOS] Upgrading system via {pkg_mgr}..."
-            else:
-                cmd = f"sudo {pkg_mgr} check-update"
-                msg = f"🔎 [RHEL/CENTOS] Checking updates via {pkg_mgr}..."
-
-        # --- LOGIC WINDOWS ---
-        elif os_type == "windows":
-             if is_install:
-                cmd = "winget upgrade --all"
-                msg = "🚀 [WINDOWS] Upgrading via Winget..."
-             else:
-                cmd = "winget list --upgrade-available"
-                msg = "🔎 [WINDOWS] Checking updates..."
+        elif any(x in distro for x in ["fedora", "rhel", "centos", "rocky", "alma"]):
+            # DNF Family
+            check_cmd = "sudo dnf check-update" # Exit code 100 means updates available
+            list_cmd = None # dnf check-update sudah nge-list
+            upgrade_cmd = "sudo dnf upgrade -y"
+            
+        elif "arch" in distro or "manjaro" in distro:
+            # Pacman Family
+            check_cmd = "sudo pacman -Sy"
+            list_cmd = "pacman -Qu"
+            upgrade_cmd = "sudo pacman -Syu --noconfirm"
         
         else:
-            console.print(f"[red]❌ OS '{os_type}' belum didukung script update otomatis.[/red]")
+            console.print(f"[red]❌ Distro '{distro}' belum didukung otomatis.[/red]")
             return
 
-        console.print(f"[bold yellow]{msg}[/bold yellow]")
+        # EKSEKUSI LINUX
+        console.print("\n[bold yellow]1️⃣  Mengecek Update Repository...[/bold yellow]")
+        # Khusus DNF, return code 100 itu normal (ada update)
         try:
-            # Shell=True dibutuhkan untuk chaining command (&&) dan akses path sistem
-            subprocess.run(cmd, shell=True) 
-        except Exception as e:
-            console.print(f"[bold red]❌ Gagal Update:[/bold red] {e}")
+            subprocess.run(check_cmd, shell=True)
+        except: pass 
+        
+        if list_cmd:
+            console.print("\n[bold yellow]2️⃣  Daftar Paket yang akan diupdate:[/bold yellow]")
+            subprocess.run(list_cmd, shell=True)
 
-# Fungsi wrapper biar gampang dipanggil
-def run_system_check(prompt):
-    if "update" in prompt or "cek update" in prompt:
-        SystemTool.run_update(prompt)
+    # --- 2. WINDOWS LOGIC (Trickiest Part) ---
+    elif os_type == "windows":
+        console.print("[dim]🪟 Menggunakan 'winget' package manager...[/dim]")
+        # Cek ketersediaan winget
+        if subprocess.call("where winget >nul 2>nul", shell=True) != 0:
+            console.print("[red]❌ 'winget' tidak ditemukan. Pastikan App Installer terinstall.[/red]")
+            return
+
+        console.print("\n[bold yellow]1️⃣  Mengecek Update via Winget...[/bold yellow]")
+        # Winget upgrade list
+        subprocess.run("winget upgrade", shell=True)
+        
+        upgrade_cmd = "winget upgrade --all"
+
+    # --- 3. MACOS LOGIC ---
+    elif os_type == "darwin":
+        console.print("[dim]🍎 MacOS detected (Brew)[/dim]")
+        console.print("\n[bold yellow]1️⃣  Brew Update...[/bold yellow]")
+        subprocess.run("brew update", shell=True)
+        subprocess.run("brew outdated", shell=True)
+        upgrade_cmd = "brew upgrade"
+
     else:
-        SystemTool.check_health()
+        console.print("[red]❌ OS tidak dikenali.[/red]")
+        return
+
+    # --- KONFIRMASI USER ---
+    console.print("\n" + "="*40)
+    user_input = input("👉 Apakah Anda ingin melanjutkan proses UPGRADE? (y/n): ").lower().strip()
+    
+    if user_input == 'y':
+        console.print(f"\n[bold green]🚀 Menjalankan: {upgrade_cmd}[/bold green]")
+        success = run_command(upgrade_cmd)
+        
+        if success:
+            console.print("\n[bold green]✅ System Upgrade Selesai![/bold green]")
+            # Optional: Auto-remove sampah
+            if "apt" in upgrade_cmd:
+                console.print("[dim]🧹 Cleaning up (autoremove)...[/dim]")
+                subprocess.run("sudo apt autoremove -y", shell=True)
+        else:
+            console.print("\n[bold red]❌ Gagal saat upgrade.[/bold red]")
+    else:
+        console.print("\n[yellow]🚫 Upgrade dibatalkan user.[/yellow]")
+
+# Fungsi Cek System Biasa (CPU/RAM)
+def run_system_check(prompt=""):
+    import psutil
+    cpu = psutil.cpu_percent(interval=1)
+    mem = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
+    
+    console.print(f"\n🖥️  [bold]SYSTEM STATUS[/bold]")
+    console.print(f"   CPU Usage : {cpu}%")
+    console.print(f"   RAM Usage : {mem.percent}% ({mem.used // (1024**3)}GB / {mem.total // (1024**3)}GB)")
+    console.print(f"   Disk Root : {disk.percent}% ({disk.free // (1024**3)}GB Free)")
