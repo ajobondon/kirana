@@ -100,6 +100,7 @@ TOML
 KIRANA_SERVER_URL="https://ayala.palawamaya.com"
 
 # Client Identity
+# Request Key from: kirana@palawamaya.com
 CLIENT_ID="<YOUR_ID>"
 
 # --- API KEY ---
