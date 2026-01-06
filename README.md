@@ -61,130 +61,32 @@ Kirana is a hybrid AI-based cybersecurity assistant combining local and external
 
 ## ⚙️ Installation
 
+Get Kirana up and running in seconds with our auto-installer.
+
 ### 1. Prerequisites
 
-- OS: Ubuntu / Debian / WSL2 / RedHat Based.
-    
-- Python 3.11+.
-    
-- Connection to **Kirana Server** (IP/Domain).
-    
+- **OS:** Ubuntu / Debian / RHEL / Fedora / Pop!_OS (Linux Only).
+- **Python:** 3.11+.
+- **Keys:** You need `CLIENT_ID` and `X_API_KEY` (Request from: `kirana@palawamaya.com`).
 
-### 2. Setup Project
+### 2. Auto-Install Command
 
-Bash
+Run this command in your terminal. It will handle cloning, virtual environment setup, configuration, and terminal integration automatically.
 
-```
-# 1. Clone Repository
-git clone https://github.com/ajobondon/kirana.git ~/kirana
-
-# 2. Enter Directory
-cd ~/kirana
-
-# 3. Create Virtual Environment
-python3 -m venv env
-
-# 4. Activate & Install Dependencies
-source env/bin/activate
-pip install -r requirements.txt
+```bash
+curl -sSL [https://raw.githubusercontent.com/ajobondon/kirana/main/install.py](https://raw.githubusercontent.com/ajobondon/kirana/main/install.py) | python3 -
 ```
 
-### 3. Configuration (.env)
+Follow the on-screen instructions to enter your Client ID and API Key.   
 
-Create a `.env` file in the `~/kirana/` folder:
+3. Final Step
+Once the installation is complete, reload your shell to activate Kirana:
 
-TOML
-
-```
-# Target Server
-KIRANA_SERVER_URL="https://ayala.palawamaya.com"
-
-# Client Identity
-# Request Key from: kirana@palawamaya.com
-CLIENT_ID="<YOUR_ID>"
-
-# --- API KEY ---
-# Request Key from: kirana@palawamaya.com
-X_API_KEY="<KIRANA_API_KEY>"
-
-# Local Workspace
-WORKSPACE_DIR="~/kirana/workspace"
+```bash
+source ~/.bashrc
 ```
 
----
-
-## ⚡ Terminal Integration (Required)
-
-To fully integrate Kirana with your Linux shell (enabling global access & Magic Fallback), you **MUST** update your bash configuration.
-
-1. Open your `.bashrc` file:
-    
-    Bash
-    
-    ```
-    nano ~/.bashrc
-    ```
-    
-2. Scroll to the bottom and **Paste** the following code:
-    
-
-Bash
-
-```
-# =========
-# 🦊 KIRANA
-# =========
-
-# 1. Define Global Variables
-export KIRANA_HOME="$HOME/kirana"
-export KIRANA_PYTHON="$KIRANA_HOME/env/bin/python"
-export KIRANA_SCRIPT="$KIRANA_HOME/kirana.py"
-
-# 2. Main Function (Chat & One-Shot)
-# Usage: 'kirana' (chat loop) or 'kirana <cmd>' (one-shot)
-kirana() {
-    if [ $# -eq 0 ]; then
-        # Interactive Chat Mode
-        PYTHONWARNINGS="ignore" $KIRANA_PYTHON $KIRANA_SCRIPT
-    else
-        # Explicit One-Shot Mode
-        PYTHONWARNINGS="ignore" $KIRANA_PYTHON $KIRANA_SCRIPT "$*"
-    fi
-}
-
-# Helper Aliases
-alias help="kirana help"
-alias tanya="kirana"
-
-# 3. Magic Fallback (AI Shell)
-# Catches command errors/typos and asks Kirana for help.
-command_not_found_handle() {
-    local cmd="$*"
-    
-    # Safety Check: Do not process empty commands
-    if [ -z "$cmd" ]; then return 127; fi
-    
-    # Safety Check: Do not process relative/absolute paths (let standard errors flow)
-    if [[ "$cmd" == ./* ]] || [[ "$cmd" == /* ]]; then
-        printf "bash: %s: No such file or directory\n" "$cmd"
-        return 127
-    fi
-
-    # Throw to Kirana (Silent Mode)
-    PYTHONWARNINGS="ignore" $KIRANA_PYTHON $KIRANA_SCRIPT "$cmd"
-    
-    return 0
-}
-```
-
-3. Save and Reload:
-    
-    Bash
-    
-    ```
-    source ~/.bashrc
-    ```
-    
+That's it! You are ready to go.
 
 ---
 
