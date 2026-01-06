@@ -25,6 +25,8 @@ from src.tools.files import (
     handle_file_fix
 )
 
+__version__ = "5.0.0"
+
 console = Console()
 
 # --- KONFIGURASI MEMORI PENDEK (EPHEMERAL CONTEXT) ---
@@ -260,7 +262,8 @@ def handle_log_analysis(prompt, client):
 
 
 def run_interactive_mode(client: KiranaClient):
-    console.print("[bold green]** KIRANA v5.0 (CLIENT) **[/bold green]")
+    console.print(f"[bold green]** KIRANA v{__version__} (CLIENT) **[/bold green]")
+    console.print(f"[dim]Build: Nexus Release[/dim]")
     while True:
         try:
             user_input = input("Fox 🦊: ").strip()
@@ -273,7 +276,12 @@ def run_interactive_mode(client: KiranaClient):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("prompt", nargs="*")
+    parser.add_argument("--version", action="store_true", help="Cek versi Kirana")
     args = parser.parse_args()
+    # Cek flag version
+    if args.version:
+        console.print(f"Kirana Client v{__version__}")
+        sys.exit(0)
     full_prompt = " ".join(args.prompt).strip()
     try: client = KiranaClient()
     except Exception as e: console.print(f"[red]FATAL: {e}[/red]"); sys.exit(1)
