@@ -28,7 +28,6 @@ def get_help_panel():
    `kirana cek internet`
    `kirana cek/update system`
    `kirana cari file <nama_file> di <path>`
-   `kirana cek log/analisa log <nama_logfile>`
 
 [bold cyan]🧠 MEMORY & LEARNING:[/bold cyan]
    `kirana ingat bahwa/ini <sesuatu>`
