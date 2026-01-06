@@ -7,12 +7,23 @@ import json
 import psutil
 from rich.console import Console
 from rich.markdown import Markdown
+
+# Import Core
 from src.core.client import KiranaClient
 from src.core.help_text import get_help_panel
+
+# Import Tools
 from src.tools.system import run_system_check, handle_system_update
 from src.tools.netdiag import run_netdiag, run_command
 from src.tools.reminder import handle_add_reminder, list_reminders, clear_reminders, _load_reminders
-from src.tools.files import run_file_search 
+
+# [FIX] IMPORT SEMUA FUNGSI FILE DARI SINI
+from src.tools.files import (
+    run_file_search, 
+    handle_file_analysis, 
+    handle_file_creation, 
+    handle_file_fix
+)
 
 console = Console()
 
@@ -68,7 +79,29 @@ def smart_filter_log(filepath, max_chars=15000):
         return full[:max_chars], None
     except Exception as e: return None, str(e)
 
-# --- ROUTER UTAMA (UPDATED LENGKAP) ---
+# --- HELPER PATROLI (Jika belum ada di module lain, definisikan disini) ---
+def run_patroli(client):
+    console.print("\n👮 [bold blue]SISKAMLING PAGI[/bold blue]")
+    cpu = psutil.cpu_percent(interval=0.5)
+    mem = psutil.virtual_memory().percent
+    console.print(f"🖥️  System: CPU {cpu}%, RAM {mem}%")
+    prompt = f"Lapor: CPU {cpu}%, RAM {mem}%. Beri semangat."
+    payload = {"message": prompt, "role": "primary"}
+    try:
+        resp = client.post_request("/api/v1/chat/ask", payload)
+        console.print(f"\n[bold red]😈 Yayuk:[/bold red] {resp.get('reply','')}\n")
+    except: pass
+
+# --- HANDLER MEMORY (Helper Lokal) ---
+def handle_memory_learn(text, client):
+    client.post_request("/api/v1/memory/learn", {"text": text})
+    console.print("[green]🧠 Tersimpan![/green]")
+
+def handle_memory_forget(text, client):
+    client.post_request("/api/v1/memory/forget", {"text": text})
+    console.print("[green]🗑️ Dihapus![/green]")
+
+# --- ROUTER UTAMA ---
 def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     prompt_lower = prompt.lower().strip()
 
@@ -76,16 +109,15 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     if prompt_lower in ["help", "bantuan", "?"]: console.print(get_help_panel()); return
     if prompt_lower in ["patroli", "cek pagi"]: run_patroli(client); return
 
-    # 2. [UPDATE] Security Scan (Routing ke Handler Baru)
+    # 2. Security Scan
     if "cek keamanan" in prompt_lower or "analisa keamanan" in prompt_lower:
         match = re.search(r'(https?://[^\s]+)|([a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+)', prompt)
         if match: handle_security_scan(match.group(0), client)
         else: console.print("[bold red]❌ Mana targetnya Fox?[/bold red]")
         return
-    elif "cek web" in prompt_lower: # Webload scan (tetap sync)
-        match = re.search(r'https?://[^\s]+', prompt)
-        if match: handle_web_scan(match.group(0), client)
-        else: console.print("[bold red]❌ Mana URL-nya Fox?[/bold red]")
+    elif "cek web" in prompt_lower:
+        # Note: Pastikan handle_web_scan ada atau import jika perlu
+        console.print("[dim]Fitur cek web belum di-link[/dim]") 
         return
 
     # 3. Log Sentinel
@@ -105,7 +137,7 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
         run_netdiag(prompt_lower)
         return 
 
-    # 5. File Ops
+    # 5. File Ops (SEKARANG AKAN JALAN KARENA SUDAH DI-IMPORT)
     elif "cari file" in prompt_lower: run_file_search(prompt); return
     elif "analisa file" in prompt_lower: handle_file_analysis(prompt, client); return
     elif any(k in prompt_lower for k in ["buatin file", "bikin file"]): handle_file_creation(prompt, client); return
@@ -178,7 +210,7 @@ def handle_security_scan(target: str, client: KiranaClient):
             except:
                 time.sleep(5)
 
-# --- HANDLER LAIN (Chat, File, Log, dll) ---
+# --- HANDLER LAIN (Chat, Log) ---
 def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     prompt_lower = prompt.lower()
     coding_triggers = ["script", "python", "code", "coding", "buatkan fungsi", "bikin kode", "html", "css", "rust"]
@@ -214,21 +246,6 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
             history.append(f"AI: {reply}")
             _save_cli_state(history)
 
-# (Sisanya Helper File Ops, Log Sentinel, Patroli samakan dengan versi sebelumnya)
-# Agar code tidak terlalu panjang di sini, pastikan fungsi helper berikut ada:
-# - handle_log_analysis
-# - handle_file_creation
-# - handle_file_analysis
-# - handle_file_fix
-# - run_patroli
-# - handle_web_scan
-# - handle_memory_learn
-# - handle_memory_forget
-# (Saya asumsikan Mas sudah punya helper ini dari diskusi Log Sentinel & File Ops sebelumnya)
-
-# ... [PASTE SISA HELPER FUNCTION DISINI] ...
-# Jika Mas butuh saya tuliskan ulang FULL code 100% dari atas sampai bawah (termasuk helper), bilang saja ya.
-
 def handle_log_analysis(prompt, client):
     match = re.search(r"(cek log|analisa log|scan log)\s+(.+)", prompt, re.IGNORECASE)
     if not match: console.print("[red]❌ Format: 'cek log <path>'[/red]"); return
@@ -241,37 +258,8 @@ def handle_log_analysis(prompt, client):
     if "error" in resp: console.print(f"[red]Error: {resp['error']}[/red]")
     else: console.print(Markdown(resp.get("reply", "")))
 
-# --- Helper File Ops (Simplified) ---
-def handle_file_creation(prompt, client):
-    # (Logic sama seperti sebelumnya)
-    pass # Isi dengan logic coding Yayuk
 
-def handle_file_analysis(prompt, client):
-    # (Logic sama seperti sebelumnya)
-    pass
-
-def handle_file_fix(prompt, client):
-    # (Logic sama seperti sebelumnya)
-    pass
-
-def run_patroli(client):
-    # (Logic sama seperti sebelumnya)
-    pass
-
-def handle_web_scan(url, client):
-    # (Logic sama seperti sebelumnya)
-    pass
-
-def handle_memory_learn(text, client):
-    client.post_request("/api/v1/memory/learn", {"text": text})
-    console.print("[green]🧠 Tersimpan![/green]")
-
-def handle_memory_forget(text, client):
-    client.post_request("/api/v1/memory/forget", {"text": text})
-    console.print("[green]🗑️ Dihapus![/green]")
-
-
-def run_interactive_mode(client):
+def run_interactive_mode(client: KiranaClient):
     console.print("[bold green]** KIRANA v5.0 (CLIENT) **[/bold green]")
     while True:
         try:
