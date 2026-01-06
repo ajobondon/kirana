@@ -157,8 +157,8 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
 
 # --- NEW HANDLER: ASYNC SECURITY SCAN (POLLING) ---
 def handle_security_scan(target: str, client: KiranaClient):
-    console.print(f"[bold cyan]🛡️ Memulai Security Scan v5: {target}[/bold cyan]")
-    console.print("[dim]⏳ Mengirim perintah ke Server (Async Mode)...[/dim]")
+    console.print(f"[bold cyan]🛡️ Memulai Security Scan: {target}[/bold cyan]")
+    #console.print("[dim]⏳ Mengirim perintah ke Server (Async Mode)...[/dim]")
     
     # 1. Start Scan
     payload = {"target": target, "scan_type": "full"}
@@ -178,7 +178,7 @@ def handle_security_scan(target: str, client: KiranaClient):
         console.print(f"[bold red]❌ Server tidak memberikan Job ID.[/bold red]")
         return
 
-    console.print(f"✅ Job ID diterima: [yellow]{job_id}[/yellow]")
+    #console.print(f"✅ Job ID diterima: [yellow]{job_id}[/yellow]")
     console.print("☕ Silakan ngopi dulu Mas, Secator butuh waktu lama (bisa >10 menit)...")
 
     # 2. Polling Loop
