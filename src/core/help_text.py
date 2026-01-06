@@ -46,7 +46,7 @@ def get_help_panel():
 """
     return Panel(
         Align.left(help_content),
-        title="[bold green]Kirana Client v5.0[/bold green]",
-        subtitle="Legacy Interface",
+        title="[bold green]Kirana Help [/bold green]",
+        subtitle="Kirana.AI",
         border_style="green"
     )
