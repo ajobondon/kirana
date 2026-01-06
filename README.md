@@ -74,7 +74,7 @@ Get Kirana up and running in seconds with our auto-installer.
 Run this command in your terminal. It will handle cloning, virtual environment setup, configuration, and terminal integration automatically.
 
 ```bash
-curl -sSL [https://raw.githubusercontent.com/ajobondon/kirana/main/install.py](https://raw.githubusercontent.com/ajobondon/kirana/main/install.py) | python3 -
+curl -sSL https://raw.githubusercontent.com/ajobondon/kirana/main/install.py | python3 -
 ```
 
 Follow the on-screen instructions to enter your Client ID and API Key.   
