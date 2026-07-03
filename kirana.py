@@ -208,9 +208,47 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
             full_prompt_to_server = f"[CONTEXT]:\n{context_str}\n\n[USER]: {prompt}"
             console.print(f"[dim]⚡ Mengingat konteks...[/dim]")
 
-    with console.status("[bold yellow]Sedang berpikir...[/bold yellow]", spinner="dots"):
-        payload = {"message": full_prompt_to_server}
-        response = client.post_request("/api/v1/chat/ask", payload)
+    # Klasifikasi apakah butuh proses asinkron (proses yang lama)
+    coding_triggers = ["script", "code", "bypass", "exploit", "secator", "nmap", "vapt", "coding", "buatkan", "bikin", "python", "html", "css", "rust", "c++", "bash"]
+    log_triggers = ["error", "log", "syslog", "journalctl", "cek log", "analisa log"]
+    msg_lower = prompt.lower()
+    is_long_process = any(t in msg_lower for t in coding_triggers) or any(t in msg_lower for t in log_triggers)
+
+    response = {}
+    if is_long_process:
+        # Gunakan Async Polling untuk mencegah Cloudflare 524 Timeout
+        with console.status("[bold yellow]Sedang memproses (asinkron)...[/bold yellow]", spinner="dots"):
+            payload = {"message": full_prompt_to_server}
+            start_resp = client.post_request("/api/v1/chat/ask_async", payload)
+            
+            if "error" in start_resp:
+                response = start_resp
+            else:
+                job_id = start_resp.get("job_id")
+                while True:
+                    try:
+                        status_url = f"/api/v1/chat/status/{job_id}"
+                        resp = client.session.get(f"{client.base_url}{status_url}", timeout=10)
+                        if resp.status_code == 200:
+                            data = resp.json()
+                            job_status = data.get("status")
+                            if job_status == "completed":
+                                response = data
+                                break
+                            elif job_status == "failed":
+                                response = {"error": f"Proses gagal: {data.get('error')}"}
+                                break
+                        time.sleep(2)
+                    except KeyboardInterrupt:
+                        console.print("\n[red]⛔ Dibatalkan user.[/red]")
+                        return
+                    except Exception as e:
+                        time.sleep(2)
+    else:
+        # Gunakan koneksi sinkron biasa untuk obrolan ringan (cepat)
+        with console.status("[bold yellow]Sedang berpikir...[/bold yellow]", spinner="dots"):
+            payload = {"message": full_prompt_to_server}
+            response = client.post_request("/api/v1/chat/ask", payload)
     
     if "error" in response:
         console.print(f"[bold red]❌ Error:[/bold red] {response['error']}")
