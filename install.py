@@ -83,6 +83,13 @@ def install_repo():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     is_local_run = os.path.exists(os.path.join(current_dir, "kirana.py")) and os.path.exists(os.path.join(current_dir, "requirements.txt"))
     
+    abs_current = os.path.normpath(os.path.abspath(current_dir))
+    abs_install = os.path.normpath(os.path.abspath(INSTALL_DIR))
+    
+    if abs_current == abs_install:
+        success("Source code sudah berada di folder tujuan ~/kirana. Melewati fase penyalinan.")
+        return
+
     if is_local_run:
         step(f"Mendeteksi instalasi lokal. Menyalin berkas dari {current_dir} ke {INSTALL_DIR}...")
     else:
