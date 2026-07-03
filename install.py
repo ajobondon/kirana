@@ -154,6 +154,8 @@ def configure_env():
 
     env_content = f"""# Target Server
 KIRANA_SERVER_URL="https://alaya.palawamaya.com"
+# Client Timeout (in seconds) - untuk proses yang lama di sisi server
+KIRANA_TIMEOUT="600"
 
 # Client Identity
 CLIENT_ID="{client_id}"

@@ -13,6 +13,12 @@ class KiranaClient:
         # [NEW] Ambil Client ID dari .env
         self.client_id = os.getenv("CLIENT_ID", "unknown-device")
 
+        # Ambil Timeout dari .env (default: 600 detik / 10 menit)
+        try:
+            self.timeout = int(os.getenv("KIRANA_TIMEOUT", "600"))
+        except ValueError:
+            self.timeout = 600
+
         if not self.base_url:
             raise ValueError("❌ Konfigurasi KIRANA_SERVER_URL belum diset di .env")
         if not self.api_key:
@@ -29,8 +35,10 @@ class KiranaClient:
             "User-Agent": "Kirana-Client/5.0 (Ubuntu)"
         })
 
-    def post_request(self, endpoint, payload, timeout=60):
+    def post_request(self, endpoint, payload, timeout=None):
         """Helper untuk kirim POST request"""
+        if timeout is None:
+            timeout = self.timeout
         url = f"{self.base_url}{endpoint}"
         try:
             response = self.session.post(url, json=payload, timeout=timeout)
@@ -49,6 +57,6 @@ class KiranaClient:
         except requests.exceptions.ConnectionError:
             return {"error": f"Gagal koneksi ke {self.base_url}. Server mati atau URL salah."}
         except requests.exceptions.Timeout:
-            return {"error": "Request Timeout. Server kelamaan mikir (lagi sibuk)."}
+            return {"error": f"Request Timeout. Server kelamaan mikir (lagi sibuk). Batas waktu saat ini: {timeout} detik."}
         except Exception as e:
             return {"error": str(e)}
