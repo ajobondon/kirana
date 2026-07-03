@@ -1,4 +1,4 @@
-# Kirana Project - Agent Rules & Knowledge Base (v6.0.0)
+# Kirana Project - Agent Rules & Knowledge Base (v6.1.0)
 
 Dokumen ini berisi panduan, aturan arsitektur, dan ringkasan riwayat integrasi agar agen AI (seperti Antigravity/Kirana) yang bekerja di workspace ini di masa mendatang memahami status proyek dan menjaga konsistensi kode.
 
@@ -6,7 +6,7 @@ Dokumen ini berisi panduan, aturan arsitektur, dan ringkasan riwayat integrasi a
 
 ## 📌 Identitas Proyek & Standar Versi
 1. **Nama Persona AI:** **Kirana** (Blue Team) & **Yayuk** (Red Team).
-2. **Standar Versi:** Menggunakan **Semantic Versioning (SemVer)** dengan format `Major.Minor.Patch` (saat ini **`v6.0.0`**).
+2. **Standar Versi:** Menggunakan **Semantic Versioning (SemVer)** dengan format `Major.Minor.Patch` (saat ini **`v6.1.0`**).
    * **Major:** Perubahan arsitektur besar.
    * **Minor:** Fitur/fungsi baru (misal: integrasi platform baru).
    * **Patch:** Perbaikan bug/keamanan.
