@@ -5,6 +5,8 @@ import time
 import os
 import json 
 import psutil
+import subprocess
+import shutil
 from rich.console import Console
 from rich.markdown import Markdown
 
@@ -103,6 +105,62 @@ def handle_memory_forget(text, client):
     client.post_request("/api/v1/memory/forget", {"text": text})
     console.print("[green]🗑️ Dihapus![/green]")
 
+def handle_client_update():
+    console.print("[bold cyan]🔄 Melakukan pembaruan Kirana Client...[/bold cyan]")
+    install_dir = os.path.expanduser("~/kirana")
+    git_dir = os.path.join(install_dir, ".git")
+    
+    try:
+        if os.path.exists(git_dir):
+            # Run git pull
+            res = subprocess.run(["git", "pull"], cwd=install_dir, capture_output=True, text=True)
+            if res.returncode == 0:
+                console.print("[green]✅ Kirana Client berhasil diperbarui via git pull![/green]")
+                console.print(res.stdout)
+            else:
+                console.print(f"[bold red]❌ Gagal melakukan git pull:[/bold red] {res.stderr}")
+        else:
+            console.print("[yellow]⚠️  Folder ~/kirana tidak memiliki repositori Git (Instalasi Lokal).[/yellow]")
+            console.print("[dim]Mengunduh kode terbaru dari GitHub...[/dim]")
+            
+            temp_dir = os.path.expanduser("~/kirana_temp")
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
+            
+            subprocess.run(["git", "clone", "https://github.com/ajobondon/kirana.git", temp_dir], check=True)
+            
+            # Copy all files except env/venv/git
+            for item in os.listdir(temp_dir):
+                if item in ['env', 'venv', '.git']:
+                    continue
+                s = os.path.join(temp_dir, item)
+                d = os.path.join(install_dir, item)
+                if os.path.isdir(s):
+                    shutil.copytree(s, d, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(s, d)
+                    
+            shutil.rmtree(temp_dir)
+            console.print("[green]✅ Berkas Kirana Client berhasil diperbarui dari GitHub![/green]")
+        
+        # Re-install dependencies
+        console.print("[dim]Memperbarui dependensi (pip)...[/dim]")
+        pip_bin = os.path.join(install_dir, "env", "bin", "pip")
+        subprocess.run([pip_bin, "install", "-r", "requirements.txt"], cwd=install_dir, check=True)
+        console.print("[green]✅ Dependensi diperbarui.[/green]")
+        
+        # Reload bash/zsh shell for the user
+        console.print("[bold yellow]🔔 PEMBARUAN SELESAI![/bold yellow]")
+        console.print("Silakan jalankan kembali shell atau reload konfigurasi:")
+        zshrc = os.path.expanduser("~/.zshrc")
+        if os.path.exists(zshrc):
+            console.print("[cyan]source ~/.zshrc[/cyan]")
+        else:
+            console.print("[cyan]source ~/.bashrc[/cyan]")
+        
+    except Exception as e:
+        console.print(f"[bold red]❌ Gagal memperbarui Kirana Client:[/bold red] {e}")
+
 # --- ROUTER UTAMA ---
 def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     prompt_lower = prompt.lower().strip()
@@ -110,6 +168,9 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     # 1. Bypass State untuk Tools Lokal
     if prompt_lower in ["help", "bantuan", "?"]: console.print(get_help_panel()); return
     if prompt_lower in ["patroli", "cek pagi"]: run_patroli(client); return
+    if any(k in prompt_lower for k in ["update client", "upgrade client", "update kirana", "upgrade kirana"]):
+        handle_client_update()
+        return
 
     # 2. System & Net Tools (Client-side Local Tools)
     elif any(k in prompt_lower for k in ["upgrade system", "cek update", "update system"]):

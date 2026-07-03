@@ -31,6 +31,8 @@ def get_help_panel():
    • `kirana cek system`    (Status CPU/RAM laptop)
    • `kirana cek internet`  (Speedtest koneksi lokal)
    • `kirana cari file [nama] di [path]` (Cari berkas lokal)
+   • `kirana update client` (Perbarui kode client dari GitHub)
+
 
 [bold yellow]⏰ LOCAL REMINDERS (Client-side):[/bold yellow]
    • `kirana ingetin gue [pesan] [waktu]` (misal: in 10 mins)
