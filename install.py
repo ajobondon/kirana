@@ -57,44 +57,68 @@ def fail(msg):
 def check_os():
     step("Mengecek Kompatibilitas OS...")
     system = platform.system().lower()
-    if system != "linux":
-        fail("Installer ini hanya untuk LINUX.")
+    if system not in ["linux", "darwin"]:
+        fail(f"OS tidak didukung: {system}")
     
-    try:
-        with open("/etc/os-release") as f:
-            data = f.read().lower()
-            supported = ["debian", "ubuntu", "pop", "fedora", "rhel", "centos", "kali", "linuxmint"]
-            if not any(distro in data for distro in supported):
-                fail("Distro tidak didukung secara resmi. (Hanya Debian/RedHat based).")
-    except Exception:
-        fail("Tidak bisa membaca /etc/os-release.")
-    success("OS Terdeteksi & Didukung.")
+    if system == "linux":
+        try:
+            with open("/etc/os-release") as f:
+                data = f.read().lower()
+                supported = ["debian", "ubuntu", "pop", "fedora", "rhel", "centos", "kali", "linuxmint"]
+                if not any(distro in data for distro in supported):
+                    print(f"{C.WARNING}⚠️  Distro Linux Anda mungkin tidak didukung secara resmi, namun instalasi dilanjutkan.{C.ENDC}")
+        except Exception:
+            print(f"{C.WARNING}⚠️  Tidak bisa membaca /etc/os-release.{C.ENDC}")
+            
+    success(f"OS Terdeteksi & Didukung: {platform.system()}")
 
 def check_python():
     step(f"Mengecek Versi Python (Min {MIN_PYTHON[0]}.{MIN_PYTHON[1]})...")
     ver = sys.version_info
     if ver < MIN_PYTHON:
-        fail(f"Versi Python Anda {ver.major}.{ver.minor}. Kirana butuh Python 3.11+")
+        fail(f"Versi Python Anda {ver.major}.{ver.minor}. Kirana butuh Python {MIN_PYTHON[0]}.{MIN_PYTHON[1]}+")
     success(f"Python {ver.major}.{ver.minor} OK.")
 
 def install_repo():
-    step(f"Mengunduh Source Code ke {INSTALL_DIR}...")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    is_local_run = os.path.exists(os.path.join(current_dir, "kirana.py")) and os.path.exists(os.path.join(current_dir, "requirements.txt"))
+    
+    if is_local_run:
+        step(f"Mendeteksi instalasi lokal. Menyalin berkas dari {current_dir} ke {INSTALL_DIR}...")
+    else:
+        step(f"Mengunduh Source Code dari Git ke {INSTALL_DIR}...")
     
     if os.path.exists(INSTALL_DIR):
         print(f"{C.WARNING}⚠️  Folder {INSTALL_DIR} sudah ada.{C.ENDC}")
-        choice = input("   Timpa (hapus & clone ulang)? [y/N]: ").lower()
+        choice = input("   Timpa (hapus & install ulang)? [y/N]: ").lower()
         if choice == 'y':
             shutil.rmtree(INSTALL_DIR)
         else:
             print("   Melanjutkan update di folder existing...")
-            subprocess.run(["git", "pull"], cwd=INSTALL_DIR)
+            if is_local_run:
+                # Copy updated files
+                for item in os.listdir(current_dir):
+                    if item in ['env', 'venv', '.git', '__pycache__']:
+                        continue
+                    s = os.path.join(current_dir, item)
+                    d = os.path.join(INSTALL_DIR, item)
+                    if os.path.isdir(s):
+                        shutil.copytree(s, d, dirs_exist_ok=True)
+                    else:
+                        shutil.copy2(s, d)
+            else:
+                subprocess.run(["git", "pull"], cwd=INSTALL_DIR)
             return
 
     try:
-        subprocess.run(["git", "clone", REPO_URL, INSTALL_DIR], check=True)
-        success("Repository berhasil di-clone.")
-    except subprocess.CalledProcessError:
-        fail("Gagal clone repository. Cek koneksi internet.")
+        if is_local_run:
+            shutil.copytree(current_dir, INSTALL_DIR, ignore=shutil.ignore_patterns('env', 'venv', '.git', '__pycache__'))
+            success("Penyalinan berkas lokal berhasil.")
+        else:
+            subprocess.run(["git", "clone", REPO_URL, INSTALL_DIR], check=True)
+            success("Repository berhasil di-clone.")
+    except Exception as e:
+        fail(f"Gagal menginstall source code: {e}")
 
 def setup_venv():
     step("Membuat Virtual Environment (env)...")
@@ -125,11 +149,7 @@ def configure_env():
 KIRANA_SERVER_URL="https://alaya.palawamaya.com"
 
 # Client Identity
-# Request Key from: kirana@palawamaya.com
 CLIENT_ID="{client_id}"
-
-# --- API KEY ---
-# Request Key from: kirana@palawamaya.com
 X_API_KEY="{api_key}"
 
 # Local Workspace
@@ -142,18 +162,41 @@ WORKSPACE_DIR="{os.path.join(INSTALL_DIR, 'workspace')}"
     except Exception as e:
         fail(f"Gagal menulis .env: {e}")
 
-def inject_bashrc():
-    step("Integrasi Terminal (Magic Shell)...")
+def inject_shell():
+    # Detect shell config file
+    shell = os.getenv("SHELL", "").lower()
+    zshrc = os.path.expanduser("~/.zshrc")
+    bashrc = os.path.expanduser("~/.bashrc")
     
-    # Cek apakah sudah pernah diinstall
-    try:
-        with open(BASHRC_FILE, "r") as f:
-            if "# 🦊 KIRANA" in f.read():
-                success("Konfigurasi .bashrc sudah ada. Skip.")
-                return
-    except: pass
+    config_files = []
+    if "zsh" in shell or os.path.exists(zshrc):
+        config_files.append((zshrc, "zsh"))
+    if "bash" in shell or os.path.exists(bashrc):
+        config_files.append((bashrc, "bash"))
+        
+    if not config_files:
+        # Fallback
+        config_files.append((bashrc, "bash"))
+        
+    for rc_file, shell_type in config_files:
+        step(f"Integrasi Terminal ({shell_type.upper()} - {rc_file})...")
+        try:
+            # Check if already installed
+            if os.path.exists(rc_file):
+                with open(rc_file, "r") as f:
+                    if "# 🦊 KIRANA" in f.read():
+                        success(f"Konfigurasi {os.path.basename(rc_file)} sudah ada. Skip.")
+                        continue
+            
+            # Setup command not found handler according to shell type
+            if shell_type == "zsh":
+                handler_name = "command_not_found_handler"
+                err_msg = 'printf "zsh: command not found: %s\\n" "$cmd"'
+            else:
+                handler_name = "command_not_found_handle"
+                err_msg = 'printf "bash: %s: No such file or directory\\n" "$cmd"'
 
-    kirana_bash_script = f"""
+            kirana_shell_script = f"""
 # =========
 # 🦊 KIRANA
 # =========
@@ -180,16 +223,15 @@ alias help="kirana help"
 alias tanya="kirana"
 
 # 3. Magic Fallback (AI Shell)
-# Catches command errors/typos and asks Kirana for help.
-command_not_found_handle() {{
+{handler_name}() {{
     local cmd="$*"
     
     # Safety Check: Do not process empty commands
     if [ -z "$cmd" ]; then return 127; fi
     
-    # Safety Check: Do not process relative/absolute paths (let standard errors flow)
+    # Safety Check: Do not process relative/absolute paths
     if [[ "$cmd" == ./* ]] || [[ "$cmd" == /* ]]; then
-        printf "bash: %s: No such file or directory\\n" "$cmd"
+        {err_msg}
         return 127
     fi
 
@@ -199,32 +241,34 @@ command_not_found_handle() {{
     return 0
 }}
 """
-    try:
-        with open(BASHRC_FILE, "a") as f:
-            f.write(kirana_bash_script)
-        success("Magic Shell ditambahkan ke .bashrc")
-    except Exception as e:
-        print(f"{C.WARNING}Gagal update .bashrc: {e}. Anda harus setup manual.{C.ENDC}")
+            with open(rc_file, "a") as f:
+                f.write(kirana_shell_script)
+            success(f"Magic Shell ditambahkan ke {os.path.basename(rc_file)}")
+        except Exception as e:
+            print(f"{C.WARNING}Gagal update {rc_file}: {e}. Anda harus setup manual.{C.ENDC}")
 
 def final_test():
     step("Finalizing & Testing...")
     print(f"{C.CYAN}Fox is waking up...{C.ENDC}")
     
-    # Kita coba jalankan manual pake full path karena .bashrc belum di-source di sesi ini
     python_bin = os.path.join(VENV_DIR, "bin", "python")
     script = os.path.join(INSTALL_DIR, "kirana.py")
     
     try:
-        # Jalankan 'kirana help'
         subprocess.run([python_bin, script, "help"], check=True)
     except Exception as e:
         print(f"{C.WARNING}Test run warning: {e}{C.ENDC}")
+
+    zshrc = os.path.expanduser("~/.zshrc")
+    shell_rc = "~/.bashrc"
+    if os.path.exists(zshrc):
+        shell_rc = "~/.zshrc"
 
     print("\n" + "="*50)
     print(f"{C.GREEN}{C.BOLD}🎉 INSTALASI SUKSES! 🎉{C.ENDC}")
     print("="*50)
     print(f"Agar Kirana aktif di terminal ini, jalankan perintah:")
-    print(f"\n    {C.CYAN}source ~/.bashrc{C.ENDC}\n")
+    print(f"\n    {C.CYAN}source {shell_rc}{C.ENDC}\n")
     print("Atau tutup dan buka kembali terminal Anda.")
     print("Gunakan command 'kirana' atau 'tanya' untuk memulai.")
     print("="*50 + "\n")
@@ -235,9 +279,9 @@ def main():
         check_os()
         check_python()
         install_repo()
-        configure_env() # Prompt Key di sini
-        setup_venv()    # Setup dependencies
-        inject_bashrc()
+        configure_env()
+        setup_venv()
+        inject_shell()
         final_test()
     except KeyboardInterrupt:
         print("\n\n🚫 Instalasi dibatalkan pengguna.")
@@ -245,3 +289,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

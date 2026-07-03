@@ -107,26 +107,11 @@ def handle_memory_forget(text, client):
 def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     prompt_lower = prompt.lower().strip()
 
-    # 1. Bypass State untuk Tools
+    # 1. Bypass State untuk Tools Lokal
     if prompt_lower in ["help", "bantuan", "?"]: console.print(get_help_panel()); return
     if prompt_lower in ["patroli", "cek pagi"]: run_patroli(client); return
 
-    # 2. Security Scan
-    if "cek keamanan" in prompt_lower or "analisa keamanan" in prompt_lower:
-        match = re.search(r'(https?://[^\s]+)|([a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+)', prompt)
-        if match: handle_security_scan(match.group(0), client)
-        else: console.print("[bold red]❌ Mana targetnya Fox?[/bold red]")
-        return
-    elif "cek web" in prompt_lower:
-        # Note: Pastikan handle_web_scan ada atau import jika perlu
-        console.print("[dim]Fitur cek web belum di-link[/dim]") 
-        return
-
-    # 3. Log Sentinel
-    elif "cek log" in prompt_lower or "analisa log" in prompt_lower:
-        handle_log_analysis(prompt, client); return
-
-    # 4. System & Net Tools
+    # 2. System & Net Tools (Client-side Local Tools)
     elif any(k in prompt_lower for k in ["upgrade system", "cek update", "update system"]):
         handle_system_update(prompt_lower)
         return
@@ -139,85 +124,18 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
         run_netdiag(prompt_lower)
         return 
 
-    # 5. File Ops (SEKARANG AKAN JALAN KARENA SUDAH DI-IMPORT)
     elif "cari file" in prompt_lower: run_file_search(prompt); return
-    elif "analisa file" in prompt_lower: handle_file_analysis(prompt, client); return
-    elif any(k in prompt_lower for k in ["buatin file", "bikin file"]): handle_file_creation(prompt, client); return
-    elif any(k in prompt_lower for k in ["perbaiki file", "fix file"]): handle_file_fix(prompt, client); return
 
-    # 6. Reminder & Memory
+    # 3. Local Reminder
     elif any(k in prompt_lower for k in ["ingetin", "remind me"]): handle_add_reminder(prompt, client); return
     elif any(k in prompt_lower for k in ["cek reminder", "list reminder"]): list_reminders(); return
     elif any(k in prompt_lower for k in ["hapus reminder"]): clear_reminders(); return
-    elif "ingat bahwa" in prompt_lower: 
-        handle_memory_learn(re.sub(r"(ingat bahwa)\s*", "", prompt, flags=re.IGNORECASE).strip(), client); return
-    elif "lupakan bahwa" in prompt_lower:
-        handle_memory_forget(re.sub(r"(lupakan bahwa)\s*", "", prompt, flags=re.IGNORECASE).strip(), client); return
 
-    # 7. Default Chat (With Memory)
+    # 4. Aksi lainnya (VAPT, RAG, Memory, Pembuatan File, Chat) dikirim ke Server Agent Loop
     handle_chat_request(prompt, client, is_oneshot)
 
-# --- NEW HANDLER: ASYNC SECURITY SCAN (POLLING) ---
-def handle_security_scan(target: str, client: KiranaClient):
-    console.print(f"[bold cyan]🛡️ Memulai Security Scan: {target}[/bold cyan]")
-    #console.print("[dim]⏳ Mengirim perintah ke Server (Async Mode)...[/dim]")
-    
-    # 1. Start Scan
-    payload = {"target": target, "scan_type": "full"}
-    start_resp = client.post_request("/api/v1/security/scan", payload)
-    
-    if "error" in start_resp:
-        console.print(f"[bold red]❌ Gagal memulai scan:[/bold red] {start_resp['error']}")
-        return
-
-    # Cek apakah job_id (Async) atau result (Sync/Nmap)
-    job_id = start_resp.get("job_id")
-    if not job_id and "result" in start_resp:
-         console.print(Markdown(start_resp["result"]))
-         return
-
-    if not job_id:
-        console.print(f"[bold red]❌ Server tidak memberikan Job ID.[/bold red]")
-        return
-
-    #console.print(f"✅ Job ID diterima: [yellow]{job_id}[/yellow]")
-    console.print("☕ Silakan ngopi dulu Mas, Secator butuh waktu lama (bisa >10 menit)...")
-
-    # 2. Polling Loop
-    with console.status("[bold green]Sedang melakukan scanning & analisa (Polling)...[/bold green]", spinner="grenade") as status:
-        while True:
-            try:
-                status_url = f"{client.base_url}/api/v1/security/status/{job_id}"
-                resp = client.session.get(status_url, timeout=10)
-                
-                if resp.status_code == 200:
-                    data = resp.json()
-                    job_status = data.get("status")
-                    
-                    if job_status == "completed":
-                        console.print("\n[bold green]✅ SCAN SELESAI![/bold green]")
-                        console.print(Markdown(data.get("result", "")))
-                        break
-                    elif job_status == "failed":
-                        console.print(f"\n[bold red]❌ SCAN GAGAL:[/bold red] {data.get('result')}")
-                        break
-                    else:
-                        status.update(f"[bold yellow]Scanning berjalan... ({job_id})[/bold yellow]")
-                        time.sleep(5)
-                else:
-                    time.sleep(5)
-            except KeyboardInterrupt:
-                console.print("\n[red]⛔ Polling dihentikan manual.[/red]")
-                break
-            except:
-                time.sleep(5)
-
-# --- HANDLER LAIN (Chat, Log) ---
+# --- HANDLER CHAT UTAMA ---
 def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = False):
-    prompt_lower = prompt.lower()
-    coding_triggers = ["script", "python", "code", "coding", "buatkan fungsi", "bikin kode", "html", "css", "rust"]
-    target_role = "primary" if any(t in prompt_lower for t in coding_triggers) else "secondary"
-
     full_prompt_to_server = prompt
     history = []
 
@@ -230,16 +148,19 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
             console.print(f"[dim]⚡ Mengingat konteks...[/dim]")
 
     with console.status("[bold yellow]Sedang berpikir...[/bold yellow]", spinner="dots"):
-        payload = {"message": full_prompt_to_server, "role": target_role}
+        payload = {"message": full_prompt_to_server}
         response = client.post_request("/api/v1/chat/ask", payload)
     
     if "error" in response:
         console.print(f"[bold red]❌ Error:[/bold red] {response['error']}")
     else:
         reply = response.get("reply", "")
+        persona = response.get("persona", "").lower()
         console.print("")
-        if target_role == "primary": console.print(f"[bold red]😈 Yayuk:[/bold red]")
-        else: console.print(f"[bold blue]👩‍💼 Kirana:[/bold blue]")
+        if "yayuk" in persona:
+            console.print(f"[bold red]😈 Yayuk:[/bold red]")
+        else:
+            console.print(f"[bold blue]👩‍💼 Kirana:[/bold blue]")
         console.print(Markdown(reply))
         console.print("")
         
@@ -247,19 +168,6 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
             history.append(f"User: {prompt}")
             history.append(f"AI: {reply}")
             _save_cli_state(history)
-
-def handle_log_analysis(prompt, client):
-    match = re.search(r"(cek log|analisa log|scan log)\s+(.+)", prompt, re.IGNORECASE)
-    if not match: console.print("[red]❌ Format: 'cek log <path>'[/red]"); return
-    path = match.group(2).strip()
-    filtered, err = smart_filter_log(path)
-    if err: console.print(f"[red]❌ Error: {err}[/red]"); return
-    if len(filtered)<50: console.print("[green]✅ Log bersih.[/green]"); return
-    payload = {"message": f"Analisa log:\n{filtered}", "role": "primary", "system_prompt": "You are Forensic Analyst."}
-    with console.status("Analisa...", spinner="grenade"): resp = client.post_request("/api/v1/chat/ask", payload)
-    if "error" in resp: console.print(f"[red]Error: {resp['error']}[/red]")
-    else: console.print(Markdown(resp.get("reply", "")))
-
 
 def run_interactive_mode(client: KiranaClient):
     console.print(f"[bold green]** KIRANA v{__version__} (CLIENT) **[/bold green]")
