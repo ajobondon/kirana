@@ -1,51 +1,46 @@
 from rich.panel import Panel
 from rich.align import Align
 
+
 def get_help_panel():
-    """Mengembalikan Panel Rich berisi menu bantuan legacy v4.5"""
+    """Mengembalikan Panel Rich berisi bantuan arsitektur baru Kirana v5.0"""
     
     help_content = """
-[bold yellow]🔥 MENU PAHALA & DOSA KIRANA 🔥[/bold yellow]
+[bold yellow]🦊 KIRANA NEXUS v5.0 (DYNAMIC AGENTS & WORKSPACES) 🦊[/bold yellow]
 ===================================================
 
-[bold cyan]💬 INTERACTIVE MODE:[/bold cyan]
-   `kirana` (Masuk mode chat loop)
+[bold red]🎭 DUAL PERSONA & AUTO-ROUTING (Server-side):[/bold red]
+   • [bold red]Yayuk (Red Team):[/bold red] Untuk tugas coding, exploit, dan VAPT.
+     [dim](Berjalan di MODEL_PRIMARY dengan suhu presisi)[/dim]
+   • [bold blue]Kirana (Blue Team):[/bold blue] Untuk chat umum, log forensics, dan RAG.
+     [dim](Berjalan di MODEL_SECONDARY/PRIMARY dengan suhu stabil)[/dim]
 
-[bold cyan]🧠 KONSULTASI & RAG:[/bold cyan]
-   `kirana apa itu XSS`
-   `kirana cara install secator`
-   `kirana cari berita <terserah_apa>`
+[bold green]🔌 DYNAMIC SKILLS (OpenClaw Compatible):[/bold green]
+   • Skill tersimpan dinamis di server: `workspaces/{client_id}/skills/`
+   • Tambah skill instan dengan menyalin folder skill (misal: `tavily`, `weather`).
+   • Minta Kirana/Yayuk membuat skill baru secara langsung melalui chat:
+     `kirana buatin skill geolocation untuk cek lokasi IP`
 
-[bold cyan]🌐 WEB & OSINT:[/bold cyan]
-   `kirana cari info <topik>`
+[bold cyan]🧠 WORKSPACE & MEMORY ISOLATION:[/bold cyan]
+   • Konfigurasi (`BOOTSTRAP.md`, `SOUL.md`), RAG DB, dan sesi obrolan
+     terisolasi secara otomatis berdasarkan `CLIENT_ID` di remote server.
+   • Simpan ingatan RAG lokal: `kirana ingat bahwa [informasi]`
+   • Hapus ingatan RAG lokal:  `kirana lupakan bahwa [informasi]`
 
-[bold cyan]📂 FILE OPERATIONS:[/bold cyan]
-   `kirana analisa file <nama_file>`
-   `kirana buatin file <file.ext> tentang <deskripsi>`
-   `kirana perbaiki/benerin file <nama_skrip>`
+[bold magenta]💻 LOCAL UTILITIES (Client-side / Laptop):[/bold magenta]
+   • `kirana cek system`    (Status CPU/RAM laptop)
+   • `kirana cek internet`  (Speedtest koneksi lokal)
+   • `kirana cari file [nama] di [path]` (Cari berkas lokal)
 
-[bold cyan]🛠️ SYSTEM TOOLS:[/bold cyan]
-   `kirana cek internet`
-   `kirana cek/update system`
-   `kirana cari file <nama_file> di <path>`
-
-[bold cyan]🧠 MEMORY & LEARNING:[/bold cyan]
-   `kirana ingat bahwa/ini <sesuatu>`
-   `kirana lupakan bahwa <sesuatu>`
-
-[bold cyan]🛡️ SISKAMLING & SECURITY:[/bold cyan]
-   `kirana patroli`
-   `kirana cek keamanan domain/url <target>`
-   `kirana analisa web/cek web <url>`
-
-[bold cyan]⏰ REMINDER & ASSISTANT:[/bold cyan]
-   `kirana ingetin gue <pesan> <waktu>`
-   `kirana cek reminder`
-   `kirana hapus semua reminder`
+[bold yellow]⏰ LOCAL REMINDERS (Client-side):[/bold yellow]
+   • `kirana ingetin gue [pesan] [waktu]` (misal: in 10 mins)
+   • `kirana cek reminder` (Lihat pengingat aktif)
+   • `kirana hapus semua reminder` (Bersihkan pengingat)
 """
     return Panel(
         Align.left(help_content),
-        title="[bold green]Kirana Help [/bold green]",
-        subtitle="Kirana.AI",
+        title="[bold green] Kirana Help [/bold green]",
+        subtitle="Kirana AI Ecosystem",
         border_style="green"
     )
+
