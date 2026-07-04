@@ -263,6 +263,24 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
         console.print(Markdown(reply))
         console.print("")
         
+        # Intersep data file_attachment jika ada
+        attachment = response.get("file_attachment")
+        if attachment:
+            import base64
+            try:
+                filename = attachment["filename"]
+                content_b64 = attachment["content_b64"]
+                file_bytes = base64.b64decode(content_b64)
+                
+                # Simpan ke folder tempat user berada saat ini
+                local_path = os.path.join(os.getcwd(), filename)
+                with open(local_path, "wb") as f:
+                    f.write(file_bytes)
+                console.print(f"[bold green]✅ Berkas PDF berhasil disimpan secara lokal![/bold green]")
+                console.print(f"📂 Lokasi: [cyan]{local_path}[/cyan]\n")
+            except Exception as e:
+                console.print(f"[bold red]❌ Gagal menulis berkas PDF lokal:[/bold red] {e}\n")
+        
         if is_oneshot:
             history.append(f"User: {prompt}")
             history.append(f"AI: {reply}")
