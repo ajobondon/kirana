@@ -3,10 +3,10 @@ from rich.align import Align
 
 
 def get_help_panel():
-    """Mengembalikan Panel Rich berisi bantuan arsitektur baru Kirana v6.3.0"""
+    """Mengembalikan Panel Rich berisi bantuan arsitektur baru Kirana v6.4.0"""
     
     help_content = """
-[bold yellow]🦊 KIRANA NEXUS v6.3.0 (DYNAMIC AGENTS & WORKSPACES) 🦊[/bold yellow]
+[bold yellow]🦊 KIRANA NEXUS v6.4.0 (DYNAMIC AGENTS & WORKSPACES) 🦊[/bold yellow]
 ===================================================
 
 [bold red]🎭 DUAL PERSONA & AUTO-ROUTING (Server-side):[/bold red]
