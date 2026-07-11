@@ -32,7 +32,7 @@ class KiranaClient:
             "X-API-Key": self.api_key,
             "X-Client-ID": self.client_id,  # <--- INI YG BIKIN ERROR HILANG
             "Content-Type": "application/json",
-            "User-Agent": "Kirana-Client/6.6.0 (Ubuntu)"
+            "User-Agent": "Kirana-Client/6.6.1 (Ubuntu)"
         })
 
     def post_request(self, endpoint, payload, timeout=None):
