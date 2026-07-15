@@ -2,30 +2,21 @@
 
 > **"Kirana, a good child born on Monday, October 19, 2015"**
 
-Kirana is a hybrid AI-based cybersecurity assistant combining local and external intelligence. Built with a **"Dual Persona"** architecture and empowered by a dual hybrid brain:
+Kirana is a hybrid AI-based cybersecurity assistant combining local and external intelligence. Built with a **"Swarm AI (Dynamic Hand-off)"** architecture and empowered by a dual hybrid brain:
 
-- **Kirana (Blue Team):** Professional, Analytical and Reporting Expert. Your CISO.
-- **Yayuk (Red Team):** Savage, Uncensored and Coding Expert. Your Bad Girl Hacker.
+- **Kirana (Blue Team - 😇):** Professional, Analytical and Reporting Expert. Your CISO.
+- **Yayuk (Red Team - 😈):** Savage, Uncensored and Coding Expert. Your Bad Girl Hacker.
 
 ---
 
 ## ✨ Key Features
 
-### 🎭 Dual Persona Architecture
+### 🧠 Swarm AI (Dynamic Hand-off) Architecture
 
-[](https://github.com/ajobondon/kirana-OLD#-dual-persona-architecture)
-
-- 😇 **Kirana (Blue Team):** She's your CISO.
-- 😈 **Yayuk (Red Team):** Your bad girl hacker.
-
-### 🧠 Quad-Core Intelligence (4 Wings)
-
-[](https://github.com/ajobondon/kirana-OLD#-quad-core-intelligence-4-wings)
-
-- 👩🏻‍💻 **Blue Core 1** Kirana's main brain (Analytical & Reasoning).
-- 👩‍💻 **Blue Core 2** High-speed backup brain.
-- 🥷 **Red Core 1** Yayuk's main brain (Superior Coding Logic).
-- 👤 **Red Core 2:** Yayuk's backup brain (Fallback).
+- 😇 **Kirana (Blue Team):** She's your CISO. Handles defensive mitigation, analysis, RAG, and general chat.
+- 😈 **Yayuk (Red Team):** Your bad girl hacker. Handles exploit creation, active VAPT scans, and coding.
+- 🔄 **Semantic Routing:** Automatically and dynamically switches between characters behind the scenes using structured hand-off tools.
+- 💬 **Subtle Emojis:** Agent identities are indicated seamlessly with a trailing emoji (`😇` or `😈`) rather than clunky visual headers.
 
 ### 🛡️ Forensic & Security Operations
 

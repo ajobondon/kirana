@@ -3,17 +3,17 @@ from rich.align import Align
 
 
 def get_help_panel():
-    """Mengembalikan Panel Rich berisi bantuan arsitektur baru Kirana v6.6.4"""
+    """Mengembalikan Panel Rich berisi bantuan arsitektur Swarm Kirana v7.0.0 (PIXEL)"""
     
     help_content = """
-[bold yellow]🦊 KIRANA NEXUS v6.6.4 (DYNAMIC AGENTS & WORKSPACES) 🦊[/bold yellow]
+[bold yellow]🦊 KIRANA v7 (PIXEL) - SWARM AI EDITION 🦊[/bold yellow]
 ===================================================
 
-[bold red]🎭 DUAL PERSONA & AUTO-ROUTING (Server-side):[/bold red]
-   • [bold red]Yayuk (Red Team):[/bold red] Untuk tugas coding, exploit, dan VAPT.
-     [dim](Berjalan di MODEL_PRIMARY dengan suhu presisi)[/dim]
-   • [bold blue]Kirana (Blue Team):[/bold blue] Untuk chat umum, log forensics, dan RAG.
-     [dim](Berjalan di MODEL_SECONDARY/PRIMARY dengan suhu stabil)[/dim]
+[bold red]🧠 SWARM AI & DYNAMIC HAND-OFF (Server-side):[/bold red]
+   • [bold blue]Kirana (Blue Team - 😇):[/bold blue] Untuk tugas defensif, analisis log, mitigasi, RAG, dan obrolan umum.
+   • [bold red]Yayuk (Red Team - 😈):[/bold red] Untuk tugas coding/scripting, eksploitasi, bypass firewall, dan VAPT.
+   • [bold green]Dynamic Transition:[/bold green] Rute berpindah secara semantis dan dinamis menggunakan transfer tools sesuai konteks perintah Anda.
+   • [bold yellow]Subtle Identity:[/bold yellow] Ditandai dengan emoji di akhir kalimat (😇 untuk Kirana, 😈 untuk Yayuk).
 
 [bold green]🔌 DYNAMIC SKILLS (OpenClaw Compatible):[/bold green]
    • Skill tersimpan dinamis di server: `workspaces/{client_id}/skills/`
