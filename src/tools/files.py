@@ -85,13 +85,13 @@ def run_file_search(prompt):
 
 # --- 2. CREATE FILE (EXISTING - TIDAK DIUBAH) ---
 def handle_file_creation(prompt, client):
-    match = re.search(r"(buatin file|buatkan file|bikin file|create file)\s+(\S+)\s+(?:tentang|soal|for|isinya)\s+(.+)", prompt, re.IGNORECASE)
+    match = re.search(r"(buatin|buatkan|bikin|create)\s+(?:file\s+)?(\S+)\s+(?:tentang|soal|for|isinya)\s+(.+)", prompt, re.IGNORECASE)
     
     if not match:
         console.print("[red]❌ Format: 'buatin file <nama> tentang <deskripsi>'[/red]")
         return
 
-    fname = match.group(2).strip()
+    fname = match.group(2).strip().strip("'\"")
     desc = match.group(3).strip()
     
     # Pastikan hanya nama file
@@ -146,13 +146,13 @@ def handle_file_creation(prompt, client):
 
 # --- 3. ANALYZE LOCAL FILE (UPDATED: ASYNC POLLING) ---
 def handle_file_analysis(prompt, client):
-    # Regex baru: Menangkap Filename (path) DAN Instruksi Opsional
-    match = re.search(r"analisa file\s+(\S+)(?:\s+(.+))?", prompt, re.IGNORECASE)
+    # Regex baru: Menangkap Filename (path) DAN Instruksi Opsional (mendukung opsional kata 'file')
+    match = re.search(r"analisa\s+(?:file\s+)?(\S+)(?:\s+(.+))?", prompt, re.IGNORECASE)
     if not match:
         console.print("[red]❌ Sebutkan path filenya. Contoh: 'analisa file script.py'[/red]")
         return
 
-    path = match.group(1).strip()
+    path = match.group(1).strip().strip("'\"")
     
     # [UPDATE] Default instruction yang lebih kuat & berbahasa Indonesia
     default_instr = "Analisa kode ini secara lengkap. Jelaskan fungsi, bug, dan keamanannya dalam Bahasa Indonesia."
@@ -220,12 +220,12 @@ def handle_file_analysis(prompt, client):
 
 # --- 4. FIX/HEAL FILE (UPDATED: ASYNC POLLING) ---
 def handle_file_fix(prompt, client):
-    match = re.search(r"(perbaiki|benerin|fix|refactor)\s+file\s+(\S+)(?:\s+(.+))?", prompt, re.IGNORECASE)
+    match = re.search(r"(perbaiki|benerin|fix|refactor)\s+(?:file\s+)?(\S+)(?:\s+(.+))?", prompt, re.IGNORECASE)
     if not match:
          console.print("[red]❌ Format: 'perbaiki file <nama_file>'[/red]")
          return
 
-    path = match.group(2).strip()
+    path = match.group(2).strip().strip("'\"")
     instruction = match.group(3).strip() if match.group(3) else ""
 
     # Support relative path atau full path

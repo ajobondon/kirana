@@ -83,6 +83,19 @@ def smart_filter_log(filepath, max_chars=15000):
         return full[:max_chars], None
     except Exception as e: return None, str(e)
 
+def _get_local_path_if_exists(prompt: str, triggers: list) -> str:
+    """Mengembalikan path file lokal jika ditemukan dalam prompt dan file tersebut ada di client."""
+    for trigger in triggers:
+        pattern = rf"{trigger}\s+(?:file\s+)?(\S+)"
+        match = re.search(pattern, prompt, re.IGNORECASE)
+        if match:
+            path = match.group(1).strip().strip("'\"")
+            expanded_path = os.path.expanduser(path)
+            if os.path.exists(path) or os.path.exists(expanded_path):
+                return path
+    return ""
+
+
 # --- HELPER PATROLI (Jika belum ada di module lain, definisikan disini) ---
 def run_patroli(client):
     console.print("\n👮 [bold blue]SISKAMLING PAGI[/bold blue]")
@@ -185,14 +198,17 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
         run_netdiag(prompt_lower)
         return 
 
-    elif "analisa file" in prompt_lower:
+    # Intercept Analisa File (jika eksplisit mengandung kata 'file' atau jika path filenya valid di client)
+    elif "analisa file" in prompt_lower or _get_local_path_if_exists(prompt, ["analisa"]):
         handle_file_analysis(prompt, client)
         return
 
-    elif any(k in prompt_lower for k in ["perbaiki file", "benerin file", "fix file", "refactor file"]):
+    # Intercept Perbaiki File (jika eksplisit mengandung kata 'file' atau jika path filenya valid di client)
+    elif any(k in prompt_lower for k in ["perbaiki file", "benerin file", "fix file", "refactor file"]) or _get_local_path_if_exists(prompt, ["perbaiki", "benerin", "fix", "refactor"]):
         handle_file_fix(prompt, client)
         return
 
+    # Intercept Buat File
     elif any(k in prompt_lower for k in ["buatin file", "buatkan file", "bikin file", "create file"]):
         handle_file_creation(prompt, client)
         return
