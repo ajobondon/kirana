@@ -185,6 +185,18 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
         run_netdiag(prompt_lower)
         return 
 
+    elif "analisa file" in prompt_lower:
+        handle_file_analysis(prompt, client)
+        return
+
+    elif any(k in prompt_lower for k in ["perbaiki file", "benerin file", "fix file", "refactor file"]):
+        handle_file_fix(prompt, client)
+        return
+
+    elif any(k in prompt_lower for k in ["buatin file", "buatkan file", "bikin file", "create file"]):
+        handle_file_creation(prompt, client)
+        return
+
     elif "cari file" in prompt_lower: run_file_search(prompt); return
 
     # 3. Local Reminder
