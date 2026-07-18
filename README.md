@@ -56,26 +56,40 @@ Get Kirana up and running in seconds with our auto-installer.
 
 ### 1. Prerequisites
 
-- **OS:** Ubuntu / Debian / RHEL / Fedora / Pop!_OS (Linux Only).
+- **OS:** Linux (Ubuntu / Debian / RHEL / Fedora / Pop!_OS) or Windows (PowerShell 5.1 / PowerShell Core 6+).
 - **Python:** 3.11+.
+- **Git:** Required for cloning.
 - **Keys:** You need `CLIENT_ID` and `X_API_KEY` (Request from: `kirana@palawamaya.com`).
 
 ### 2. Auto-Install Command
 
-Run this command in your terminal. It will handle cloning, virtual environment setup, configuration, and terminal integration automatically.
+#### 🐧 Linux & macOS
+Run this command in your terminal. It will handle cloning, virtual environment setup, configuration, and terminal integration automatically:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ajobondon/kirana/main/install.py | python3 -
 ```
 
-Follow the on-screen instructions to enter your Client ID and API Key.   
-
-3. Final Step
 Once the installation is complete, reload your shell to activate Kirana:
 
 ```bash
-source ~/.bashrc
+source ~/.bashrc # or ~/.zshrc if using zsh
 ```
+
+#### 🪟 Windows (PowerShell)
+Run this command in your PowerShell window:
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://raw.githubusercontent.com/ajobondon/kirana/main/install.ps1 | iex"
+```
+
+Once the installation is complete, reload your PowerShell profile or restart your terminal:
+
+```powershell
+. $PROFILE
+```
+
+Follow the on-screen instructions to enter your Client ID and API Key.
 
 That's it! You are ready to go.
 

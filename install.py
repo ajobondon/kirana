@@ -57,6 +57,16 @@ def fail(msg):
 def check_os():
     step("Mengecek Kompatibilitas OS...")
     system = platform.system().lower()
+    
+    if system == "windows":
+        print(f"\n{C.WARNING}⚠️  OS Windows terdeteksi.{C.ENDC}")
+        print("Silakan gunakan PowerShell script untuk instalasi otomatis Kirana Client di Windows.")
+        print("Anda dapat menjalankan perintah berikut di PowerShell:")
+        print(f"\n    {C.CYAN}powershell -ExecutionPolicy Bypass -c \"irm https://raw.githubusercontent.com/ajobondon/kirana/main/install.ps1 | iex\"{C.ENDC}")
+        print("Atau jika Anda sudah men-clone repository ini secara lokal, jalankan:")
+        print(f"\n    {C.CYAN}.\\install.ps1{C.ENDC}\n")
+        sys.exit(0)
+        
     if system not in ["linux", "darwin"]:
         fail(f"OS tidak didukung: {system}")
     
