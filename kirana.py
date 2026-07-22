@@ -34,7 +34,7 @@ console = Console()
 # --- KONFIGURASI MEMORI PENDEK (EPHEMERAL CONTEXT) ---
 MEMORY_DIR = os.path.expanduser("~/kirana/memory")
 STATE_FILE = os.path.join(MEMORY_DIR, "cli_state.json")
-MAX_IDLE_SECONDS = 60  
+MAX_IDLE_SECONDS = 300  
 MAX_TURNS = 3          
 
 def _load_cli_state():
@@ -57,6 +57,35 @@ def _save_cli_state(history):
     try:
         with open(STATE_FILE, 'w') as f: json.dump(state, f)
     except: pass
+
+def handle_reset_session(client):
+    """Menghapus sesi percakapan baik lokal maupun server"""
+    # 1. Hapus state lokal
+    if os.path.exists(STATE_FILE):
+        try:
+            os.remove(STATE_FILE)
+            console.print("[green]🔄 Memori lokal (ephemeral context) berhasil dibersihkan.[/green]")
+        except Exception as e:
+            console.print(f"[red]❌ Gagal menghapus file memori lokal: {e}[/red]")
+    else:
+        console.print("[green]🔄 Memori lokal memang sudah bersih.[/green]")
+
+    # 2. Reset di Kirana Server
+    try:
+        with console.status("[bold yellow]Menghapus riwayat percakapan di server...[/bold yellow]", spinner="dots"):
+            resp = client.post_request("/api/v1/chat/reset", {"session_id": "default"})
+            if isinstance(resp, dict):
+                if resp.get("status") == "success":
+                    console.print(f"[bold green]✅ {resp.get('message', 'Sesi server berhasil di-reset.')}[/bold green]")
+                elif "error" in resp:
+                    console.print(f"[red]⚠️ Server mengembalikan error: {resp['error']}[/red]")
+                else:
+                    console.print(f"[red]⚠️ Respon server tidak dikenal: {resp}[/red]")
+            else:
+                console.print(f"[red]⚠️ Gagal: {resp}[/red]")
+    except Exception as e:
+        console.print(f"[red]❌ Gagal me-reset sesi di server: {e}[/red]")
+
 
 # --- HELPER LAIN ---
 def extract_clean_code(text):
@@ -181,6 +210,9 @@ def router(prompt: str, client: KiranaClient, is_oneshot: bool = False):
     # 1. Bypass State untuk Tools Lokal
     if prompt_lower in ["help", "bantuan", "?"]: console.print(get_help_panel()); return
     if prompt_lower in ["patroli", "cek pagi"]: run_patroli(client); return
+    if prompt_lower in ["reset", "/reset", "reset sesi", "clear sesi", "hapus sesi", "clear"]:
+        handle_reset_session(client)
+        return
     if any(k in prompt_lower for k in ["update client", "upgrade client", "update kirana", "upgrade kirana"]):
         handle_client_update()
         return
@@ -330,14 +362,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("prompt", nargs="*")
     parser.add_argument("--version", action="store_true", help="Cek versi Kirana")
+    parser.add_argument("--reset", action="store_true", help="Reset sesi percakapan Kirana")
     args = parser.parse_args()
     # Cek flag version
     if args.version:
         console.print(f"Kirana Client v{__version__}")
         sys.exit(0)
-    full_prompt = " ".join(args.prompt).strip()
     try: client = KiranaClient()
     except Exception as e: console.print(f"[red]FATAL: {e}[/red]"); sys.exit(1)
+    
+    if args.reset:
+        handle_reset_session(client)
+        sys.exit(0)
+        
+    full_prompt = " ".join(args.prompt).strip()
     if full_prompt: router(full_prompt, client, is_oneshot=True)
     else: run_interactive_mode(client)
 
