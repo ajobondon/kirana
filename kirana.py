@@ -269,10 +269,8 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
             console.print(f"[dim]⚡ Mengingat konteks...[/dim]")
 
     # Klasifikasi apakah butuh proses asinkron (proses yang lama)
-    coding_triggers = ["script", "code", "bypass", "exploit", "secator", "nmap", "vapt", "coding", "buatkan", "bikin", "python", "html", "css", "rust", "c++", "bash"]
-    log_triggers = ["error", "log", "syslog", "journalctl", "cek log", "analisa log"]
-    msg_lower = prompt.lower()
-    is_long_process = any(t in msg_lower for t in coding_triggers) or any(t in msg_lower for t in log_triggers)
+    # Default ke True untuk mencegah Cloudflare 524 Timeout (batas 100 detik)
+    is_long_process = True
 
     response = {}
     if is_long_process:
