@@ -109,7 +109,14 @@ def install_repo():
         print(f"{C.WARNING}⚠️  Folder {INSTALL_DIR} sudah ada.{C.ENDC}")
         choice = input("   Timpa (hapus & install ulang)? [y/N]: ").lower()
         if choice == 'y':
-            shutil.rmtree(INSTALL_DIR)
+            def remove_readonly(func, path, _):
+                import stat
+                try:
+                    os.chmod(path, stat.S_IWRITE)
+                    func(path)
+                except Exception:
+                    pass
+            shutil.rmtree(INSTALL_DIR, onerror=remove_readonly)
         else:
             print("   Melanjutkan update di folder existing...")
             if is_local_run:
@@ -144,7 +151,10 @@ def setup_venv():
         success("Venv created.")
         
         step("Menginstall Dependencies (pip)...")
-        pip_cmd = os.path.join(VENV_DIR, "bin", "pip")
+        if os.name == 'nt':
+            pip_cmd = os.path.join(VENV_DIR, "Scripts", "pip.exe")
+        else:
+            pip_cmd = os.path.join(VENV_DIR, "bin", "pip")
         subprocess.run([pip_cmd, "install", "--upgrade", "pip"], check=True, stdout=subprocess.DEVNULL)
         subprocess.run([pip_cmd, "install", "-r", "requirements.txt"], cwd=INSTALL_DIR, check=True)
         success("Dependencies installed.")
@@ -270,7 +280,10 @@ def final_test():
     step("Finalizing & Testing...")
     print(f"{C.CYAN}Fox is waking up...{C.ENDC}")
     
-    python_bin = os.path.join(VENV_DIR, "bin", "python")
+    if os.name == 'nt':
+        python_bin = os.path.join(VENV_DIR, "Scripts", "python.exe")
+    else:
+        python_bin = os.path.join(VENV_DIR, "bin", "python")
     script = os.path.join(INSTALL_DIR, "kirana.py")
     
     try:

@@ -165,9 +165,18 @@ def handle_client_update():
             console.print("[yellow]⚠️  Folder ~/kirana tidak memiliki repositori Git (Instalasi Lokal).[/yellow]")
             console.print("[dim]Mengunduh kode terbaru dari GitHub...[/dim]")
             
-            temp_dir = os.path.expanduser("~/kirana_temp")
+            temp_dir = os.path.normpath(os.path.expanduser("~/kirana_temp"))
+            
+            def remove_readonly(func, path, _):
+                import stat
+                try:
+                    os.chmod(path, stat.S_IWRITE)
+                    func(path)
+                except Exception:
+                    pass
+
             if os.path.exists(temp_dir):
-                shutil.rmtree(temp_dir)
+                shutil.rmtree(temp_dir, onerror=remove_readonly)
             
             subprocess.run(["git", "clone", "https://github.com/ajobondon/kirana.git", temp_dir], check=True)
             
@@ -182,12 +191,15 @@ def handle_client_update():
                 else:
                     shutil.copy2(s, d)
                     
-            shutil.rmtree(temp_dir)
+            shutil.rmtree(temp_dir, onerror=remove_readonly)
             console.print("[green]✅ Berkas Kirana Client berhasil diperbarui dari GitHub![/green]")
         
         # Re-install dependencies
         console.print("[dim]Memperbarui dependensi (pip)...[/dim]")
-        pip_bin = os.path.join(install_dir, "env", "bin", "pip")
+        if os.name == 'nt':
+            pip_bin = os.path.join(install_dir, "env", "Scripts", "pip.exe")
+        else:
+            pip_bin = os.path.join(install_dir, "env", "bin", "pip")
         subprocess.run([pip_bin, "install", "-r", "requirements.txt"], cwd=install_dir, check=True)
         console.print("[green]✅ Dependensi diperbarui.[/green]")
         
