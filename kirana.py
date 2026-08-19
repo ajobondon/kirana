@@ -27,7 +27,7 @@ from src.tools.files import (
     handle_file_fix
 )
 
-__version__ = "7.0.0"
+__version__ = "7.1.0"
 
 console = Console()
 

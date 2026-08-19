@@ -13,7 +13,7 @@ function print-banner {
     Clear-Host
     Write-Host "    🦊 KIRANA CLIENT INSTALLER" -ForegroundColor Cyan
     Write-Host "    ==========================" -ForegroundColor Cyan
-    Write-Host "    Server-Client Architecture (v7.0.0 (PIXEL))" -ForegroundColor Cyan
+    Write-Host "    Server-Client Architecture (v7.1.0 (PIXEL))" -ForegroundColor Cyan
     Write-Host ""
 }
 

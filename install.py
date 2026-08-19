@@ -40,7 +40,7 @@ def print_banner():
     print(r"""
     🦊 KIRANA CLIENT INSTALLER
     ==========================
-    Server-Client Architecture (v7.0.0 (PIXEL))
+    Server-Client Architecture (v7.1.0 (PIXEL))
     """)
     print(f"{C.ENDC}")
 
