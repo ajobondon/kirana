@@ -3,7 +3,7 @@ from rich.align import Align
 
 
 def get_help_panel():
-    """Mengembalikan Panel Rich berisi bantuan arsitektur Swarm Kirana v7.1.0 (PIXEL)"""
+    """Mengembalikan Panel Rich berisi bantuan arsitektur Swarm Kirana v7.1.1 (PIXEL)"""
     
     help_content = """
 [bold yellow]🦊 KIRANA v7 (PIXEL) - SWARM AI EDITION 🦊[/bold yellow]
