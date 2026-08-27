@@ -10,11 +10,11 @@ def get_help_panel():
 ============================================================
 
 [bold red]🧠 5-AGENT STANDBY SWARM ROSTER (Server-side):[/bold red]
-   • [bold blue]Kirana (Blue Team - 😇):[/bold blue] Blue Team Lead, CISO Advisor, & Default Analyst (`kimi-k2.6:cloud`).
-   • [bold red]Yayuk (Red Team - 😈):[/bold red] Red Team SecOps Specialist & Exploit Expert (`kimi-k2.7-code:cloud`).
-   • [bold yellow]Gembul (Code Architect - 😸):[/bold yellow] Software Engineering & Code Architecture (`qwen3.5:397b-cloud`).
-   • [bold cyan]Mei (SecOps Auditor - 😺):[/bold cyan] Cyber Defense Audit & Compliance (`glm-5.2:cloud`).
-   • [bold green]Udin (Casual Chat - 😽):[/bold green] Daily Conversational Assistant (`gemma4:31b-cloud`).
+   • [bold blue]Kirana (Blue Team - 😇):[/bold blue] Blue Team Lead, CISO Advisor, & Default Analyst.
+   • [bold red]Yayuk (Red Team - 😈):[/bold red] Red Team SecOps Specialist & Exploit Expert.
+   • [bold yellow]Gembul (Code Architect - 😸):[/bold yellow] Software Engineering & Code Architecture.
+   • [bold cyan]Mei (SecOps Auditor - 😺):[/bold cyan] Cyber Defense Audit & Compliance.
+   • [bold green]Udin (Casual Chat - 😽):[/bold green] Daily Conversational Assistant.
    • [bold magenta]Flex-Position Keyword Trigger:[/bold magenta] Sebut nama agent di mana saja dalam prompt untuk mengarahkan rute.
    • [bold yellow]Subtle Identity:[/bold yellow] Ditandai dengan emoji resmi masing-masing agent di akhir jawaban.
 
