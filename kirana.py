@@ -27,7 +27,7 @@ from src.tools.files import (
     handle_file_fix
 )
 
-__version__ = "7.1.1"
+__version__ = "8.0.0"
 
 console = Console()
 
@@ -328,8 +328,14 @@ def handle_chat_request(prompt: str, client: KiranaClient, is_oneshot: bool = Fa
         console.print("")
         if "yayuk" in persona:
             console.print(f"[bold red]😈 Yayuk:[/bold red]")
+        elif "gembul" in persona:
+            console.print(f"[bold yellow]😸 Gembul:[/bold yellow]")
+        elif "mei" in persona:
+            console.print(f"[bold magenta]😺 Mei:[/bold magenta]")
+        elif "udin" in persona:
+            console.print(f"[bold green]😽 Udin:[/bold green]")
         else:
-            console.print(f"[bold blue]👩‍💼 Kirana:[/bold blue]")
+            console.print(f"[bold blue]😇 Kirana:[/bold blue]")
         console.print(Markdown(reply))
         console.print("")
         
